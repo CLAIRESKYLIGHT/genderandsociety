@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BENA — Yakap para sa Kaluluwang Pilipino</title>
+<meta name="description" content="BENA is a digital hug for Filipinos — celebrating pre-colonial culture, ancestry, and the belief that no gender is greater than another.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ YAKAP WELCOME MODAL ============ -->
+<div class="yakap-overlay" id="yakapOverlay" role="dialog" aria-modal="true" aria-labelledby="yakapTitle">
+  <div class="yakap-modal">
+    <svg class="sun-mark sun-mark--lg" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="14" fill="var(--gold-bright)"/>
+      <g stroke="var(--gold-bright)" stroke-width="3.5" stroke-linecap="round">
+        <line x1="50" y1="6" x2="50" y2="20"/>
+        <line x1="50" y1="80" x2="50" y2="94"/>
+        <line x1="6" y1="50" x2="20" y2="50"/>
+        <line x1="80" y1="50" x2="94" y2="50"/>
+        <line x1="18" y1="18" x2="28" y2="28"/>
+        <line x1="72" y1="72" x2="82" y2="82"/>
+        <line x1="82" y1="18" x2="72" y2="28"/>
+        <line x1="28" y1="72" x2="18" y2="82"/>
+      </g>
+    </svg>
+    <p class="yakap-eyebrow">MAGANDANG ARAW, KAPWA</p>
+    <h1 id="yakapTitle" class="yakap-title">Ikaw ay anak ng mga <em>Babaylan</em>.</h1>
+    <p class="yakap-body">Bago pa man dumating ang mga dayuhan, ang ating mga ninuno ay naniwalang walang kasarian ang higit sa isa pa. Ikaw ay maganda. Ikaw ay ganap. At ipinagmamalaki ka ng mga ninuno mo — anuman ang iyong kasarian, kwento, o katayuan sa buhay.</p>
+    <p class="yakap-body yakap-body--small">Ang BENA ay isang digital na yakap — isang bahay-bahayan para sa mga Pilipinong gustong magmahal muli sa sariling kultura, nang walang hiya.</p>
+    <button class="btn btn--gold" id="yakapClose">Salamat po. Tuloy na ako.</button>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="brand">
+    <svg class="sun-mark" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="14" fill="var(--gold)"/>
+      <g stroke="var(--gold)" stroke-width="4" stroke-linecap="round">
+        <line x1="50" y1="6" x2="50" y2="20"/>
+        <line x1="50" y1="80" x2="50" y2="94"/>
+        <line x1="6" y1="50" x2="20" y2="50"/>
+        <line x1="80" y1="50" x2="94" y2="50"/>
+        <line x1="18" y1="18" x2="28" y2="28"/>
+        <line x1="72" y1="72" x2="82" y2="82"/>
+        <line x1="82" y1="18" x2="72" y2="28"/>
+        <line x1="28" y1="72" x2="18" y2="82"/>
+      </g>
+    </svg>
+    <span class="brand-name">BENA</span>
+  </div>
+  <p class="brand-tagline">yakap sa kaluluwang Pilipino</p>
+</header>
+
+<!-- ============ DAILY PRIDE BANNER ============ -->
+<section class="pride-banner" aria-label="Araw-araw na paalala ng pagmamalaki">
+  <svg class="weave-rule" viewBox="0 0 400 12" preserveAspectRatio="none" aria-hidden="true"><use href="#weavePattern"/></svg>
+  <p class="pride-quote" id="prideQuote">Loading...</p>
+  <button class="btn btn--ghost-gold" id="newQuoteBtn">↻ Bagong Paalala</button>
+</section>
+
+<!-- ============ NAV TABS ============ -->
+<nav class="tabs" aria-label="Pangunahing nabigasyon">
+  <button class="tab-btn is-active" data-tab="tahanan" role="tab" aria-selected="true">Tahanan</button>
+  <button class="tab-btn" data-tab="magpost" role="tab" aria-selected="false">Mag-post</button>
+  <button class="tab-btn" data-tab="manifesto" role="tab" aria-selected="false">Manifesto</button>
+</nav>
+
+<main id="mainContent">
+
+  <!-- ============ TAHANAN (FEED) ============ -->
+  <section id="tahanan" class="page is-active" aria-labelledby="tahananHeading">
+    <div class="page-inner">
+      <h2 id="tahananHeading" class="page-heading">Tahanan</h2>
+      <p class="page-sub">Mga kwento, sining, at boses ng ating kapwa Pilipino.</p>
+
+      <!-- Diwang Pinoy achievements carousel -->
+      <div class="achievements" aria-label="Diwang Pinoy — mga tagumpay ng Pilipino">
+        <div class="achievements-head">
+          <h3>Diwang Pinoy</h3>
+          <div class="achievements-nav">
+            <button class="carousel-btn" id="achPrev" aria-label="Nakaraan">‹</button>
+            <button class="carousel-btn" id="achNext" aria-label="Susunod">›</button>
+          </div>
+        </div>
+        <div class="achievement-card" id="achievementCard"></div>
+      </div>
+
+      <div id="feedList" class="feed-list"></div>
+    </div>
+  </section>
+
+  <!-- ============ MAG-POST ============ -->
+  <section id="magpost" class="page" aria-labelledby="magpostHeading">
+    <div class="page-inner page-inner--narrow">
+      <h2 id="magpostHeading" class="page-heading">Mag-post</h2>
+      <p class="page-sub">Ibahagi ang iyong kwento — walang mapanghusgang algorithm dito.</p>
+
+      <form id="postForm" class="post-form">
+        <div class="field">
+          <label for="postTitle">Pamagat</label>
+          <input type="text" id="postTitle" name="postTitle" required placeholder="Hal. Ang Lakas ng Aking Lola">
+        </div>
+
+        <div class="field">
+          <label for="postAuthor">Pangalan mo</label>
+          <input type="text" id="postAuthor" name="postAuthor" required placeholder="Juan Dela Cruz">
+        </div>
+
+        <fieldset class="field field--radio">
+          <legend>Uri ng post</legend>
+          <label class="radio-pill">
+            <input type="radio" name="postCategory" value="Artikulo" checked>
+            <span>📝 Artikulo</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="postCategory" value="Sining">
+            <span>🎨 Sining</span>
+          </label>
+        </fieldset>
+
+        <div class="field" id="artUploadField" hidden>
+          <label for="postImage">Larawan ng sining (JPG/PNG)</label>
+          <input type="file" id="postImage" name="postImage" accept="image/png, image/jpeg">
+          <img id="imagePreview" class="image-preview" alt="" hidden>
+        </div>
+
+        <div class="field">
+          <label for="postContent" id="contentLabel">Sulatin mo dito</label>
+          <textarea id="postContent" name="postContent" rows="6" required placeholder="Ibuhos ang iyong saloobin..."></textarea>
+        </div>
+
+        <label class="checkbox-field">
+          <input type="checkbox" id="postAnonymous" name="postAnonymous">
+          <span>Mag-post nang anonymo — protektahan ang tinig ng mga mahihina</span>
+        </label>
+
+        <button type="submit" class="btn btn--gold btn--block">Ipahayag sa Tahanan</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section id="manifesto" class="page" aria-labelledby="manifestoHeading">
+    <div class="page-inner page-inner--narrow">
+      <svg class="weave-rule weave-rule--top" viewBox="0 0 400 12" preserveAspectRatio="none" aria-hidden="true"><use href="#weavePattern"/></svg>
+      <h2 id="manifestoHeading" class="page-heading">Ang Manifesto</h2>
+      <article class="manifesto-body">
+        <p class="manifesto-lead">Bago dumaong ang mga bapor ng mga mananakop, ang ating mga ninuno ay namuhay sa isang lipunang hindi nakatali sa kasarian.</p>
+
+        <p>Ang <strong>Babaylan</strong> — madalas na babae, minsan lalaki na nagbihis-babae, at kung minsan ay hindi kayang uriin sa alinmang kahon — ay ang espirituwal na pinuno ng barangay. Sila ang nag-uugnay sa mundo ng mga tao at ng mga anito. Sila ay gumaling, nagpayo, nanguna sa ritwal, at pinakinggan nang may paggalang na kasing-taas ng datu.</p>
+
+        <p>Sa lipunang iyon, ang kasarian ay hindi sukatan ng halaga. Ang isang babae ay maaaring maghawak ng lupa, maging mangangalakal, o maging pinuno. Ang pagkakapantay-pantay ay hindi ideolohiya — ito ay paraan lamang ng pamumuhay.</p>
+
+        <p>Nang dumating ang kolonyalismo, dala nito ang patriarkiya, ang kahihiyan sa katawan, at ang pananaw na may "tama" at "maling" paraan ng pagiging tao. Unti-unting nabura sa alaala ang mga Babaylan. Ang mga wika, sayaw, at paniniwala nating katutubo ay tinawag na "primitibo." Natutunan nating ikahiya ang sarili nating mukha.</p>
+
+        <p class="manifesto-highlight">Ang BENA ay isang paalala: <em>hindi tayo nagsimula sa kahihiyan.</em> Nagsimula tayo sa paggalang. Sa bawat Babaylan na dumaing, sa bawat ninunong lumaban, sa bawat kwentong nabuhay muli sa salinlahi — narito tayo.</p>
+
+        <p>Walang kasarian ang higit sa isa pa. Ito ang naging katotohanan noon. Ito ang layunin nating muling gawing katotohanan ngayon.</p>
+
+        <p class="manifesto-signoff">— Ang pamilya ng BENA</p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Ginawa nang may pagmamahal para sa Gender and Society. Walang kasarian ang higit sa isa pa. 🌻</p>
+</footer>
+
+<!-- Post detail / comments template used by JS -->
+<template id="postCardTemplate">
+  <article class="post-card">
+    <div class="post-card-head">
+      <span class="badge"></span>
+      <span class="post-time"></span>
+    </div>
+    <h3 class="post-title"></h3>
+    <p class="post-author"></p>
+    <img class="post-image" alt="" hidden>
+    <p class="post-content"></p>
+    <div class="usapan">
+      <button class="usapan-toggle" type="button" aria-expanded="false">💬 <span class="comment-count">0</span> Usapan</button>
+      <div class="usapan-body" hidden>
+        <ul class="comment-list"></ul>
+        <form class="comment-form">
+          <label class="sr-only">Sumali sa usapan</label>
+          <input type="text" class="comment-input" placeholder="Sumali sa usapan..." required>
+          <button type="submit" class="btn btn--small btn--gold">Ipahayag</button>
+        </form>
+      </div>
+    </div>
+  </article>
+</template>
+
+<!-- Reusable weave pattern definition -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="weavePatternTile" width="20" height="12" patternUnits="userSpaceOnUse">
+      <path d="M0 6 L5 0 L10 6 L15 0 L20 6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M0 6 L5 12 L10 6 L15 12 L20 6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </pattern>
+    <rect id="weavePattern" width="400" height="12" fill="url(#weavePatternTile)"/>
+  </defs>
+</svg>
+
+<script src="script.js"></script>
+</body>
+</html>
