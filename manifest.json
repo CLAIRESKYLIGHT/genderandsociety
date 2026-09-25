@@ -1,0 +1,16 @@
+{
+  "name": "BENA — Yakap para sa Kaluluwang Pilipino",
+  "short_name": "BENA",
+  "description": "Digital na yakap para sa Pilipino — nagdiriwang sa ating katutubong kultura, wika, at pagkakapantay-pantay ng kasarian.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#15102A",
+  "theme_color": "#D4AF37",
+  "icons": [
+    {
+      "src": "assets/babaylan_art.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
