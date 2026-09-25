@@ -1,0 +1,62 @@
+{
+  "posts": [
+    {
+      "id": "seed1",
+      "category": "Artikulo",
+      "title": "Ang Babaylan: Ang Unang Feminist ng Pilipinas",
+      "author": "Ate Marilag",
+      "pronouns": "siya/kanya",
+      "content": "Sa panahon bago dumating ang mga Espanyol, ang kababaihang Pilipino ay hindi lamang tahimik na kasama sa lipunan—sila ang mga pinuno, manggagamot, at espirituwal na tagapayo ng buong komunidad. Ang Babaylan ay isang tanda ng lipunang naniniwala sa pantay na dignidad ng lahat.",
+      "image": null,
+      "contentWarning": false,
+      "cwNote": "",
+      "likes": 47,
+      "timestamp": 1790094437120,
+      "comments": [
+        {
+          "id": "c1",
+          "author": "Tanaw mula sa Cordillera",
+          "pronouns": "she/her",
+          "text": "Salamat sa pagbabahagi ng kasaysayan ng ating mga Babaylan! Kailangan nating ituro ito sa mga paaralan.",
+          "timestamp": 1790180837120
+        }
+      ]
+    },
+    {
+      "id": "seed2",
+      "category": "Karanasan",
+      "title": "Ang Pagiging Non-Binary sa isang Pamilyang Pilipino",
+      "author": "Isang Anak ng Asog",
+      "pronouns": "they/them",
+      "content": "Hindi madali ang maging sarili mo sa isang kulturang pinahubad na ng kolonyalismo. Ngunit natuklasan ko na ang kasaysayan ng ating mga Asog at Bayoguin — mga miyembro ng komunidad na kinikilala bilang espirituwal na tagapayo dahil sa kanilang kaibahan, hindi inilalagay sa kahon. Pag-aralan ang kasaysayan upang mahanap ang iyong lugar sa loob nito.",
+      "image": null,
+      "contentWarning": false,
+      "cwNote": "",
+      "likes": 93,
+      "timestamp": 1790267237120,
+      "comments": []
+    }
+  ],
+  "panata": [
+    {
+      "id": "p_seed1",
+      "author": "Isang Babaylan ng Bagong Henerasyon",
+      "tag": "🌸 Alay sa Kababaihan",
+      "text": "Ipinangako ko sa aking mga ninuno na ipagpatuloy ang kanilang tapang at magtatayo ng mas makatarungang lipunan para sa lahat ng kasarian.",
+      "timestamp": 1790180837120,
+      "blessings": 28
+    },
+    {
+      "id": "p_seed2",
+      "author": "Asog ng Visayas",
+      "tag": "🌈 Asog at LGBTQIA+ Diwa",
+      "text": "Patunayan ko na ang pagiging queer at pagiging Pilipino ay hindi magkasalungat — ito ay isang pagdiriwang ng ating tunay na ugat.",
+      "timestamp": 1790267237120,
+      "blessings": 41
+    }
+  ],
+  "dambana": {
+    "candles": 1248,
+    "sampaguita": 612
+  }
+}

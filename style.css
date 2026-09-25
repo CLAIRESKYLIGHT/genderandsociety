@@ -2643,39 +2643,449 @@ input, textarea, select {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN & ACCESSIBILITY
+   RESPONSIVE DESIGN — FULL MOBILE-FIRST SYSTEM
+   Breakpoints: xs <480px | sm <640px | md <768px | lg <1024px
    ========================================================================== */
 
-@media (max-width: 600px) {
-  .post-type-selector {
-    grid-template-columns: 1fr;
-  }
-  
-  .yakap-modal {
-    padding: 2rem 1.25rem 1.5rem;
-  }
-  
-  .yakap-title {
-    font-size: 1.6rem;
+/* ── LARGE tablets / small desktops (≤ 1024px) ─────────────────────────── */
+@media (max-width: 1024px) {
+  .header-inner {
+    padding: 0 1rem;
   }
 
-  .page-heading {
-    font-size: 1.85rem;
+  .page-inner {
+    padding: 1.8rem 1.25rem 3.5rem;
   }
 
-  .post-card {
-    padding: 1.25rem 1.15rem 1rem;
+  .dangal-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .dangal-cta-card {
-    padding: 1.6rem 1.25rem;
+  .dambana-candles-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* ── Medium tablets (≤ 768px) ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Header */
+  .site-header {
+    padding: 0.85rem 1rem;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .brand-tagline {
+    display: none; /* save space on tablets */
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .btn--header-guide span:last-child,
+  .btn--header-hug span:last-child {
+    display: none; /* icon-only on small headers */
+  }
+
+  /* Pride Banner */
+  .pride-banner {
+    padding: 1rem;
+  }
+
+  .pride-quote {
+    font-size: 1rem;
+  }
+
+  /* Tabs */
+  .tabs-scroll-container {
+    justify-content: flex-start;
+    gap: 0.35rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .tab-btn {
+    font-size: 0.84rem;
+    padding: 0.5rem 0.9rem;
+  }
+
+  /* Pages */
+  .page-inner {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .page-heading {
+    font-size: 1.9rem;
+  }
+
+  /* Feed */
+  .feed-controls {
+    gap: 0.75rem;
+  }
+
+  .filter-pills {
+    gap: 0.4rem;
+  }
+
+  .filter-pill {
+    font-size: 0.82rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  /* Post Cards */
+  .post-card {
+    padding: 1.25rem 1.1rem 1rem;
+  }
+
+  .post-title {
+    font-size: 1.25rem;
+  }
+
+  /* Dangal Grid → single col */
+  .dangal-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .dangal-filters {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .dangal-filter-btn {
+    font-size: 0.82rem;
+    padding: 0.4rem 0.85rem;
+  }
+
+  .dangal-cta-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.6rem 1.25rem;
+  }
+
+  /* Dambana Altar */
+  .altar-hero-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .altar-stats-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .altar-actions-row {
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: stretch;
+  }
+
+  .altar-actions-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dambana-wall-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .dambana-candles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Panata Composer */
+  .panata-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-panata-pills {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .quick-panata-btn {
+    text-align: center;
+  }
+
+  /* Post Form */
+  .post-type-selector {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .pronouns-pills {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  /* Gender Guide Modal */
+  .gender-guide-modal {
+    max-width: calc(100vw - 2rem);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .guide-modal-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Yakap Modal */
+  .yakap-modal {
+    padding: 2rem 1.25rem 1.5rem;
+    max-width: calc(100vw - 2rem);
+  }
+
+  .yakap-title {
+    font-size: 1.65rem;
+  }
+
+  /* Manifesto */
+  .manifesto-chapter {
+    padding: 1.25rem;
+  }
+
+  .manifesto-grid,
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Footer */
+  .site-footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+  }
+}
+
+/* ── Small phones (≤ 640px) ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Typography scale-down */
+  :root {
+    font-size: 15px;
+  }
+
+  .page-heading {
+    font-size: 1.75rem;
+  }
+
+  .page-sub {
+    font-size: 0.97rem;
+  }
+
+  /* Header: hide tagline + shorten buttons */
+  .brand-name {
+    font-size: 1.35rem;
+  }
+
+  .sun-mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Banner */
+  .pride-banner-badge {
+    font-size: 0.68rem;
+  }
+
+  .pride-quote {
+    font-size: 0.95rem;
+  }
+
+  .pride-banner-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  .pride-banner-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Tabs: icon only on very small screens */
+  .tab-btn span:not(.tab-icon):not(.tab-indicator) {
+    font-size: 0.78rem;
+  }
+
+  /* Post Card tighter */
+  .post-card {
+    padding: 1rem 0.9rem 0.9rem;
+    border-radius: var(--radius-md);
+  }
+
+  .post-title {
+    font-size: 1.15rem;
+  }
+
+  .post-actions {
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .post-card-header {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  /* Comments */
+  .comment-form textarea {
+    font-size: 0.92rem;
+  }
+
+  /* Yakap modal */
+  .yakap-modal {
+    padding: 1.6rem 1rem 1.25rem;
+  }
+
+  .yakap-title {
+    font-size: 1.45rem;
+  }
+
+  .yakap-actions {
+    gap: 0.6rem;
+  }
+
+  /* Dangal */
+  .dangal-card-img {
+    height: 180px;
+  }
+
+  /* Dambana */
+  .altar-hero-card {
+    padding: 1.25rem 0.9rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .candle-card {
+    padding: 1rem 0.9rem 0.85rem;
+  }
+
+  /* Gender guide */
+  .guide-point-card {
+    padding: 0.9rem 1rem;
+  }
+
+  /* Form */
+  .post-form-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .type-card {
+    padding: 0.75rem;
+  }
+
+  .type-icon {
+    font-size: 1.5rem;
+  }
+}
+
+/* ── Extra-small phones (≤ 400px) ───────────────────────────────────────── */
+@media (max-width: 400px) {
+  .tab-btn {
+    padding: 0.45rem 0.65rem;
+  }
+
+  .tab-icon {
+    font-size: 1rem;
+  }
+
+  /* Show only icons on smallest screens */
+  .tab-btn span:not(.tab-icon):not(.tab-indicator) {
+    display: none;
+  }
+
+  .page-heading {
+    font-size: 1.55rem;
+  }
+
+  .btn--lg {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .brand {
+    gap: 0.5rem;
+  }
+}
+
+/* ── Safe area support (iPhone notch, etc.) ─────────────────────────────── */
+@supports (padding: max(0px)) {
+  .site-header {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .tabs-scroll-container {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+  }
+
+  .page-inner {
+    padding-bottom: max(3rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+  }
+}
+
+/* ── Hover-only devices (don't show hover effects on touch) ─────────────── */
+@media (hover: none) {
+  .post-card:hover {
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn--gold:hover {
+    transform: none;
+  }
+
+  .dangal-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+/* ── Reduced Motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+/* ── Print ──────────────────────────────────────────────────────────────── */
+@media print {
+  .yakap-overlay,
+  .gender-guide-overlay,
+  .tabs-nav,
+  .site-header .header-actions,
+  .pride-banner-actions,
+  .post-actions,
+  .toast-container {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .post-card {
+    break-inside: avoid;
+    border: 1px solid #ccc;
+    box-shadow: none;
   }
 }

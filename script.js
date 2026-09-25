@@ -7,6 +7,145 @@
   const LIKES_KEY = "bena_likes_v2";
 
   /* ==========================================================================
+     API LAYER — Backend-first with localStorage fallback
+     When server.js is running at localhost:3000, all posts/panata/dambana
+     data is saved to data/bena_db.json and shared across ALL users/devices.
+     When opened as a plain file (no server), falls back to localStorage.
+     ========================================================================== */
+  const API_BASE = (() => {
+    // Auto-detect: if the page is served by our Node server, use API
+    const { protocol, hostname, port } = window.location;
+    if (protocol === "file:") return null; // opened as local file, no backend
+    // When served via Node (port 3000) or deployed, use same origin
+    return `${protocol}//${hostname}${port ? ":"+port : ""}/api`;
+  })();
+
+  let _serverAvailable = null; // null = unknown, true/false after first check
+
+  async function checkServerAvailable() {
+    if (API_BASE === null) return (_serverAvailable = false);
+    if (_serverAvailable !== null) return _serverAvailable;
+    try {
+      const r = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(1500) });
+      _serverAvailable = r.ok;
+    } catch {
+      _serverAvailable = false;
+    }
+    return _serverAvailable;
+  }
+
+  /* ── Posts API ── */
+  async function apiGetPosts() {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/posts`);
+      if (!r.ok) return null;
+      return await r.json();
+    } catch { return null; }
+  }
+
+  async function apiCreatePost(data) {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/posts`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (!r.ok) return null;
+      return await r.json();
+    } catch { return null; }
+  }
+
+  async function apiLikePost(id, action) {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/posts/${id}/like`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action })
+      });
+      if (!r.ok) return null;
+      return await r.json();
+    } catch { return null; }
+  }
+
+  async function apiAddComment(postId, data) {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/posts/${postId}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (!r.ok) return null;
+      return await r.json();
+    } catch { return null; }
+  }
+
+  async function apiDeletePost(id) {
+    if (!(await checkServerAvailable())) return false;
+    try {
+      const r = await fetch(`${API_BASE}/posts/${id}`, { method: "DELETE" });
+      return r.ok;
+    } catch { return false; }
+  }
+
+  /* ── Panata API ── */
+  async function apiGetPanata() {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/panata`);
+      return r.ok ? await r.json() : null;
+    } catch { return null; }
+  }
+
+  async function apiCreatePanata(data) {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/panata`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      return r.ok ? await r.json() : null;
+    } catch { return null; }
+  }
+
+  async function apiBlessPanata(id) {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/panata/${id}/bless`, { method: "POST" });
+      return r.ok ? await r.json() : null;
+    } catch { return null; }
+  }
+
+  /* ── Dambana API ── */
+  async function apiGetDambana() {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/dambana`);
+      return r.ok ? await r.json() : null;
+    } catch { return null; }
+  }
+
+  async function apiLightCandle() {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/dambana/candle`, { method: "POST" });
+      return r.ok ? await r.json() : null;
+    } catch { return null; }
+  }
+
+  async function apiOfferSampaguita() {
+    if (!(await checkServerAvailable())) return null;
+    try {
+      const r = await fetch(`${API_BASE}/dambana/sampaguita`, { method: "POST" });
+      return r.ok ? await r.json() : null;
+    } catch { return null; }
+  }
+
+  /* ==========================================================================
      AUDIO SYNTHESIS (Gentle Kulintang / Bamboo chime via Web Audio API)
      Zero external audio files needed; works completely offline.
      ========================================================================== */
@@ -596,7 +735,7 @@
     }
   }
 
-  function initDambana() {
+  async function initDambana() {
     const candleCountEl = document.getElementById("candleCount");
     const sampaguitaCountEl = document.getElementById("sampaguitaCount");
     const btnLightCandle = document.getElementById("btnLightCandle");
@@ -610,19 +749,28 @@
 
     let currentWallFilter = "all";
 
-    // Load initial stats
-    const stats = getDambanaStats();
+    // Load initial stats — try API first
+    const apiStats = await apiGetDambana();
+    const stats = apiStats || getDambanaStats();
+    if (!apiStats) saveDambanaStats(stats); // sync to localStorage
     if (candleCountEl) candleCountEl.textContent = stats.candles.toLocaleString("fil-PH");
     if (sampaguitaCountEl) sampaguitaCountEl.textContent = stats.sampaguita.toLocaleString("fil-PH");
 
     // Action 1: Light a candle
     if (btnLightCandle) {
-      btnLightCandle.addEventListener("click", () => {
-        const curStats = getDambanaStats();
-        curStats.candles += 1;
-        saveDambanaStats(curStats);
+      btnLightCandle.addEventListener("click", async () => {
+        // Try API first
+        const apiResult = await apiLightCandle();
+        if (apiResult) {
+          if (candleCountEl) candleCountEl.textContent = apiResult.candles.toLocaleString("fil-PH");
+          saveDambanaStats(apiResult);
+        } else {
+          const curStats = getDambanaStats();
+          curStats.candles += 1;
+          saveDambanaStats(curStats);
+          if (candleCountEl) candleCountEl.textContent = curStats.candles.toLocaleString("fil-PH");
+        }
         if (candleCountEl) {
-          candleCountEl.textContent = curStats.candles.toLocaleString("fil-PH");
           candleCountEl.classList.add("is-bumped");
           setTimeout(() => candleCountEl.classList.remove("is-bumped"), 300);
         }
@@ -633,12 +781,18 @@
 
     // Action 2: Offer Sampaguita
     if (btnOfferSampaguita) {
-      btnOfferSampaguita.addEventListener("click", () => {
-        const curStats = getDambanaStats();
-        curStats.sampaguita += 1;
-        saveDambanaStats(curStats);
+      btnOfferSampaguita.addEventListener("click", async () => {
+        const apiResult = await apiOfferSampaguita();
+        if (apiResult) {
+          if (sampaguitaCountEl) sampaguitaCountEl.textContent = apiResult.sampaguita.toLocaleString("fil-PH");
+          saveDambanaStats(apiResult);
+        } else {
+          const curStats = getDambanaStats();
+          curStats.sampaguita += 1;
+          saveDambanaStats(curStats);
+          if (sampaguitaCountEl) sampaguitaCountEl.textContent = curStats.sampaguita.toLocaleString("fil-PH");
+        }
         if (sampaguitaCountEl) {
-          sampaguitaCountEl.textContent = curStats.sampaguita.toLocaleString("fil-PH");
           sampaguitaCountEl.classList.add("is-bumped");
           setTimeout(() => sampaguitaCountEl.classList.remove("is-bumped"), 300);
         }
@@ -881,10 +1035,12 @@
     renderFeed();
   }
 
-  function renderFeed() {
+  async function renderFeed() {
     const list = document.getElementById("feedList");
     const template = document.getElementById("postCardTemplate");
-    const allPosts = getPosts();
+    // Try backend API first, fall back to localStorage
+    let allPosts = await apiGetPosts();
+    if (!allPosts) allPosts = getPosts();
     const countAllEl = document.getElementById("countAll");
     if (countAllEl) countAllEl.textContent = allPosts.length;
 
@@ -1007,26 +1163,35 @@
       reactionBtn.classList.toggle("is-reacted", hasLiked);
       reactionCount.textContent = post.likes || 0;
 
-      reactionBtn.addEventListener("click", () => {
-        const posts = getPosts();
-        const targetPost = posts.find(p => p.id === post.id);
-        if (!targetPost) return;
-
+      reactionBtn.addEventListener("click", async () => {
         const currentLikes = getUserLikes();
-        if (currentLikes[post.id]) {
-          targetPost.likes = Math.max(0, (targetPost.likes || 1) - 1);
+        const alreadyLiked = !!currentLikes[post.id];
+        const action = alreadyLiked ? "unlike" : "like";
+
+        if (alreadyLiked) {
           delete currentLikes[post.id];
           reactionBtn.classList.remove("is-reacted");
         } else {
-          targetPost.likes = (targetPost.likes || 0) + 1;
           currentLikes[post.id] = true;
           reactionBtn.classList.add("is-reacted");
           playGentleChime();
         }
-
-        reactionCount.textContent = targetPost.likes;
         saveUserLikes(currentLikes);
-        savePosts(posts);
+
+        // Try backend first
+        const result = await apiLikePost(post.id, action);
+        if (result) {
+          reactionCount.textContent = result.likes;
+        } else {
+          // localStorage fallback
+          const posts = getPosts();
+          const targetPost = posts.find(p => p.id === post.id);
+          if (targetPost) {
+            targetPost.likes = Math.max(0, (targetPost.likes || 0) + (alreadyLiked ? -1 : 1));
+            reactionCount.textContent = targetPost.likes;
+            savePosts(posts);
+          }
+        }
       });
 
       // Usapan (Comments) Toggle & Count
@@ -1047,7 +1212,7 @@
 
       // Add comment form
       const commentForm = node.querySelector(".comment-form");
-      commentForm.addEventListener("submit", (e) => {
+      commentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const authorInput = commentForm.querySelector(".comment-author-input");
         const textInput = commentForm.querySelector(".comment-input");
@@ -1056,7 +1221,7 @@
 
         if (!textVal) return;
 
-        addCommentToPost(post.id, authorVal, textVal);
+        await addCommentToPost(post.id, authorVal, textVal);
         textInput.value = "";
         authorInput.value = "";
       });
@@ -1092,21 +1257,19 @@
       });
   }
 
-  function addCommentToPost(postId, author, text) {
-    const posts = getPosts();
-    const targetPost = posts.find(p => p.id === postId);
-    if (!targetPost) return;
-
-    if (!targetPost.comments) targetPost.comments = [];
-    targetPost.comments.push({
-      id: uid(),
-      author,
-      text,
-      timestamp: Date.now()
-    });
-
-    savePosts(posts);
-    renderFeed();
+  async function addCommentToPost(postId, author, text) {
+    // Try backend first
+    const result = await apiAddComment(postId, { author, text });
+    if (!result) {
+      // localStorage fallback
+      const posts = getPosts();
+      const targetPost = posts.find(p => p.id === postId);
+      if (!targetPost) return;
+      if (!targetPost.comments) targetPost.comments = [];
+      targetPost.comments.push({ id: uid(), author, text, timestamp: Date.now() });
+      savePosts(posts);
+    }
+    await renderFeed();
     showToast("Naipahayag na ang iyong komento! Salamat sa pakikibahagi.");
     playGentleChime();
   }
@@ -1215,7 +1378,7 @@
     });
 
     // Form Submission
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const title = document.getElementById("postTitle").value.trim();
@@ -1251,10 +1414,19 @@
         comments: []
       };
 
-      posts.unshift(newPost);
-      savePosts(posts);
+      // Try to save to backend first
+      const savedPost = await apiCreatePost(newPost);
+      if (savedPost) {
+        // Backend saved — use the returned post ID
+        newPost.id = savedPost.id;
+      } else {
+        // Fallback: save to localStorage
+        const posts = getPosts();
+        posts.unshift(newPost);
+        savePosts(posts);
+      }
 
-      // Auto-like the author's own post
+      // Auto-like the author's own post (localStorage always)
       const userLikes = getUserLikes();
       userLikes[newPost.id] = true;
       saveUserLikes(userLikes);
@@ -1266,13 +1438,16 @@
       imagePreview.src = "";
       updateCategoryUI();
 
-      showToast("Maraming salamat! Naibahagi na ang iyong kwento sa Tahanan.");
+      showToast(savedPost
+        ? "Naibahagi na ang iyong kwento sa Tahanan! Makikita ito ng lahat. 🌻"
+        : "Naibahagi na ang iyong kwento (naka-save sa browser mo)."
+      );
       playGentleChime();
 
       // Navigate smoothly to Tahanan feed
       const tahananTab = document.querySelector('.tab-btn[data-tab="tahanan"]');
       if (tahananTab) tahananTab.click();
-      renderFeed();
+      await renderFeed();
     });
   }
 
