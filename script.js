@@ -584,17 +584,148 @@
   }
 
   /* ==========================================================================
-     NAVIGATION TABS ROUTER
+     1. HABLON SCROLL THREAD CONTROLLER
+     A thin 2px vertical gold thread runs down the left edge of the viewport.
+     Fills via scaleY transform. Mobile: horizontal 2px on top edge via scaleX.
+     Respects prefers-reduced-motion (freezes at full scale).
+     ========================================================================== */
+  function initHablonThread() {
+    const fill = document.getElementById("hablonFill");
+    if (!fill) return;
+
+    let ticking = false;
+
+    function update() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        fill.style.transform = "scale(1)";
+        ticking = false;
+        return;
+      }
+
+      const docEl = document.documentElement;
+      const scrollMax = docEl.scrollHeight - window.innerHeight;
+      const progress = scrollMax > 0 ? Math.min(Math.max(window.scrollY / scrollMax, 0), 1) : 0;
+      const isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        fill.style.transform = `scaleX(${progress})`;
+      } else {
+        fill.style.transform = `scaleY(${progress})`;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    window.addEventListener("resize", () => {
+      requestAnimationFrame(update);
+    }, { passive: true });
+
+    update();
+  }
+
+  /* ==========================================================================
+     DARK MODE / THEME CONTROLLER ("Araw at Gabi")
+     ========================================================================== */
+  const THEME_KEY = "bena_theme_v1";
+
+  function initThemeToggle() {
+    const themeBtn = document.getElementById("themeToggleBtn");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
+
+    function getPreferredTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === "dark" || saved === "light") return saved;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    function applyTheme(theme) {
+      if (theme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        if (themeIcon) themeIcon.textContent = "☀️";
+        if (themeLabel) themeLabel.textContent = "Araw";
+        if (themeBtn) themeBtn.title = "Lumipat sa Maliwanag na Tema (Araw)";
+      } else {
+        document.documentElement.removeAttribute("data-theme");
+        if (themeIcon) themeIcon.textContent = "🌙";
+        if (themeLabel) themeLabel.textContent = "Gabi";
+        if (themeBtn) themeBtn.title = "Lumipat sa Madilim na Tema (Gabi ng mga Ninuno)";
+      }
+    }
+
+    const currentTheme = getPreferredTheme();
+    applyTheme(currentTheme);
+
+    if (themeBtn) {
+      themeBtn.addEventListener("click", () => {
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        const nextTheme = isDark ? "light" : "dark";
+        applyTheme(nextTheme);
+        localStorage.setItem(THEME_KEY, nextTheme);
+        playGentleChime();
+        showToast(nextTheme === "dark" ? "Nasa temang Gabi ng mga Ninuno ka na 🌙" : "Nasa temang Liwanag ng Araw ka na ☀️");
+      });
+    }
+
+    // Listen for OS color scheme changes if user hasn't explicitly set preference
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+      if (!localStorage.getItem(THEME_KEY)) {
+        applyTheme(e.matches ? "dark" : "light");
+      }
+    });
+  }
+
+  /* ==========================================================================
+     NAVIGATION TABS ROUTER & 3. NAV TAB WOVEN INDICATOR
+     Active tab underline is a woven thread that slides between tabs using
+     transform: translateX(), NEVER animating width. 320ms, ease-out-soft.
      ========================================================================== */
   function initNavigation() {
     const tabButtons = document.querySelectorAll(".tab-btn");
     const pages = document.querySelectorAll(".page");
+    const wovenIndicator = document.getElementById("wovenIndicator");
+    const scrollContainer = document.querySelector(".tabs-scroll-container");
+
+    const ALL_TABS = [
+      "tahanan", "aralin", "dangal", "galing",
+      "dambana", "kalasag", "sanggunian", "magpost", "manifesto"
+    ];
+
+    function updateWovenIndicator(activeTabBtn) {
+      if (!wovenIndicator || !activeTabBtn || !scrollContainer) return;
+
+      // Indicator has a fixed width (60px), slide to center horizontally under active tab
+      const tabLeft = activeTabBtn.offsetLeft;
+      const tabWidth = activeTabBtn.offsetWidth;
+      const targetX = tabLeft + (tabWidth - 60) / 2;
+
+      wovenIndicator.style.transform = `translateX(${Math.round(targetX)}px)`;
+
+      // Smoothly bring tab into view inside horizontally scrolling nav if overflowing
+      const containerScrollLeft = scrollContainer.scrollLeft;
+      const containerWidth = scrollContainer.clientWidth;
+
+      if (tabLeft < containerScrollLeft) {
+        scrollContainer.scrollTo({ left: tabLeft - 16, behavior: "smooth" });
+      } else if (tabLeft + tabWidth > containerScrollLeft + containerWidth) {
+        scrollContainer.scrollTo({ left: tabLeft + tabWidth - containerWidth + 16, behavior: "smooth" });
+      }
+    }
 
     function setActiveTab(targetId) {
+      let activeBtn = null;
+
       tabButtons.forEach(btn => {
         const isMatch = btn.dataset.tab === targetId;
         btn.classList.toggle("is-active", isMatch);
         btn.setAttribute("aria-selected", isMatch ? "true" : "false");
+        if (isMatch) activeBtn = btn;
       });
 
       pages.forEach(page => {
@@ -602,6 +733,10 @@
         page.classList.toggle("is-active", isMatch);
         page.hidden = !isMatch;
       });
+
+      if (activeBtn) {
+        updateWovenIndicator(activeBtn);
+      }
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -619,13 +754,26 @@
     // Handle hash on load or popstate
     function checkHash() {
       const hash = window.location.hash.replace("#", "");
-      if (["tahanan", "dangal", "dambana", "magpost", "manifesto"].includes(hash)) {
+      if (ALL_TABS.includes(hash)) {
         setActiveTab(hash);
+      } else {
+        const currentActive = document.querySelector(".tab-btn.is-active");
+        if (currentActive) updateWovenIndicator(currentActive);
       }
     }
 
     window.addEventListener("popstate", checkHash);
-    checkHash();
+    window.addEventListener("resize", () => {
+      const currentActive = document.querySelector(".tab-btn.is-active");
+      if (currentActive) updateWovenIndicator(currentActive);
+    }, { passive: true });
+
+    // Initial positioning
+    setTimeout(() => {
+      checkHash();
+      const currentActive = document.querySelector(".tab-btn.is-active");
+      if (currentActive) updateWovenIndicator(currentActive);
+    }, 50);
 
     // CTA button in Dangal to go to Mag-post
     const dangalPostCta = document.getElementById("dangalPostCta");
@@ -993,6 +1141,198 @@
   }
 
   /* ==========================================================================
+     9. POST SUCCESS & COMMENT PARTICLE BURST HELPER (MOTION INVENTORY #9)
+     12 small gold dots drift upward and fade over 600ms, then canvas is removed.
+     Capped at 1 concurrent burst. Skipped if prefers-reduced-motion.
+     ========================================================================== */
+  let _activeBurstCanvas = null;
+  let _activeBurstRaf = null;
+
+  function triggerGoldParticleBurst(originX, originY) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // Cap at 1 concurrent burst
+    if (_activeBurstCanvas) {
+      if (_activeBurstRaf) cancelAnimationFrame(_activeBurstRaf);
+      _activeBurstCanvas.remove();
+      _activeBurstCanvas = null;
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.className = "particle-burst-canvas";
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    document.body.appendChild(canvas);
+    _activeBurstCanvas = canvas;
+
+    const ctx = canvas.getContext("2d");
+    const colors = ["#F7C948", "#FFD875", "#E5B643", "#FFF4D4", "#C59828"];
+    const particles = [];
+    const count = 12;
+
+    const startX = originX ?? (window.innerWidth / 2);
+    const startY = originY ?? (window.innerHeight / 2);
+
+    for (let i = 0; i < count; i++) {
+      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.5; // Upward spray
+      const speed = Math.random() * 3.5 + 2.2;
+      particles.push({
+        x: startX,
+        y: startY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        radius: Math.random() * 2.5 + 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        alpha: 1
+      });
+    }
+
+    const startTime = performance.now();
+    const duration = 600;
+
+    function render(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.06; // Soft gravity
+        p.alpha = Math.max(0, 1 - progress);
+
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      if (progress < 1) {
+        _activeBurstRaf = requestAnimationFrame(render);
+      } else {
+        if (_activeBurstCanvas === canvas) {
+          canvas.remove();
+          _activeBurstCanvas = null;
+          _activeBurstRaf = null;
+        }
+      }
+    }
+
+    _activeBurstRaf = requestAnimationFrame(render);
+  }
+
+  /* ==========================================================================
+     8. BUTTON MICRO-MOTION HELPER (MOTION INVENTORY #8)
+     Expanding gold ring from click point (300ms, then removes itself).
+     ========================================================================== */
+  function attachButtonRipples() {
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".btn--gold, .btn-action, #submitPostBtn, .btn-reveal-sensitive");
+      if (!btn) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const rect = btn.getBoundingClientRect();
+      const ripple = document.createElement("span");
+      ripple.className = "btn-gold-ripple";
+      const size = Math.max(rect.width, rect.height) * 1.5;
+      ripple.style.width = `${size}px`;
+      ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top = `${e.clientY - rect.top}px`;
+
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 320);
+    });
+  }
+
+  /* ==========================================================================
+     5. CARD ENTRANCE INTERSECTION OBSERVER (MOTION INVENTORY #5)
+     First entry: opacity 0 → 1 and translateY(16px) → 0 over 400ms, ease-out-soft.
+     Stagger siblings by 60ms via transition-delay. Unobserve after animating.
+     ========================================================================== */
+  function observeCardEntrances(containerEl) {
+    if (!containerEl) return;
+    const cards = containerEl.querySelectorAll(".post-card, .dangal-card, .module-shell-card");
+    if (!cards.length) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      cards.forEach(c => c.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach((card, idx) => {
+      if (!card.classList.contains("is-visible")) {
+        card.style.transitionDelay = `${(idx % 8) * 60}ms`;
+        observer.observe(card);
+      }
+    });
+  }
+
+  /* ==========================================================================
+     KALASAG REPORT BANNER & ROUTING HELPER
+     ========================================================================== */
+  const REPORT_TARGET_KEY = "bena_report_target_v1";
+
+  function reportToKalasag(target) {
+    sessionStorage.setItem(REPORT_TARGET_KEY, JSON.stringify(target));
+    
+    // Switch tab to Kalasag
+    const kalasagTab = document.querySelector('.tab-btn[data-tab="kalasag"]');
+    if (kalasagTab) kalasagTab.click();
+
+    updateKalasagReportBanner();
+    showToast(`Inilipat sa Kalasag para sa pag-uulat ng ${target.type === 'post' ? 'post' : 'komento'}. 🛡️`);
+    playGentleChime();
+  }
+
+  function updateKalasagReportBanner() {
+    const banner = document.getElementById("kalasagReportBanner");
+    const titleEl = document.getElementById("reportBannerTitle");
+    const descEl = document.getElementById("reportBannerDesc");
+    const clearBtn = document.getElementById("clearReportBannerBtn");
+    if (!banner) return;
+
+    const raw = sessionStorage.getItem(REPORT_TARGET_KEY);
+    if (!raw) {
+      banner.hidden = true;
+      return;
+    }
+
+    try {
+      const data = JSON.parse(raw);
+      banner.hidden = false;
+      if (titleEl) {
+        titleEl.textContent = `Nakatanggap ng Kahilingan sa Pagsusuri ng ${data.type === 'post' ? 'Post' : 'Komento'}`;
+      }
+      if (descEl) {
+        descEl.innerHTML = `<strong>ID:</strong> ${escapeHTML(data.id)} • <strong>May-akda:</strong> ${escapeHTML(data.author || 'Kapwa Pilipino')} ${data.title ? `• <strong>Pamagat:</strong> "${escapeHTML(data.title)}"` : ''}<br>Ang buong pormal na Kalasag reporting form ay darating sa Yugto 6. Naitala na ang item na ito para sa pagsusuri.`;
+      }
+      if (clearBtn) {
+        clearBtn.onclick = () => {
+          sessionStorage.removeItem(REPORT_TARGET_KEY);
+          banner.hidden = true;
+          showToast("Naalis na ang abiso ng ulat.");
+        };
+      }
+    } catch {
+      banner.hidden = true;
+    }
+  }
+
+  /* ==========================================================================
      PUBLIC FEED CONTROLLER (TAHANAN)
      ========================================================================== */
   let currentFeedFilter = "all";
@@ -1022,7 +1362,7 @@
       });
     }
 
-    // Filter pills
+    // Filter pills (Lahat | Artikulo | Sining | Pinaka-bago | Karanasan)
     filterPills.forEach(pill => {
       pill.addEventListener("click", () => {
         filterPills.forEach(p => p.classList.remove("is-active"));
@@ -1037,27 +1377,40 @@
 
   async function renderFeed() {
     const list = document.getElementById("feedList");
+    const skeleton = document.getElementById("feedSkeleton");
     const template = document.getElementById("postCardTemplate");
+    if (!list || !template) return;
+
+    // Show skeleton shimmer while preparing content
+    if (skeleton) skeleton.hidden = false;
+
     // Try backend API first, fall back to localStorage
     let allPosts = await apiGetPosts();
     if (!allPosts) allPosts = getPosts();
     const countAllEl = document.getElementById("countAll");
     if (countAllEl) countAllEl.textContent = allPosts.length;
 
-    // Filter and search
+    // Hide skeleton immediately once data is ready
+    if (skeleton) skeleton.hidden = true;
+
+    // Reverse-chronological render (strictly newest first)
     let filtered = allPosts.slice().sort((a, b) => b.timestamp - a.timestamp);
 
-    if (currentFeedFilter !== "all") {
+    // Filter pills logic
+    if (currentFeedFilter === "latest") {
+      // Pinaka-bago: keep all categories, strictly sorted newest
+      filtered = filtered.sort((a, b) => b.timestamp - a.timestamp);
+    } else if (currentFeedFilter !== "all") {
       filtered = filtered.filter(p => p.category === currentFeedFilter);
     }
 
     if (feedSearchQuery) {
       filtered = filtered.filter(p => {
-        return (
-          p.title.toLowerCase().includes(feedSearchQuery) ||
-          p.content.toLowerCase().includes(feedSearchQuery) ||
-          p.author.toLowerCase().includes(feedSearchQuery)
-        );
+        const titleMatch = (p.title || "").toLowerCase().includes(feedSearchQuery);
+        const contentMatch = (p.content || "").toLowerCase().includes(feedSearchQuery);
+        const authorMatch = (p.author || "").toLowerCase().includes(feedSearchQuery);
+        const tagsMatch = (p.tags || []).some(t => t.toLowerCase().includes(feedSearchQuery));
+        return titleMatch || contentMatch || authorMatch || tagsMatch;
       });
     }
 
@@ -1156,6 +1509,19 @@
         }
       });
 
+      // Report button on post card
+      const reportBtn = node.querySelector(".btn-report-post");
+      if (reportBtn) {
+        reportBtn.addEventListener("click", () => {
+          reportToKalasag({
+            type: "post",
+            id: post.id,
+            author: post.author,
+            title: post.title
+          });
+        });
+      }
+
       // Likes / Reaction Button
       const reactionBtn = node.querySelector(".btn-reaction");
       const reactionCount = node.querySelector(".reaction-count");
@@ -1194,11 +1560,15 @@
         }
       });
 
-      // Usapan (Comments) Toggle & Count
+      // Usapan (Comments) Toggle & Total Count (including nested replies)
       const usapanToggle = node.querySelector(".usapan-toggle");
       const usapanSection = node.querySelector(".usapan-section");
       const commentCount = node.querySelector(".comment-count");
-      commentCount.textContent = (post.comments || []).length;
+      
+      const totalCommentsCount = (post.comments || []).reduce((acc, c) => {
+        return acc + 1 + (c.replies ? c.replies.length : 0);
+      }, 0);
+      commentCount.textContent = totalCommentsCount;
 
       usapanToggle.addEventListener("click", () => {
         const isOpen = !usapanSection.hidden;
@@ -1206,31 +1576,56 @@
         usapanToggle.setAttribute("aria-expanded", String(!isOpen));
       });
 
-      // Render existing comments
+      // Render existing comments with one-level-deep replies
       const commentList = node.querySelector(".comment-list");
-      renderPostComments(commentList, post.comments || []);
+      renderPostComments(commentList, post.id, post.comments || []);
 
-      // Add comment form
+      // Add main comment form setup
       const commentForm = node.querySelector(".comment-form");
+      const textInput = commentForm.querySelector(".comment-input");
+      const authorInput = commentForm.querySelector(".comment-author-input");
+      const anonCheckbox = commentForm.querySelector(".comment-anon-checkbox");
+      const charCountEl = commentForm.querySelector(".comment-char-count");
+
+      if (textInput && charCountEl) {
+        textInput.addEventListener("input", () => {
+          const len = textInput.value.length;
+          charCountEl.textContent = `${len} / 1000`;
+          charCountEl.classList.toggle("is-warning", len > 900);
+        });
+      }
+
       commentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const authorInput = commentForm.querySelector(".comment-author-input");
-        const textInput = commentForm.querySelector(".comment-input");
-        const authorVal = authorInput.value.trim() || "Kapwa Pilipino";
         const textVal = textInput.value.trim();
-
         if (!textVal) return;
 
-        await addCommentToPost(post.id, authorVal, textVal);
+        const isAnon = anonCheckbox ? anonCheckbox.checked : false;
+        const authorVal = isAnon
+          ? "Kapwa Pilipino (Lihim)"
+          : (authorInput.value.trim() || "Kapwa Pilipino");
+
+        // Spawn gold particle burst from submit button
+        const btnRect = commentForm.querySelector('button[type="submit"]').getBoundingClientRect();
+        triggerGoldParticleBurst(btnRect.left + btnRect.width / 2, btnRect.top + btnRect.height / 2);
+
+        await addCommentToPost(post.id, authorVal, textVal, isAnon);
         textInput.value = "";
         authorInput.value = "";
+        if (charCountEl) charCountEl.textContent = "0 / 1000";
       });
 
       list.appendChild(node);
     });
+
+    // Apply IntersectionObserver card entrance animation with stagger
+    observeCardEntrances(list);
   }
 
-  function renderPostComments(listEl, comments) {
+  /* ==========================================================================
+     USAPAN: COMMENTS & ONE-LEVEL-DEEP REPLIES RENDERING
+     ========================================================================== */
+  function renderPostComments(listEl, postId, comments) {
     listEl.innerHTML = "";
     if (comments.length === 0) {
       const empty = document.createElement("p");
@@ -1246,40 +1641,211 @@
       .forEach(c => {
         const li = document.createElement("li");
         li.className = "comment-item";
+        li.dataset.commentId = c.id;
+
         li.innerHTML = `
           <div class="comment-header">
-            <span class="comment-author">${escapeHTML(c.author)}</span>
-            <span class="comment-time">${timeAgo(c.timestamp)}</span>
+            <div class="comment-author-wrap">
+              <span class="comment-author">${escapeHTML(c.author)}</span>
+              ${c.anonymous ? '<span class="comment-anon-badge">Lihim</span>' : ''}
+            </div>
+            <div class="comment-meta-right">
+              <span class="comment-time">${timeAgo(c.timestamp)}</span>
+              <button type="button" class="btn-report-comment" title="I-report ang komento">I-report</button>
+            </div>
           </div>
           <p class="comment-body">${escapeHTML(c.text)}</p>
+          <div class="comment-actions-bar">
+            <button type="button" class="btn-reply-toggle">
+              <span aria-hidden="true">↳</span>
+              <span>Tumugon</span>
+            </button>
+          </div>
+
+          <!-- 1-Level-Deep Replies Thread -->
+          <ul class="reply-list" ${(!c.replies || c.replies.length === 0) ? 'hidden' : ''}></ul>
+
+          <!-- Inline Reply Form (Hidden until Tumugon clicked) -->
+          <form class="reply-form" hidden>
+            <div class="comment-form-head">
+              <input type="text" class="comment-author-input reply-author-input" placeholder="Pangalan mo (o iwang blangko)" maxlength="30">
+              <label class="comment-anon-pill">
+                <input type="checkbox" class="reply-anon-checkbox">
+                <span>Lihim</span>
+              </label>
+            </div>
+            <textarea class="comment-input reply-input" rows="2" placeholder="Isulat ang iyong tugon sa komentong ito..." required maxlength="1000"></textarea>
+            <div class="reply-form-bottom">
+              <span class="char-count reply-char-count">0 / 1000</span>
+              <div style="display:flex; gap:0.4rem;">
+                <button type="button" class="btn btn--small btn--ghost-gold btn-cancel-reply">Kanselahin</button>
+                <button type="submit" class="btn btn--gold btn--small">
+                  <span>Ipahayag ang Tugon</span>
+                </button>
+              </div>
+            </div>
+          </form>
         `;
+
+        // Report comment link
+        const reportCommentBtn = li.querySelector(".btn-report-comment");
+        reportCommentBtn.addEventListener("click", () => {
+          reportToKalasag({
+            type: "comment",
+            id: c.id,
+            author: c.author,
+            text: c.text
+          });
+        });
+
+        // Populate existing 1-level deep replies
+        const replyListEl = li.querySelector(".reply-list");
+        if (c.replies && c.replies.length > 0) {
+          replyListEl.hidden = false;
+          c.replies
+            .slice()
+            .sort((a, b) => a.timestamp - b.timestamp)
+            .forEach(r => {
+              const rLi = document.createElement("li");
+              rLi.className = "reply-item";
+              rLi.innerHTML = `
+                <div class="comment-header">
+                  <div class="comment-author-wrap">
+                    <span class="comment-author">${escapeHTML(r.author)}</span>
+                    ${r.anonymous ? '<span class="comment-anon-badge">Lihim</span>' : ''}
+                  </div>
+                  <div class="comment-meta-right">
+                    <span class="comment-time">${timeAgo(r.timestamp)}</span>
+                    <button type="button" class="btn-report-comment btn-report-reply" title="I-report ang tugon">I-report</button>
+                  </div>
+                </div>
+                <p class="comment-body">${escapeHTML(r.text)}</p>
+              `;
+
+              const reportReplyBtn = rLi.querySelector(".btn-report-reply");
+              reportReplyBtn.addEventListener("click", () => {
+                reportToKalasag({
+                  type: "comment",
+                  id: r.id || c.id,
+                  author: r.author,
+                  text: r.text
+                });
+              });
+
+              replyListEl.appendChild(rLi);
+            });
+        }
+
+        // Toggle Reply Form
+        const replyToggle = li.querySelector(".btn-reply-toggle");
+        const replyForm = li.querySelector(".reply-form");
+        const cancelReplyBtn = li.querySelector(".btn-cancel-reply");
+        const replyInput = li.querySelector(".reply-input");
+        const replyAuthorInput = li.querySelector(".reply-author-input");
+        const replyAnonCheckbox = li.querySelector(".reply-anon-checkbox");
+        const replyCharCount = li.querySelector(".reply-char-count");
+
+        replyToggle.addEventListener("click", () => {
+          replyForm.hidden = !replyForm.hidden;
+          if (!replyForm.hidden) {
+            replyInput.focus();
+          }
+        });
+
+        cancelReplyBtn.addEventListener("click", () => {
+          replyForm.hidden = true;
+          replyInput.value = "";
+          replyCharCount.textContent = "0 / 1000";
+        });
+
+        replyInput.addEventListener("input", () => {
+          const len = replyInput.value.length;
+          replyCharCount.textContent = `${len} / 1000`;
+          replyCharCount.classList.toggle("is-warning", len > 900);
+        });
+
+        // Submit Reply
+        replyForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const rText = replyInput.value.trim();
+          if (!rText) return;
+
+          const isAnon = replyAnonCheckbox.checked;
+          const rAuthor = isAnon
+            ? "Kapwa Pilipino (Lihim)"
+            : (replyAuthorInput.value.trim() || "Kapwa Pilipino");
+
+          // Burst effect
+          const submitBtn = replyForm.querySelector('button[type="submit"]');
+          const sRect = submitBtn.getBoundingClientRect();
+          triggerGoldParticleBurst(sRect.left + sRect.width / 2, sRect.top + sRect.height / 2);
+
+          await addReplyToComment(postId, c.id, rAuthor, rText, isAnon);
+        });
+
         listEl.appendChild(li);
       });
   }
 
-  async function addCommentToPost(postId, author, text) {
+  async function addCommentToPost(postId, author, text, anonymous = false) {
     // Try backend first
-    const result = await apiAddComment(postId, { author, text });
+    const result = await apiAddComment(postId, { author, text, anonymous });
     if (!result) {
       // localStorage fallback
       const posts = getPosts();
       const targetPost = posts.find(p => p.id === postId);
       if (!targetPost) return;
       if (!targetPost.comments) targetPost.comments = [];
-      targetPost.comments.push({ id: uid(), author, text, timestamp: Date.now() });
+      targetPost.comments.push({
+        id: uid(),
+        author,
+        text,
+        anonymous,
+        timestamp: Date.now(),
+        replies: []
+      });
       savePosts(posts);
     }
     await renderFeed();
-    showToast("Naipahayag na ang iyong komento! Salamat sa pakikibahagi.");
+    showToast("Naipahayag na ang iyong komento! Salamat sa pakikibahagi. 🌻");
+    playGentleChime();
+  }
+
+  async function addReplyToComment(postId, commentId, author, text, anonymous = false) {
+    const posts = getPosts();
+    const targetPost = posts.find(p => p.id === postId);
+    if (!targetPost) return;
+    if (!targetPost.comments) targetPost.comments = [];
+
+    const targetComment = targetPost.comments.find(c => c.id === commentId);
+    if (!targetComment) return;
+    if (!targetComment.replies) targetComment.replies = [];
+
+    targetComment.replies.push({
+      id: uid(),
+      author,
+      text,
+      anonymous,
+      timestamp: Date.now()
+    });
+
+    savePosts(posts);
+    await renderFeed();
+    showToast("Naipahayag na ang iyong tugon sa usapan! 🌻");
     playGentleChime();
   }
 
   /* ==========================================================================
-     MAG-POST (SUBMISSION FORM WITH CANVAS IMAGE COMPRESSION)
-     Compresses uploaded images so localStorage never exceeds quota limits!
+     MAG-POST (SUBMISSION FORM WITH CANVAS COMPRESSION & VALIDATION)
      ========================================================================== */
   function initPostForm() {
     const form = document.getElementById("postForm");
+    if (!form) return;
+
+    const titleInput = document.getElementById("postTitle");
+    const authorInput = document.getElementById("postAuthor");
+    const contentInput = document.getElementById("postContent");
+    const anonCheckbox = document.getElementById("postAnonymous");
     const categoryRadios = form.querySelectorAll('input[name="postCategory"]');
     const imageInput = document.getElementById("postImage");
     const imagePreviewContainer = document.getElementById("imagePreviewContainer");
@@ -1287,25 +1853,106 @@
     const removeImageBtn = document.getElementById("removeImageBtn");
     const contentLabel = document.getElementById("contentLabel");
     const dropzone = document.getElementById("uploadDropzone");
+    const siningRecommendTag = document.getElementById("siningRecommendTag");
+    const guidelinesConsent = document.getElementById("postGuidelinesConsent");
+    const authorReqStar = document.getElementById("authorReqStar");
+
+    // Errors
+    const titleError = document.getElementById("postTitleError");
+    const authorError = document.getElementById("postAuthorError");
+    const contentError = document.getElementById("postContentError");
+    const guidelinesError = document.getElementById("guidelinesError");
+
+    // Live Char Counters
+    const titleCharCount = document.getElementById("titleCharCount");
+    const authorCharCount = document.getElementById("authorCharCount");
+    const contentCharCount = document.getElementById("contentCharCount");
 
     let compressedImageBase64 = null;
 
-    // Category changes
+    // Character counter listeners
+    if (titleInput && titleCharCount) {
+      titleInput.addEventListener("input", () => {
+        const len = titleInput.value.length;
+        titleCharCount.textContent = `${len} / 120`;
+        titleCharCount.classList.toggle("is-warning", len > 110);
+        if (len >= 3) {
+          titleInput.setAttribute("aria-invalid", "false");
+          if (titleError) titleError.hidden = true;
+        }
+      });
+    }
+
+    if (authorInput && authorCharCount) {
+      authorInput.addEventListener("input", () => {
+        const len = authorInput.value.length;
+        authorCharCount.textContent = `${len} / 50`;
+        authorCharCount.classList.toggle("is-warning", len > 45);
+        if (len >= 2) {
+          authorInput.setAttribute("aria-invalid", "false");
+          if (authorError) authorError.hidden = true;
+        }
+      });
+    }
+
+    if (contentInput && contentCharCount) {
+      contentInput.addEventListener("input", () => {
+        const len = contentInput.value.length;
+        contentCharCount.textContent = `${len} / 2000`;
+        contentCharCount.classList.toggle("is-warning", len > 1850);
+        if (len >= 10) {
+          contentInput.setAttribute("aria-invalid", "false");
+          if (contentError) contentError.hidden = true;
+        }
+      });
+    }
+
+    if (guidelinesConsent && guidelinesError) {
+      guidelinesConsent.addEventListener("change", () => {
+        if (guidelinesConsent.checked) {
+          guidelinesConsent.setAttribute("aria-invalid", "false");
+          guidelinesError.hidden = true;
+        }
+      });
+    }
+
+    // Anonymous checkbox handling
+    if (anonCheckbox) {
+      anonCheckbox.addEventListener("change", () => {
+        if (anonCheckbox.checked) {
+          authorInput.placeholder = "Naka-post nang Lihim (Anonymous)";
+          if (authorReqStar) authorReqStar.hidden = true;
+          authorInput.setAttribute("aria-invalid", "false");
+          if (authorError) authorError.hidden = true;
+        } else {
+          authorInput.placeholder = "Halimbawa: Tala ng Kabisayaan";
+          if (authorReqStar) authorReqStar.hidden = false;
+        }
+      });
+    }
+
+    // Category changes (Conditional Sining highlighting)
     function updateCategoryUI() {
-      const selected = form.querySelector('input[name="postCategory"]:checked').value;
+      const selected = form.querySelector('input[name="postCategory"]:checked')?.value || "Artikulo";
       if (selected === "Sining") {
         contentLabel.innerHTML = 'Ilarawan ang iyong sining at mensahe <span class="required">*</span>';
+        if (siningRecommendTag) siningRecommendTag.hidden = false;
+        if (dropzone) dropzone.style.borderColor = "var(--gold-bright)";
       } else if (selected === "Karanasan") {
         contentLabel.innerHTML = 'Ibahagi ang iyong sariling kwento o patotoo <span class="required">*</span>';
+        if (siningRecommendTag) siningRecommendTag.hidden = true;
+        if (dropzone) dropzone.style.borderColor = "";
       } else {
         contentLabel.innerHTML = 'Isulat ang iyong artikulo o sanaysay <span class="required">*</span>';
+        if (siningRecommendTag) siningRecommendTag.hidden = true;
+        if (dropzone) dropzone.style.borderColor = "";
       }
     }
 
     categoryRadios.forEach(r => r.addEventListener("change", updateCategoryUI));
     updateCategoryUI();
 
-    // Canvas Compression function
+    // Canvas Compression function: max 800px / 500KB
     function processAndCompressImage(file) {
       if (!file || !file.type.startsWith("image/")) {
         showToast("Mangyaring pumili ng wastong larawan (JPG, PNG, o WebP).");
@@ -1316,8 +1963,8 @@
       reader.onload = (e) => {
         const img = new Image();
         img.onload = () => {
-          // Scale down image to max 900px wide/tall to save storage
-          const maxDim = 900;
+          // Scale down image to max 800px wide/tall
+          const maxDim = 800;
           let width = img.width;
           let height = img.height;
 
@@ -1337,10 +1984,11 @@
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Convert to JPEG at 0.80 quality (typically 50KB-120KB)
+          // Convert to JPEG at 0.80 quality (well under 500KB, ~60-150KB)
           compressedImageBase64 = canvas.toDataURL("image/jpeg", 0.80);
           imagePreview.src = compressedImageBase64;
           imagePreviewContainer.hidden = false;
+          showToast("Matagumpay na na-compress ang larawan para sa mabilis na pag-save! 🖼️");
         };
         img.src = e.target.result;
       };
@@ -1377,35 +2025,83 @@
       imagePreview.src = "";
     });
 
-    // Form Submission
+    // Form Submission with Strict Validation & Particle Burst
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const title = document.getElementById("postTitle").value.trim();
-      const author = document.getElementById("postAuthor").value.trim();
-      const category = form.querySelector('input[name="postCategory"]:checked').value;
-      const content = document.getElementById("postContent").value.trim();
-      const anonymous = document.getElementById("postAnonymous").checked;
+      const title = titleInput.value.trim();
+      const isAnon = anonCheckbox ? anonCheckbox.checked : false;
+      const author = isAnon ? "Kapwa Pilipino" : authorInput.value.trim();
+      const category = form.querySelector('input[name="postCategory"]:checked')?.value || "Artikulo";
+      const content = contentInput.value.trim();
       
-      // Gender sensitivity fields
       const selectedPronoun = form.querySelector('input[name="postPronouns"]:checked')?.value || "siya/kanya";
       const selectedTags = Array.from(form.querySelectorAll('input[name="postTags"]:checked')).map(el => el.value);
       const isSensitive = document.getElementById("postSensitiveWarning")?.checked || false;
+      const hasConsented = guidelinesConsent ? guidelinesConsent.checked : true;
 
-      if (!title || !author || !content) {
-        showToast("Pakipunan ang lahat ng kinakailangang bahagi.");
+      // Validation
+      let hasError = false;
+
+      if (!title || title.length < 3) {
+        titleInput.setAttribute("aria-invalid", "true");
+        if (titleError) titleError.hidden = false;
+        if (!hasError) titleInput.focus();
+        hasError = true;
+      } else {
+        titleInput.setAttribute("aria-invalid", "false");
+        if (titleError) titleError.hidden = true;
+      }
+
+      if (!isAnon && (!author || author.length < 2)) {
+        authorInput.setAttribute("aria-invalid", "true");
+        if (authorError) authorError.hidden = false;
+        if (!hasError) authorInput.focus();
+        hasError = true;
+      } else {
+        authorInput.setAttribute("aria-invalid", "false");
+        if (authorError) authorError.hidden = true;
+      }
+
+      if (!content || content.length < 10) {
+        contentInput.setAttribute("aria-invalid", "true");
+        if (contentError) contentError.hidden = false;
+        if (!hasError) contentInput.focus();
+        hasError = true;
+      } else {
+        contentInput.setAttribute("aria-invalid", "false");
+        if (contentError) contentError.hidden = true;
+      }
+
+      if (!hasConsented) {
+        guidelinesConsent.setAttribute("aria-invalid", "true");
+        if (guidelinesError) guidelinesError.hidden = false;
+        if (!hasError) guidelinesConsent.focus();
+        hasError = true;
+      } else {
+        guidelinesConsent.setAttribute("aria-invalid", "false");
+        if (guidelinesError) guidelinesError.hidden = true;
+      }
+
+      if (hasError) {
+        showToast("Pakiaayos ang mga kulang o maling patlang sa itaas.");
         return;
       }
 
-      const posts = getPosts();
+      const submitBtn = document.getElementById("submitPostBtn");
+      const btnRect = submitBtn.getBoundingClientRect();
+
+      // Trigger particle burst at submit button
+      triggerGoldParticleBurst(btnRect.left + btnRect.width / 2, btnRect.top + btnRect.height / 2);
+
       const newPost = {
         id: uid(),
         title,
-        author,
+        author: isAnon ? "Kapwa Pilipino" : author,
         pronouns: selectedPronoun,
         tags: selectedTags,
         isSensitive,
-        anonymous,
+        anonymous: isAnon,
         category,
         content,
         image: compressedImageBase64,
@@ -1414,33 +2110,34 @@
         comments: []
       };
 
-      // Try to save to backend first
+      // Save to backend or fallback
       const savedPost = await apiCreatePost(newPost);
       if (savedPost) {
-        // Backend saved — use the returned post ID
         newPost.id = savedPost.id;
       } else {
-        // Fallback: save to localStorage
         const posts = getPosts();
         posts.unshift(newPost);
         savePosts(posts);
       }
 
-      // Auto-like the author's own post (localStorage always)
+      // Auto-like
       const userLikes = getUserLikes();
       userLikes[newPost.id] = true;
       saveUserLikes(userLikes);
 
-      // Reset form
+      // Reset form & live counters
       form.reset();
       compressedImageBase64 = null;
       imagePreviewContainer.hidden = true;
       imagePreview.src = "";
+      if (titleCharCount) titleCharCount.textContent = "0 / 120";
+      if (authorCharCount) authorCharCount.textContent = "0 / 50";
+      if (contentCharCount) contentCharCount.textContent = "0 / 2000";
       updateCategoryUI();
 
       showToast(savedPost
-        ? "Naibahagi na ang iyong kwento sa Tahanan! Makikita ito ng lahat. 🌻"
-        : "Naibahagi na ang iyong kwento (naka-save sa browser mo)."
+        ? "Matagumpay na naipahayag ang iyong likha sa Tahanan! 🌻"
+        : "Naibahagi na ang iyong kwento (naka-save sa iyong browser)."
       );
       playGentleChime();
 
@@ -1475,6 +2172,8 @@
      ========================================================================== */
   document.addEventListener("DOMContentLoaded", () => {
     seedPostsIfEmpty();
+    initThemeToggle();
+    initHablonThread();
     initYakap();
     initGenderGuide();
     initPrideBanner();
@@ -1483,6 +2182,8 @@
     initDambana();
     initPostForm();
     initFeed();
+    attachButtonRipples();
+    updateKalasagReportBanner();
     initFooter();
   });
 })();

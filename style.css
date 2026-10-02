@@ -5,56 +5,7 @@
    inabel/t'nalak indigenous weaves, and deep ritual midnight sky.
    ========================================================================== */
 
-:root {
-  /* Color Palette */
-  --ink:          #130E26;       /* Deep Ritual Midnight */
-  --ink-surface:  #1E163B;       /* Secondary dark surface */
-  --ink-card:     #251C47;       /* Dark card background */
-  
-  --paper:        #FAF3E0;       /* Warm Handwoven Rice Parchment */
-  --paper-subtle: #F3E9CE;       /* Neutral warm surface */
-  --paper-border: #DFD0AC;       /* Subtle golden-beige border */
-  --card-bg:      #FFFDF7;       /* Card bright surface */
-  
-  --gold-primary: #C59828;       /* Traditional Filipino Gold */
-  --gold-bright:  #F7C948;       /* Sunray Radiance Gold */
-  --gold-glow:    rgba(247, 201, 72, 0.35);
-  --gold-soft:    #FDF5D9;
-  
-  --coral:        #D84A38;       /* Katutubong Terracotta & Clay */
-  --coral-soft:   rgba(216, 74, 56, 0.12);
-  
-  --teal:         #1F6E5B;       /* Ancient Forest Jade */
-  --teal-soft:    rgba(31, 110, 91, 0.12);
-  
-  --purple:       #6B4C85;       /* Babaylan Ritual Amethyst */
-  --purple-soft:  rgba(107, 76, 133, 0.12);
-
-  --text-dark:    #211A34;       /* Primary High-contrast Text */
-  --text-muted:   #5E5572;       /* Secondary Muted Text */
-  --text-light:   #FAF3E0;       /* Inverted text */
-  --text-on-gold: #241A00;       /* Text on gold backgrounds */
-
-  /* Typography */
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body:    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
-
-  /* Elevation & Borders */
-  --radius-sm:    8px;
-  --radius-md:    14px;
-  --radius-lg:    22px;
-  --radius-full:  9999px;
-  
-  --shadow-sm:    0 2px 8px -2px rgba(19, 14, 38, 0.08);
-  --shadow-md:    0 8px 24px -6px rgba(19, 14, 38, 0.12);
-  --shadow-lg:    0 18px 40px -10px rgba(19, 14, 38, 0.22);
-  --shadow-gold:  0 8px 25px -4px rgba(197, 152, 40, 0.4);
-
-  /* Transitions */
-  --tr-fast:      0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  --tr-normal:    0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
+@import url("variables.css");
 
 /* Base Reset & Document Setup */
 *, *::before, *::after {
@@ -339,10 +290,106 @@ input, textarea, select {
 }
 
 /* ==========================================================================
+   1. HABLON SCROLL THREAD (PRIMARY SCROLL INDICATOR)
+   A thin 2px vertical gold thread runs down the left edge of the viewport.
+   As user scrolls, fills top to bottom via scaleY transform.
+   Mobile: 2px horizontal thread on top edge via scaleX.
+   Respects prefers-reduced-motion (freezes at full scale).
+   ========================================================================== */
+.hablon-thread {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100vh;
+  background: rgba(197, 152, 40, 0.12);
+  z-index: 99999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hablon-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--gold-bright), var(--gold-primary), var(--coral));
+  transform-origin: top left;
+  transform: scaleY(0);
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .hablon-thread {
+    width: 100vw;
+    height: 2px;
+    right: 0;
+    bottom: auto;
+  }
+  .hablon-fill {
+    background: linear-gradient(to right, var(--gold-bright), var(--gold-primary), var(--coral));
+    transform-origin: top left;
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hablon-fill {
+    transform: scale(1) !important;
+  }
+}
+
+/* ==========================================================================
+   2. BANIG AMBIENT BACKGROUND
+   Subtle SVG weave/banig pattern in header and footer.
+   Drifts horizontally in infinite 60s loop at opacity 0.06.
+   Transform-based animation (will-change: transform), never background-position.
+   ========================================================================== */
+.banig-ambient-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+}
+
+.banig-track {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  will-change: transform;
+  animation: banigDrift 60s linear infinite;
+}
+
+.banig-svg {
+  width: 50%;
+  height: 100%;
+  flex-shrink: 0;
+  color: var(--gold-bright);
+}
+
+@keyframes banigDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banig-track {
+    animation: none !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
+
+/* ==========================================================================
    HEADER
    ========================================================================== */
 
 .site-header {
+  position: relative;
+  overflow: hidden;
   background: var(--ink);
   color: var(--text-light);
   border-bottom: 2px solid var(--ink-card);
@@ -350,6 +397,8 @@ input, textarea, select {
 }
 
 .header-inner {
+  position: relative;
+  z-index: 1;
   max-width: 900px;
   margin: 0 auto;
   display: flex;
@@ -529,7 +578,74 @@ input, textarea, select {
 }
 
 /* ==========================================================================
-   NAVIGATION TABS (STICKY)
+   4. ALON SECTION DIVIDERS
+   Between major sections, SVG wave ("alon") divider that gently shifts
+   horizontally in a 20s loop. Two overlapping waves at different speeds,
+   gold and terracotta at low opacity. Suggests water, ancestry, movement.
+   ========================================================================== */
+.alon-divider {
+  position: relative;
+  width: 100%;
+  height: 28px;
+  overflow: hidden;
+  pointer-events: none;
+  display: block;
+}
+
+.alon-wave-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 200%;
+  height: 100%;
+  will-change: transform;
+}
+
+.alon-svg {
+  width: 50%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.alon-wave-track--gold {
+  opacity: 0.16;
+  animation: alonShiftGold 20s linear infinite;
+}
+
+.alon-wave-track--coral {
+  opacity: 0.12;
+  animation: alonShiftCoral 28s linear infinite reverse;
+}
+
+@keyframes alonShiftGold {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes alonShiftCoral {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alon-wave-track--gold,
+  .alon-wave-track--coral {
+    animation: none !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+}
+
+/* ==========================================================================
+   NAVIGATION TABS (STICKY) & 3. NAV TAB WOVEN INDICATOR
    ========================================================================== */
 
 .tabs-nav {
@@ -542,30 +658,37 @@ input, textarea, select {
 }
 
 .tabs-scroll-container {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1rem;
+  justify-content: flex-start;
+  gap: 0.35rem;
+  padding: 0.65rem 1rem 0.95rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  position: relative;
+  scrollbar-width: none;
+}
+
+.tabs-scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.15rem;
+  gap: 0.45rem;
+  padding: 0.55rem 0.95rem;
   border-radius: var(--radius-full);
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
   white-space: nowrap;
   position: relative;
-  transition: all var(--tr-fast);
+  transition: color var(--dur-fast) var(--ease-out-soft), background var(--dur-fast) var(--ease-out-soft);
+  z-index: 1;
 }
 
 .tab-btn:hover {
@@ -576,7 +699,33 @@ input, textarea, select {
 .tab-btn.is-active {
   background: var(--ink);
   color: var(--gold-bright);
-  box-shadow: 0 3px 12px -2px rgba(19, 14, 38, 0.35);
+}
+
+/* 3. Hablon Signature Interaction: Woven Nav Indicator */
+.woven-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 60px;
+  height: 6px;
+  pointer-events: none;
+  z-index: 2;
+  transition: transform var(--dur-base) var(--ease-out-soft);
+  will-change: transform;
+  transform: translateX(0);
+}
+
+.woven-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 3px rgba(247, 201, 72, 0.4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .woven-indicator {
+    transition: none !important;
+  }
 }
 
 .tab-icon {
@@ -738,7 +887,116 @@ input, textarea, select {
 }
 
 /* ==========================================================================
-   FEED LIST & POST CARDS
+   THE "LOCAL MVP" HONESTY NOTE BANNER
+   ========================================================================== */
+.honesty-note-banner {
+  background: rgba(197, 152, 40, 0.08);
+  border: 1px solid rgba(197, 152, 40, 0.28);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.15rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.86rem;
+  color: var(--text-dark);
+}
+
+.honesty-note-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 0.1rem;
+}
+
+.honesty-note-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+
+.honesty-note-text span {
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   10. SKELETON LOADER WITH SHIMMER (MOTION INVENTORY #10)
+   Slow horizontal gradient sweep at 1.6s, infinite, ease-in-out-soft.
+   ========================================================================== */
+.feed-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skeleton-card {
+  background: var(--card-bg);
+  border: 1px solid var(--paper-border);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.skeleton-line {
+  background: linear-gradient(90deg, rgba(197, 152, 40, 0.06) 20%, rgba(247, 201, 72, 0.22) 50%, rgba(197, 152, 40, 0.06) 80%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.6s var(--ease-in-out-soft) infinite;
+  border-radius: var(--radius-sm);
+  will-change: background-position;
+}
+
+.skeleton-badge {
+  width: 90px;
+  height: 22px;
+  border-radius: var(--radius-full);
+}
+
+.skeleton-title {
+  width: 75%;
+  height: 26px;
+}
+
+.skeleton-meta {
+  width: 40%;
+  height: 16px;
+}
+
+.skeleton-body-1 {
+  width: 100%;
+  height: 18px;
+}
+
+.skeleton-body-2 {
+  width: 85%;
+  height: 18px;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-line {
+    animation: none !important;
+    background: var(--paper-subtle) !important;
+  }
+}
+
+/* ==========================================================================
+   FEED LIST & POST CARDS — 5. CARD ENTRANCE ANIMATION (MOTION INVENTORY #5)
+   First entry: opacity 0 → 1, translateY(16px) → 0 over 400ms, ease-out-soft.
+   Stagger siblings by 60ms via transition-delay.
    ========================================================================== */
 
 .feed-list {
@@ -753,12 +1011,53 @@ input, textarea, select {
   border-radius: var(--radius-md);
   padding: 1.6rem 1.6rem 1.3rem;
   box-shadow: var(--shadow-sm);
-  transition: transform var(--tr-fast), box-shadow var(--tr-fast);
   position: relative;
+  /* Entrance initial state */
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 400ms var(--ease-out-soft),
+              transform 400ms var(--ease-out-soft),
+              box-shadow var(--dur-fast) var(--ease-out-soft);
+  will-change: transform, opacity;
+}
+
+.post-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .post-card:hover {
   box-shadow: var(--shadow-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: box-shadow var(--dur-fast) var(--ease-out-soft) !important;
+  }
+}
+
+.btn-report-post {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  background: var(--paper-subtle);
+  border: 1px solid var(--paper-border);
+  transition: all var(--dur-fast) var(--ease-out-soft);
+}
+
+.btn-report-post:hover {
+  background: var(--coral-soft);
+  color: var(--coral);
+  border-color: var(--coral);
+  transform: translateY(-1px);
 }
 
 .post-card-header {
@@ -937,7 +1236,7 @@ input, textarea, select {
 }
 
 /* ==========================================================================
-   USAPAN (COMMENTS SECTION)
+   USAPAN (COMMENTS SECTION WITH 1-LEVEL-DEEP REPLIES)
    ========================================================================== */
 
 .usapan-section {
@@ -946,12 +1245,30 @@ input, textarea, select {
   animation: fadeIn 0.25s ease;
 }
 
+.usapan-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
 .usapan-heading {
   font-family: var(--font-display);
   font-size: 1rem;
   color: var(--ink);
-  margin: 0 0 0.85rem;
+  margin: 0;
   font-weight: 700;
+}
+
+.usapan-badge-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--teal);
+  background: var(--teal-soft);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
 }
 
 .comment-list {
@@ -960,14 +1277,14 @@ input, textarea, select {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.75rem;
 }
 
 .comment-item {
   background: var(--paper);
   border-radius: var(--radius-sm);
   border: 1px solid var(--paper-border);
-  padding: 0.75rem 0.95rem;
+  padding: 0.85rem 1rem;
   font-size: 0.92rem;
 }
 
@@ -975,7 +1292,15 @@ input, textarea, select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.35rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.comment-author-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
 }
 
 .comment-author {
@@ -984,17 +1309,194 @@ input, textarea, select {
   font-size: 0.88rem;
 }
 
+.comment-anon-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--purple);
+  background: var(--purple-soft);
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--radius-full);
+}
+
+.comment-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .comment-time {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--text-muted);
 }
 
+.btn-report-comment {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.btn-report-comment:hover {
+  color: var(--coral);
+}
+
 .comment-body {
-  margin: 0;
+  margin: 0 0 0.5rem;
   color: var(--text-dark);
   line-height: 1.5;
   word-break: break-word;
+}
+
+.comment-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.btn-reply-toggle {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--teal);
+  background: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--dur-fast) var(--ease-out-soft);
+}
+
+.btn-reply-toggle:hover {
+  background: var(--teal-soft);
+}
+
+/* 1-Level-Deep Replies List */
+.reply-list {
+  list-style: none;
+  margin: 0.75rem 0 0.25rem 0.75rem;
+  padding: 0 0 0 0.85rem;
+  border-left: 2px solid var(--paper-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.reply-item {
+  background: var(--card-bg);
+  border: 1px solid var(--paper-border);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.88rem;
+}
+
+.reply-item .comment-body {
+  margin: 0;
+}
+
+/* Inline Reply Form */
+.reply-form {
+  margin-top: 0.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--paper-border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.reply-form textarea {
+  width: 100%;
+  border: 1px solid var(--paper-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.88rem;
+  background: var(--paper);
+  color: var(--text-dark);
+  resize: vertical;
+}
+
+.reply-form-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Main Comment Form */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: var(--paper-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.95rem;
+  border: 1px solid var(--paper-border);
+}
+
+.comment-form-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.comment-author-input {
+  flex: 1;
+  min-width: 160px;
+  border: 1px solid var(--paper-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.8rem;
+  font-size: 0.88rem;
+  background: var(--card-bg);
+  color: var(--text-dark);
+}
+
+.comment-anon-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.comment-anon-pill input {
+  accent-color: var(--purple);
+}
+
+.comment-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.comment-input {
+  width: 100%;
+  border: 1px solid var(--paper-border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.9rem;
+  background: var(--card-bg);
+  color: var(--text-dark);
+  resize: vertical;
+}
+
+.comment-form-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .comment-empty {
@@ -1236,13 +1738,107 @@ input, textarea, select {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.form-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .form-label {
   font-weight: 700;
   font-size: 0.95rem;
   color: var(--ink);
+}
+
+.char-count {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out-soft);
+}
+
+.char-count.is-warning {
+  color: var(--coral);
+  font-weight: 700;
+}
+
+.field-error-msg {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--coral);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  animation: fadeIn 0.2s var(--ease-out-soft);
+}
+
+.field-error-msg::before {
+  content: "⚠️";
+}
+
+.sining-recommend-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--coral);
+  background: var(--coral-soft);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+}
+
+.post-form-card input[aria-invalid="true"],
+.post-form-card textarea[aria-invalid="true"] {
+  border-color: var(--coral) !important;
+  box-shadow: 0 0 0 3px rgba(216, 74, 56, 0.2) !important;
+}
+
+/* Community Guidelines Consent Checkbox */
+.community-guidelines-group {
+  margin-top: 0.4rem;
+}
+
+.community-checkbox-pill {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  background: rgba(197, 152, 40, 0.08);
+  border: 1.5px solid rgba(197, 152, 40, 0.35);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1.15rem;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out-soft);
+}
+
+.community-checkbox-pill:hover {
+  background: rgba(197, 152, 40, 0.16);
+  border-color: var(--gold-primary);
+}
+
+.community-checkbox-pill input {
+  margin-top: 0.25rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: var(--gold-primary);
+  cursor: pointer;
+}
+
+.guidelines-label-text strong {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+
+.guidelines-label-text small {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.45;
 }
 
 .required {
@@ -3074,7 +3670,10 @@ input, textarea, select {
   .site-header .header-actions,
   .pride-banner-actions,
   .post-actions,
-  .toast-container {
+  .toast-container,
+  .hablon-thread,
+  .alon-divider,
+  .banig-ambient-layer {
     display: none !important;
   }
 
@@ -3089,3 +3688,385 @@ input, textarea, select {
     box-shadow: none;
   }
 }
+
+/* ==========================================================================
+   THEME TOGGLE BUTTON & SCAFFOLD SHELL STYLING (PHASE 1)
+   ========================================================================== */
+.btn--header-theme {
+  background: rgba(247, 201, 72, 0.12);
+  border: 1px solid rgba(247, 201, 72, 0.35);
+  color: var(--gold-bright);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--dur-fast) var(--ease-out-soft);
+}
+
+.btn--header-theme:hover {
+  background: rgba(247, 201, 72, 0.25);
+  color: #FFF;
+  transform: translateY(-1px);
+}
+
+.module-scaffold-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 680px) {
+  .module-scaffold-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
+.module-shell-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--paper-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: transform var(--dur-fast) var(--ease-out-soft), box-shadow var(--dur-fast) var(--ease-out-soft), border-color var(--dur-fast) var(--ease-out-soft);
+}
+
+.module-shell-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--gold-primary);
+}
+
+.module-shell-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+}
+
+.module-shell-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.module-shell-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.module-shell-status {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--teal);
+  background: var(--teal-soft);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  align-self: flex-start;
+  margin-top: 0.4rem;
+}
+
+.reference-disclaimer-card {
+  background: rgba(197, 152, 40, 0.08);
+  border: 1.5px solid rgba(197, 152, 40, 0.3);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+}
+
+.reference-disclaimer-card .disclaimer-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.reference-disclaimer-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   DARK MODE ADAPTATIONS
+   ========================================================================== */
+[data-theme="dark"] body {
+  background-color: var(--paper);
+  background-image: radial-gradient(circle at 10% 20%, rgba(247, 201, 72, 0.03) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(107, 76, 133, 0.05) 0%, transparent 40%);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .site-header {
+  background: var(--ink-surface);
+  border-bottom-color: var(--paper-border);
+}
+
+[data-theme="dark"] .pride-banner {
+  background: linear-gradient(135deg, #0D081E 0%, #170E30 60%, #201340 100%);
+}
+
+[data-theme="dark"] .tabs-nav {
+  background: var(--paper);
+  border-bottom-color: var(--paper-border);
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .tab-btn {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .tab-btn:hover {
+  background: rgba(247, 201, 72, 0.15);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .tab-btn.is-active {
+  background: var(--ink-card);
+  color: var(--gold-bright);
+}
+
+[data-theme="dark"] .post-card,
+[data-theme="dark"] .dangal-card,
+[data-theme="dark"] .panata-composer-card,
+[data-theme="dark"] .post-form-card,
+[data-theme="dark"] .manifesto-prose-card,
+[data-theme="dark"] .history-card,
+[data-theme="dark"] .guide-point-card,
+[data-theme="dark"] .gender-guide-modal,
+[data-theme="dark"] .sogiesc-primer-card,
+[data-theme="dark"] .module-shell-card {
+  background: var(--card-bg);
+  border-color: var(--paper-border);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .post-title,
+[data-theme="dark"] .dangal-card-title,
+[data-theme="dark"] .composer-title,
+[data-theme="dark"] .manifesto-title,
+[data-theme="dark"] .page-heading,
+[data-theme="dark"] .history-title,
+[data-theme="dark"] .wall-heading,
+[data-theme="dark"] .panata-field label,
+[data-theme="dark"] .module-shell-title {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .post-content,
+[data-theme="dark"] .dangal-card-desc,
+[data-theme="dark"] .composer-sub,
+[data-theme="dark"] .manifesto-lead,
+[data-theme="dark"] .page-sub,
+[data-theme="dark"] .wall-sub,
+[data-theme="dark"] .module-shell-desc {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background: var(--paper-subtle);
+  border-color: var(--paper-border);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+  background: var(--ink-card);
+  border-color: var(--gold-primary);
+}
+
+[data-theme="dark"] .site-footer {
+  background: var(--ink-surface);
+  border-top-color: var(--paper-border);
+}
+
+[data-theme="dark"] .search-box {
+  background: var(--card-bg);
+  border-color: var(--paper-border);
+}
+
+[data-theme="dark"] .search-box input {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .filter-pill,
+[data-theme="dark"] .dangal-filter-btn,
+[data-theme="dark"] .dambana-wall-filter {
+  background: var(--card-bg);
+  border-color: var(--paper-border);
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .filter-pill.is-active,
+[data-theme="dark"] .dangal-filter-btn.is-active,
+[data-theme="dark"] .dambana-wall-filter.is-active {
+  background: var(--gold-primary);
+  color: var(--text-on-gold);
+  border-color: var(--gold-primary);
+}
+
+[data-theme="dark"] .comment-form {
+  background: var(--paper-subtle);
+  border-color: var(--paper-border);
+}
+
+[data-theme="dark"] .comment-input,
+[data-theme="dark"] .comment-author-input {
+  background: var(--card-bg);
+  border-color: var(--paper-border);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .quick-panata-btn {
+  background: var(--card-bg);
+  border-color: var(--paper-border);
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] .quick-panata-btn:hover {
+  background: var(--gold-soft);
+  color: var(--gold-bright);
+}
+
+[data-theme="dark"] .site-footer {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   KALASAG REPORT BANNER & 8. BUTTON MICRO-MOTION & 9. PARTICLE CANVAS
+   ========================================================================== */
+
+/* Dynamic Kalasag Report Banner */
+.kalasag-report-banner {
+  background: linear-gradient(135deg, rgba(216, 74, 56, 0.1) 0%, rgba(197, 152, 40, 0.12) 100%);
+  border: 1.5px solid var(--coral);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+  animation: fadeIn 0.3s var(--ease-out-soft);
+}
+
+.report-banner-icon {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+.report-banner-content {
+  flex: 1;
+}
+
+.report-banner-content h4 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--coral);
+  margin: 0 0 0.25rem;
+}
+
+.report-banner-content p {
+  font-size: 0.92rem;
+  color: var(--text-dark);
+  margin: 0 0 0.4rem;
+  line-height: 1.45;
+}
+
+.report-banner-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: rgba(247, 201, 72, 0.3);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+}
+
+/* 8. Button Micro-motion (Motion Inventory #8)
+   Primary buttons lift on hover (translateY(-2px) + shadow deepen, 180ms)
+   and press down on active (translateY(0)).
+   Click of 'Ipahayag' and 'I-post' buttons expands subtle gold ring from click point (300ms). */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--dur-fast) var(--ease-out-soft),
+              box-shadow var(--dur-fast) var(--ease-out-soft),
+              background var(--dur-fast) var(--ease-out-soft);
+}
+
+.btn--gold {
+  box-shadow: 0 4px 14px -2px rgba(197, 152, 40, 0.4);
+}
+
+.btn--gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px -3px rgba(197, 152, 40, 0.55);
+}
+
+.btn--gold:active {
+  transform: translateY(0);
+}
+
+.btn-gold-ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--gold-bright);
+  background: rgba(247, 201, 72, 0.2);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  animation: goldRingExpand 300ms var(--ease-out-soft) forwards;
+}
+
+@keyframes goldRingExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--gold:hover {
+    transform: none !important;
+  }
+  .btn-gold-ripple {
+    display: none !important;
+  }
+}
+
+/* 9. Particle Canvas (Motion Inventory #9) */
+.particle-burst-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000000;
+}
+
+

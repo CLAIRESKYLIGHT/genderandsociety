@@ -1,0 +1,103 @@
+/* ==========================================================================
+   BENA — Hablon Design Tokens & Variables
+   Inspired by pre-colonial Filipino goldwork (Surigao / Agusan),
+   inabel/t'nalak indigenous weaves, and deep ritual midnight sky.
+   ========================================================================== */
+
+:root {
+  /* Hablon Motion Design System ("The Weaving") */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 600ms;
+  --dur-ambient: 24s;
+
+  /* Color Palette — Handwoven Rice Parchment (Light Mode) */
+  --ink:          #130E26;       /* Deep Ritual Midnight */
+  --ink-surface:  #1E163B;       /* Secondary dark surface */
+  --ink-card:     #251C47;       /* Dark card background */
+  
+  --paper:        #FAF3E0;       /* Warm Handwoven Rice Parchment */
+  --paper-subtle: #F3E9CE;       /* Neutral warm surface */
+  --paper-border: #DFD0AC;       /* Subtle golden-beige border */
+  --card-bg:      #FFFDF7;       /* Card bright surface */
+  
+  --gold-primary: #C59828;       /* Traditional Filipino Gold */
+  --gold-bright:  #F7C948;       /* Sunray Radiance Gold */
+  --gold-glow:    rgba(247, 201, 72, 0.35);
+  --gold-soft:    #FDF5D9;
+  
+  --coral:        #D84A38;       /* Katutubong Terracotta & Clay */
+  --coral-soft:   rgba(216, 74, 56, 0.12);
+  
+  --teal:         #1F6E5B;       /* Ancient Forest Jade */
+  --teal-soft:    rgba(31, 110, 91, 0.12);
+  
+  --purple:       #6B4C85;       /* Babaylan Ritual Amethyst */
+  --purple-soft:  rgba(107, 76, 133, 0.12);
+
+  --text-dark:    #211A34;       /* Primary High-contrast Text */
+  --text-muted:   #5E5572;       /* Secondary Muted Text */
+  --text-light:   #FAF3E0;       /* Inverted text */
+  --text-on-gold: #241A00;       /* Text on gold backgrounds */
+
+  /* Typography */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Elevation & Radii */
+  --radius-sm:    8px;
+  --radius-md:    14px;
+  --radius-lg:    22px;
+  --radius-full:  9999px;
+  
+  --shadow-sm:    0 2px 8px -2px rgba(19, 14, 38, 0.08);
+  --shadow-md:    0 8px 24px -6px rgba(19, 14, 38, 0.12);
+  --shadow-lg:    0 18px 40px -10px rgba(19, 14, 38, 0.22);
+  --shadow-gold:  0 8px 25px -4px rgba(197, 152, 40, 0.35);
+
+  /* Transitions */
+  --tr-fast:      var(--dur-fast) var(--ease-out-soft);
+  --tr-normal:    var(--dur-base) var(--ease-out-soft);
+}
+
+/* ==========================================================================
+   Dark Mode ("Gabi ng mga Ninuno")
+   Deep ritual obsidian, warm golden embers, and sacred amethyst
+   ========================================================================== */
+[data-theme="dark"] {
+  --ink:          #0A0618;
+  --ink-surface:  #140E2A;
+  --ink-card:     #1D153B;
+  
+  --paper:        #110C24;       /* Deep warm dark background */
+  --paper-subtle: #191233;       /* Surface slightly elevated */
+  --paper-border: #352A56;       /* Subtle dark border */
+  --card-bg:      #1B1438;       /* Card dark surface */
+  
+  --gold-primary: #E5B643;       /* Elevated luminous gold for dark mode */
+  --gold-bright:  #FBD767;
+  --gold-glow:    rgba(251, 215, 103, 0.28);
+  --gold-soft:    rgba(247, 201, 72, 0.12);
+  
+  --coral:        #FF6C58;
+  --coral-soft:   rgba(255, 108, 88, 0.16);
+  
+  --teal:         #2EB394;
+  --teal-soft:    rgba(46, 179, 148, 0.16);
+  
+  --purple:       #B286D8;
+  --purple-soft:  rgba(178, 134, 216, 0.2);
+
+  --text-dark:    #F6F2FF;       /* High-contrast crisp light text */
+  --text-muted:   #ABA0C7;       /* Soft readable secondary text */
+  --text-light:   #110C24;
+  --text-on-gold: #1A1200;
+
+  --shadow-sm:    0 2px 10px -2px rgba(0, 0, 0, 0.5);
+  --shadow-md:    0 8px 26px -6px rgba(0, 0, 0, 0.65);
+  --shadow-lg:    0 20px 48px -10px rgba(0, 0, 0, 0.8);
+  --shadow-gold:  0 8px 28px -4px rgba(247, 201, 72, 0.22);
+}
