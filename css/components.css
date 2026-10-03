@@ -132,41 +132,16 @@
   opacity: 0.95;
 }
 
-/* ── Keyframes for Hanging Leaf Swaying in Canopy Breeze ────────────── */
-@keyframes leafHangSway1 {
-  0% { transform: rotate(-2.5deg) translateY(0); }
-  50% { transform: rotate(-0.5deg) translateY(-6px); }
-  100% { transform: rotate(-2.5deg) translateY(0); }
-}
-
-@keyframes leafHangSway2 {
-  0% { transform: rotate(2.5deg) translateY(0); }
-  50% { transform: rotate(0.8deg) translateY(-7px); }
-  100% { transform: rotate(2.5deg) translateY(0); }
-}
-
-@keyframes leafHangSway3 {
-  0% { transform: rotate(-1.5deg) translateY(0); }
-  50% { transform: rotate(0.5deg) translateY(-5px); }
-  100% { transform: rotate(-1.5deg) translateY(0); }
-}
-
-@keyframes leafBudGlow {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.25); opacity: 1; filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.8)); }
-}
-
-/* ── 3. Daily Filipino Pride Reminder Banner (Sacred Bodhi Leaf) ─────── */
+/* ── 3. Daily Filipino Pride Reminder Banner ────────────────────────── */
 .quotes-banner {
   background: linear-gradient(140deg, #FCFAF2 0%, #F5F7EE 45%, #EEF4E8 100%);
   border: 2px solid rgba(59, 110, 74, 0.45);
-  border-radius: 46px 14px 46px 14px;
+  border-radius: 28px 12px 28px 12px;
   padding: var(--space-6) var(--space-8);
   margin-bottom: var(--space-12);
   position: relative;
   overflow: visible;
   box-shadow: 0 6px 24px rgba(27, 58, 47, 0.08), inset 0 0 28px rgba(142, 188, 133, 0.14);
-  animation: leafHangSway3 9s ease-in-out infinite alternate;
 }
 
 [data-theme="dark"] .quotes-banner {
@@ -248,7 +223,7 @@
   margin-top: var(--space-4);
 }
 
-/* ── 4. "Walang Kasarian ang Talento" Section & Organic Hanging Leaves ── */
+/* ── 4. "Walang Kasarian ang Talento" Section & Achievement Cards ────── */
 .section-header-block {
   text-align: center;
   max-width: 800px;
@@ -311,21 +286,21 @@
   color: #1A1A1A;
 }
 
-/* Achievements Grid (Organic Hanging Canopy Bough) */
+/* Achievements Grid (Clean, Perfectly Aligned Grid) */
 .achievements-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 40px 28px;
+  gap: 28px;
   margin-bottom: var(--space-16);
   position: relative;
-  padding-top: var(--space-4);
+  padding-top: var(--space-2);
 }
 
-/* Organic Leaf Cards Hanging From Implied Canopy Bough */
+/* Clean, Balanced Leaf Cards */
 .achievement-card {
   background: linear-gradient(145deg, #FCFBF7 0%, #F5F9F1 50%, #ECF5E8 100%);
   border: 2px solid rgba(46, 115, 69, 0.45);
-  border-radius: 48px 12px 48px 12px;
+  border-radius: 28px 10px 28px 10px;
   padding: var(--space-6) var(--space-6) var(--space-6) calc(var(--space-6) + 10px);
   display: flex;
   flex-direction: column;
@@ -333,10 +308,9 @@
   cursor: pointer;
   position: relative;
   overflow: visible;
-  transform-origin: 30px -10px;
-  transition: transform 0.35s var(--ease-out-soft),
-              box-shadow 0.35s var(--ease-out-soft),
-              border-color 0.35s var(--ease-out-soft);
+  transition: transform 0.25s var(--ease-out-soft),
+              box-shadow 0.25s var(--ease-out-soft),
+              border-color 0.25s var(--ease-out-soft);
 }
 
 [data-theme="dark"] .achievement-card {
@@ -345,68 +319,20 @@
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45), inset 0 0 24px rgba(0, 0, 0, 0.6);
 }
 
-/* Staggered Hanging Offsets & Organic Alternating Leaf Shapes */
-.achievement-card:nth-child(1) {
-  border-radius: 48px 12px 48px 12px;
-  margin-top: 0;
-  animation: leafHangSway1 7.2s ease-in-out infinite alternate;
-}
-
-.achievement-card:nth-child(2) {
-  border-radius: 12px 48px 12px 48px;
-  margin-top: 24px;
-  transform-origin: calc(100% - 30px) -10px;
-  animation: leafHangSway2 8s ease-in-out infinite alternate 0.4s;
-}
-
-.achievement-card:nth-child(3) {
-  border-radius: 44px 16px 44px 16px;
-  margin-top: -8px;
-  animation: leafHangSway3 7.6s ease-in-out infinite alternate 0.9s;
-}
-
-.achievement-card:nth-child(4) {
-  border-radius: 16px 46px 16px 46px;
-  margin-top: 22px;
-  transform-origin: calc(100% - 30px) -10px;
-  animation: leafHangSway2 8.4s ease-in-out infinite alternate 1.3s;
-}
-
-.achievement-card:nth-child(5) {
-  border-radius: 46px 14px 46px 14px;
-  margin-top: 6px;
-  animation: leafHangSway1 6.8s ease-in-out infinite alternate 0.7s;
-}
-
-.achievement-card:nth-child(6) {
-  border-radius: 14px 46px 14px 46px;
-  margin-top: 28px;
-  transform-origin: calc(100% - 30px) -10px;
-  animation: leafHangSway3 8.2s ease-in-out infinite alternate 1.1s;
-}
-
 /* Sprouting Green Vine Stem (Petiole) Connecting Card to Bough */
 .achievement-card::before {
   content: '';
   position: absolute;
-  top: -16px;
+  top: -14px;
   left: 24px;
-  width: 28px;
-  height: 20px;
-  border-left: 3.5px solid var(--color-canopy-mid);
-  border-top: 3.5px solid var(--color-canopy-mid);
-  border-top-left-radius: 16px;
+  width: 24px;
+  height: 16px;
+  border-left: 3px solid var(--color-canopy-mid);
+  border-top: 3px solid var(--color-canopy-mid);
+  border-top-left-radius: 14px;
   pointer-events: none;
   z-index: 2;
   filter: drop-shadow(0 2px 3px rgba(59, 110, 74, 0.35));
-}
-
-.achievement-card:nth-child(even)::before {
-  left: auto;
-  right: 24px;
-  border-left: none;
-  border-right: 3.5px solid var(--color-canopy-mid);
-  border-top-right-radius: 16px;
 }
 
 /* Translucent Central Leaf Vein running along the card */
@@ -421,17 +347,11 @@
   pointer-events: none;
 }
 
-.achievement-card:nth-child(even)::after {
-  left: auto;
-  right: 24px;
-}
-
-/* Hover State: Leaf gently lifts and illuminates */
+/* Hover State: Card gently lifts without rotating */
 .achievement-card:hover {
-  animation-play-state: paused;
-  transform: translateY(-8px) rotate(0deg) scale(1.02) !important;
+  transform: translateY(-5px);
   border-color: var(--color-accent-gold);
-  box-shadow: 0 14px 34px rgba(27, 58, 47, 0.16), 0 0 28px rgba(201, 162, 39, 0.3);
+  box-shadow: 0 12px 30px rgba(27, 58, 47, 0.16), 0 0 24px rgba(201, 162, 39, 0.25);
 }
 
 .achievement-header {
@@ -540,26 +460,26 @@
   color: var(--color-accent-gold-light);
 }
 
-/* ── 6. "Kailangan Mong Malaman" Factual Cards (Hanging Herbal Folios) ── */
+/* ── 6. "Kailangan Mong Malaman" Factual Cards ─────────────────────── */
 .facts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 36px 28px;
+  gap: 24px;
   margin-bottom: var(--space-16);
-  padding-top: var(--space-4);
+  padding-top: var(--space-2);
 }
 
 .fact-card {
   background: linear-gradient(135deg, #FDFBF7 0%, #F7F3E6 100%);
   border: 1.5px solid var(--color-border-gold);
-  border-radius: 38px 10px 38px 10px;
+  border-radius: 24px 8px 24px 8px;
   padding: var(--space-6);
   box-shadow: var(--shadow-sm), inset 0 0 16px rgba(181, 148, 88, 0.06);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: visible;
-  transition: transform 0.35s var(--ease-out-soft), box-shadow 0.35s var(--ease-out-soft);
+  transition: transform 0.25s var(--ease-out-soft), box-shadow 0.25s var(--ease-out-soft);
 }
 
 [data-theme="dark"] .fact-card {
@@ -568,44 +488,23 @@
   box-shadow: var(--shadow-sm), inset 0 0 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Staggered Hanging Tilts for Fact Cards */
-.fact-card:nth-child(odd) {
-  border-radius: 38px 10px 38px 10px;
-  animation: leafHangSway1 8.5s ease-in-out infinite alternate;
-}
-
-.fact-card:nth-child(even) {
-  border-radius: 10px 38px 10px 38px;
-  margin-top: 18px;
-  animation: leafHangSway2 9s ease-in-out infinite alternate 0.5s;
-}
-
 /* Hanging Tendril Stem for Fact Leaf */
 .fact-card::before {
   content: '';
   position: absolute;
-  top: -14px;
+  top: -12px;
   left: 22px;
-  width: 24px;
-  height: 16px;
-  border-left: 2.8px solid var(--color-canopy-mid);
-  border-top: 2.8px solid var(--color-canopy-mid);
-  border-top-left-radius: 14px;
+  width: 22px;
+  height: 14px;
+  border-left: 2.5px solid var(--color-canopy-mid);
+  border-top: 2.5px solid var(--color-canopy-mid);
+  border-top-left-radius: 12px;
   pointer-events: none;
 }
 
-.fact-card:nth-child(even)::before {
-  left: auto;
-  right: 22px;
-  border-left: none;
-  border-right: 2.8px solid var(--color-canopy-mid);
-  border-top-right-radius: 14px;
-}
-
 .fact-card:hover {
-  animation-play-state: paused;
-  transform: translateY(-6px) rotate(0deg) scale(1.02) !important;
-  box-shadow: var(--shadow-md), 0 0 20px rgba(201, 162, 39, 0.25);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md), 0 0 20px rgba(201, 162, 39, 0.2);
 }
 
 .fact-card-title {
@@ -838,20 +737,125 @@
   color: var(--color-accent-clay);
 }
 
-/* ── 9. Yakap Welcome Modal & Generic Modals ─────────────────────────── */
+/* ── 9. Scroll-Following Guiding Candle Beacon ────────────────────────── */
+.scroll-follow-candle-beacon {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px) scale(0.85);
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out-soft),
+              transform 0.4s var(--ease-out-soft),
+              filter 0.3s ease;
+}
+
+.scroll-follow-candle-beacon.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.beacon-candle-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(201, 162, 39, 0.5);
+  border-radius: 999px;
+  padding: 10px 14px;
+  box-shadow: 0 8px 26px rgba(27, 58, 47, 0.15), 0 0 20px rgba(201, 162, 39, 0.35);
+  transition: transform 0.25s var(--ease-out-soft), box-shadow 0.25s ease;
+}
+
+[data-theme="dark"] .beacon-candle-body {
+  background: rgba(18, 32, 24, 0.88);
+  border-color: rgba(201, 162, 39, 0.7);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 24px rgba(201, 162, 39, 0.45);
+}
+
+.beacon-glow-halo {
+  position: absolute;
+  top: -12px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.6) 0%, rgba(201, 162, 39, 0.1) 60%, transparent 80%);
+  pointer-events: none;
+  animation: beaconPulse 3s ease-in-out infinite alternate;
+}
+
+.beacon-flame-svg {
+  width: 22px;
+  height: 30px;
+  filter: drop-shadow(0 0 8px rgba(201, 162, 39, 0.9));
+  animation: beaconFlicker 2.5s ease-in-out infinite alternate;
+}
+
+.beacon-wax {
+  width: 14px;
+  height: 18px;
+  background: linear-gradient(180deg, #FAF6EE 0%, #E5DCB8 100%);
+  border-radius: 3px;
+  margin-top: -2px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+}
+
+.beacon-tooltip {
+  margin-top: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-accent-gold);
+  background: rgba(15, 31, 24, 0.9);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.scroll-follow-candle-beacon:hover .beacon-candle-body {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 12px 36px rgba(27, 58, 47, 0.2), 0 0 32px rgba(201, 162, 39, 0.6);
+}
+
+@keyframes beaconPulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.25); opacity: 1; }
+}
+
+@keyframes beaconFlicker {
+  0% { transform: rotate(-2deg) scale(0.96); }
+  50% { transform: rotate(3deg) scale(1.05); }
+  100% { transform: rotate(-1deg) scale(1); }
+}
+
+/* ── 10. Yakap Welcome Modal with Animated Leaf Embrace ───────────────── */
 .modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(15, 31, 24, 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(10, 24, 18, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-4);
   opacity: 1;
-  transition: opacity var(--dur-base) ease;
+  transition: opacity 0.45s ease;
 }
 
 .modal-overlay.is-hidden {
@@ -860,45 +864,150 @@
   visibility: hidden;
 }
 
-.modal-box {
-  background: var(--color-surface);
-  border: 2px solid var(--color-border-gold);
-  border-radius: var(--radius-card);
-  padding: var(--space-8);
-  max-width: 600px;
-  width: 100%;
-  box-shadow: var(--shadow-lg), 0 0 32px rgba(201, 162, 39, 0.2);
+.yakap-stage {
   position: relative;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-width: 620px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Embracing Leaf Wings (Hugging Animation) */
+.yakap-leaf-wing {
+  position: absolute;
+  top: 50%;
+  width: 140px;
+  height: 280px;
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+}
+
+.yakap-leaf-wing.wing--left {
+  left: -48px;
+  transform-origin: 100% 50%;
+  transform: translateY(-50%) rotate(-35deg) scale(0.7);
+  opacity: 0;
+}
+
+.yakap-leaf-wing.wing--right {
+  right: -48px;
+  transform-origin: 0% 50%;
+  transform: translateY(-50%) rotate(35deg) scale(0.7);
+  opacity: 0;
+}
+
+/* Trigger the Hug When Modal is Visible */
+.modal-overlay:not(.is-hidden) .yakap-leaf-wing.wing--left {
+  animation: leafHugLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s,
+             leafHugBreath 6s ease-in-out infinite alternate 1.35s;
+}
+
+.modal-overlay:not(.is-hidden) .yakap-leaf-wing.wing--right {
+  animation: leafHugRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s,
+             leafHugBreath 6s ease-in-out infinite alternate 1.35s;
+}
+
+@keyframes leafHugLeft {
+  0% { transform: translateY(-50%) rotate(-45deg) scale(0.6); opacity: 0; }
+  60% { transform: translateY(-50%) rotate(6deg) scale(1.05); opacity: 1; }
+  100% { transform: translateY(-50%) rotate(0deg) scale(1); opacity: 0.95; }
+}
+
+@keyframes leafHugRight {
+  0% { transform: translateY(-50%) rotate(45deg) scale(0.6); opacity: 0; }
+  60% { transform: translateY(-50%) rotate(-6deg) scale(1.05); opacity: 1; }
+  100% { transform: translateY(-50%) rotate(0deg) scale(1); opacity: 0.95; }
+}
+
+@keyframes leafHugBreath {
+  0% { transform: translateY(-50%) scale(1); }
+  100% { transform: translateY(-50%) scale(1.03); }
+}
+
+.leaf-hug-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .yakap-modal-box {
+  background: linear-gradient(145deg, #FCFBF7 0%, #F5F9F1 60%, #ECF5E8 100%);
+  border: 2px solid rgba(201, 162, 39, 0.65);
+  border-radius: 46px 16px 46px 16px;
+  padding: var(--space-8) var(--space-8);
+  max-width: 540px;
+  width: 100%;
   text-align: center;
-  border-color: rgba(201, 162, 39, 0.6);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3), 0 0 36px rgba(201, 162, 39, 0.25);
+  animation: yakapBoxEmerge 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.yakap-halo {
-  width: 76px;
-  height: 76px;
-  margin: 0 auto var(--space-4);
-  color: var(--color-accent-gold);
-  filter: drop-shadow(0 0 12px rgba(201, 162, 39, 0.6));
+[data-theme="dark"] .yakap-modal-box {
+  background: linear-gradient(145deg, #17281F 0%, #122119 60%, #0E1A13 100%);
+  border-color: rgba(201, 162, 39, 0.7);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 40px rgba(201, 162, 39, 0.35);
+}
+
+@keyframes yakapBoxEmerge {
+  0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.yakap-halo-aura {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.45) 0%, rgba(201, 162, 39, 0.1) 60%, transparent 80%);
+  pointer-events: none;
+}
+
+.yakap-emblem-badge {
+  font-size: 1.6rem;
+  margin-bottom: var(--space-2);
+  filter: drop-shadow(0 2px 8px rgba(201, 162, 39, 0.5));
 }
 
 .yakap-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: var(--color-canopy-deep);
   margin-bottom: var(--space-4);
+  letter-spacing: -0.01em;
 }
 
 .yakap-copy {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
-  line-height: 1.75;
+  font-size: 1.15rem;
+  line-height: 1.7;
   color: var(--color-text-primary);
   margin-bottom: var(--space-6);
-  white-space: pre-line;
+}
+
+.yakap-lead {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-canopy-mid);
+  margin-bottom: var(--space-2);
+}
+
+.yakap-highlight {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--color-accent-clay);
+  margin: var(--space-3) 0;
+}
+
+.yakap-whisper {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-2);
 }
 
 .yakap-actions {
@@ -909,7 +1018,122 @@
   flex-wrap: wrap;
 }
 
-/* ── 10. Toasts ──────────────────────────────────────────────────────── */
+/* ── 11. References (Sanggunian) — Traditional Bibliography List ─────── */
+#footerReferencesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-top: var(--space-4);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 110, 74, 0.3) transparent;
+}
+
+.modern-ref-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-4) 0 var(--space-4) var(--space-5);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+  position: relative;
+  /* Hanging indent via padding-left, with a subtle left marker */
+  text-indent: 0;
+  transition: background 0.2s ease;
+}
+
+.modern-ref-card:last-child {
+  border-bottom: none;
+}
+
+.modern-ref-card::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  top: var(--space-4);
+  color: var(--color-accent-gold);
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.modern-ref-card:hover {
+  background: rgba(201, 162, 39, 0.04);
+  border-radius: 4px;
+}
+
+.modern-ref-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.modern-ref-type-badge {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(59, 110, 74, 0.12);
+  color: var(--color-canopy-mid);
+  border: 1px solid rgba(59, 110, 74, 0.25);
+}
+
+[data-theme="dark"] .modern-ref-type-badge {
+  background: rgba(201, 162, 39, 0.15);
+  color: var(--color-accent-gold);
+  border-color: rgba(201, 162, 39, 0.35);
+}
+
+.modern-ref-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.1);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  color: var(--color-accent-gold);
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.modern-ref-copy-btn:hover {
+  background: var(--color-accent-gold);
+  color: #1A1A1A;
+  transform: scale(1.1);
+}
+
+.modern-ref-biblio-line {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.modern-ref-author-name {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.modern-ref-title-em {
+  color: var(--color-canopy-deep);
+  font-style: italic;
+}
+
+.modern-ref-source {
+  font-size: 0.92rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── 12. Toasts ──────────────────────────────────────────────────────── */
 .toast-container {
   position: fixed;
   bottom: var(--space-6);
@@ -941,4 +1165,33 @@
 .toast.is-visible {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* Responsive Modal Leaf Wings on Mobile */
+@media (max-width: 640px) {
+  .yakap-leaf-wing {
+    width: 90px;
+    height: 180px;
+  }
+  .yakap-leaf-wing.wing--left {
+    left: -20px;
+  }
+  .yakap-leaf-wing.wing--right {
+    right: -20px;
+  }
+  .yakap-modal-box {
+    padding: var(--space-6) var(--space-4);
+    border-radius: 32px 12px 32px 12px;
+  }
+  .yakap-title {
+    font-size: 1.7rem;
+  }
+  .yakap-copy {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .scroll-follow-candle-beacon {
+    bottom: 18px;
+    right: 18px;
+  }
 }

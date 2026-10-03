@@ -13,7 +13,7 @@ import { State } from './state.js';
 import { escapeHTML, getDayOfYear } from './utils.js';
 import { showToast } from './toast.js';
 import { initRouter } from './router.js';
-import { initFallingLeaves, initScrollReveal, triggerPledgeBurst, initVineSpine } from './motion.js';
+import { initFallingLeaves, initScrollCandle, initScrollReveal, triggerPledgeBurst, initVineSpine } from './motion.js';
 
 /* ==========================================================================
    1. THEME MANAGEMENT
@@ -333,6 +333,9 @@ function initBook() {
     });
   }
 
+  // Connect floating scroll-follow candle
+  initScrollCandle(openBook);
+
   if (closeBtn) closeBtn.addEventListener('click', closeBook);
   if (modal) {
     modal.addEventListener('click', e => {
@@ -430,13 +433,12 @@ function initShield() {
 }
 
 /* ==========================================================================
-   8. FOOTER SANGGUNIAN (REFERENCES & CREDITS)
+   7. MODERN SANGGUNIAN (ARCHIVAL REFERENCES & CITATIONS)
    ========================================================================== */
 function initFooter() {
   const refList = document.getElementById('footerReferencesList');
   const refFilters = document.querySelectorAll('.ref-filter-pill');
 
-  // References
   let activeRefFilter = 'Lahat';
 
   const typeMap = {
@@ -448,6 +450,15 @@ function initFooter() {
     'SOGIESC': 'sogiesc'
   };
 
+  const typeBadgeMap = {
+    'theory': { label: 'Teorya', icon: '📖' },
+    'history': { label: 'Kasaysayan', icon: '🏛️' },
+    'law': { label: 'Batas', icon: '⚖️' },
+    'data': { label: 'Datos', icon: '📊' },
+    'sogiesc': { label: 'SOGIESC', icon: '🏳️‍🌈' },
+    'philippine-gender': { label: 'Kasarian sa PH', icon: '🇵🇭' }
+  };
+
   function renderReferences() {
     if (!refList || !REFERENCES) return;
     refList.innerHTML = '';
@@ -456,20 +467,41 @@ function initFooter() {
     const filtered = REFERENCES.filter(r => targetType === 'all' || r.type === targetType);
 
     filtered.forEach(r => {
-      const item = document.createElement('div');
-      item.style.padding = 'var(--space-3)';
-      item.style.borderLeft = '2.5px solid var(--color-accent-gold)';
-      item.style.background = 'var(--color-bg)';
-      item.style.borderRadius = '0 var(--radius-sm) var(--radius-sm) 0';
-      item.style.marginBottom = 'var(--space-2)';
+      const entry = document.createElement('div');
+      entry.className = 'modern-ref-card';
 
-      const yearStr = r.year ? ` (${r.year})` : '';
-      item.innerHTML = `
-        <p style="font-size: 0.88rem; line-height: 1.4;">
-          <strong>${escapeHTML(r.author)}</strong>${yearStr}. <em>${escapeHTML(r.title)}</em>. ${escapeHTML(r.source)}.
-        </p>
-      `;
-      refList.appendChild(item);
+      const badge = typeBadgeMap[r.type] || { label: r.type, icon: '&#x1F4DC;' };
+      const yearStr = r.year ? ' (' + r.year + ')' : '';
+      const fullCitation = r.author + yearStr + '. ' + r.title + '. ' + r.source + '.';
+
+      entry.innerHTML =
+        '<div class="modern-ref-header">' +
+          '<span class="modern-ref-type-badge">' + badge.icon + ' ' + escapeHTML(badge.label) + '</span>' +
+          '<button type="button" class="modern-ref-copy-btn" aria-label="Kopyahin ang sitasyon">' +
+            '<span aria-hidden="true">&#x1F4CB;</span>' +
+          '</button>' +
+        '</div>' +
+        '<p class="modern-ref-biblio-line">' +
+          '<strong class="modern-ref-author-name">' + escapeHTML(r.author) + '</strong>' +
+          escapeHTML(yearStr) + '. ' +
+          '<em class="modern-ref-title-em">' + escapeHTML(r.title) + '</em>. ' +
+          '<span class="modern-ref-source">' + escapeHTML(r.source) + '</span>.' +
+        '</p>';
+
+      entry.querySelector('.modern-ref-copy-btn').addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(fullCitation);
+            showToast('Nakopya ang sitasyon!', 'success');
+          } else {
+            showToast('Sitasyon: ' + fullCitation);
+          }
+        } catch {
+          showToast('Nakopya ang sitasyon!', 'success');
+        }
+      });
+
+      refList.appendChild(entry);
     });
   }
 
@@ -548,3 +580,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initFooter();
   initDataModals();
 });
+

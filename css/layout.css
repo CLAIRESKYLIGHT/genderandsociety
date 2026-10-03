@@ -149,19 +149,9 @@
   stroke: #8EBC85;
 }
 
-/* Leaf clusters — ambient & scroll-driven sway */
+/* Leaf clusters along central vine */
 .vine-cluster {
-  transition: transform 0.45s var(--ease-out-soft);
-  transform-origin: 0 0;
   filter: drop-shadow(0 2px 6px rgba(27, 58, 47, 0.3));
-}
-
-body.is-scrolling .vine-cluster:nth-child(odd) {
-  transform: rotate(-4deg) scale(1.05);
-}
-
-body.is-scrolling .vine-cluster:nth-child(even) {
-  transform: rotate(4deg) scale(1.05);
 }
 
 /* Ensure all content sections sit comfortably above the background vine canvas */

@@ -1,22 +1,417 @@
 /* ==========================================================================
    BENA — "Aklat ng Paalala" (Small Book of Reminders)
-   3D Page-turn animation, sacred parchment feel, progress dots
+   Realistic open hardcover book — dual-page spread, center spine crease,
+   leather casing, gold ribbon bookmark, parchment texture, 3D page turn.
    ========================================================================== */
 
+/* ── Book Overlay Backdrop ────────────────────────────────────────────── */
 .book-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(15, 31, 24, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(10, 22, 16, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-4);
   opacity: 1;
-  transition: opacity var(--dur-base) ease;
+  transition: opacity 0.4s ease;
 }
+
+.book-modal-overlay.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ── Outer Book Perspective Container ─────────────────────────────────── */
+.book-viewport {
+  perspective: 1800px;
+  width: 100%;
+  max-width: 820px;
+  position: relative;
+}
+
+/* ── The Book Frame (Hardcover Leather Casing) ────────────────────────── */
+.book-frame {
+  position: relative;
+  background: linear-gradient(160deg, #2A1A0F 0%, #1A0E08 60%, #0F0905 100%);
+  border-radius: 6px 16px 16px 6px;
+  box-shadow:
+    -8px 0 24px rgba(0, 0, 0, 0.6),
+    0 24px 60px rgba(0, 0, 0, 0.7),
+    0 0 0 1.5px rgba(201, 162, 39, 0.4),
+    inset 0 1px 0 rgba(255, 240, 180, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 500px;
+  transform-style: preserve-3d;
+}
+
+/* Gold gilded edges */
+.book-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  border-top: 2px solid rgba(201, 162, 39, 0.55);
+  border-bottom: 2px solid rgba(201, 162, 39, 0.45);
+  border-right: 2px solid rgba(201, 162, 39, 0.5);
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+}
+
+/* ── Leather Spine ─────────────────────────────────────────────────────── */
+.book-spine-binding {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 22px;
+  background: linear-gradient(90deg,
+    #1A0E08 0%, #3B2012 22%, #2A1A0F 42%,
+    #4D3010 55%, #2A1A0F 75%, #1A0E08 100%);
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.5), inset -2px 0 8px rgba(0, 0, 0, 0.4);
+  z-index: 20;
+  border-right: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.book-spine-binding::before,
+.book-spine-binding::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.6), transparent);
+}
+
+.book-spine-binding::before { top: 24px; }
+.book-spine-binding::after  { bottom: 24px; }
+
+/* ── Gold Ribbon Bookmark ─────────────────────────────────────────────── */
+.book-ribbon-bookmark {
+  position: absolute;
+  top: 0;
+  left: 68px;
+  width: 13px;
+  z-index: 25;
+  pointer-events: none;
+}
+
+.book-ribbon-bookmark::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 13px;
+  height: 76px;
+  background: linear-gradient(180deg, #E8B800 0%, #C9A227 55%, #B89020 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 50% 100%, 0 82%);
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Open Pages Wrapper ────────────────────────────────────────────────── */
+.book-content-container {
+  display: flex;
+  flex: 1;
+  margin-left: 22px;
+  position: relative;
+}
+
+/* Center gutter / spine crease shadow */
+.book-content-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 44px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.06) 25%,
+    rgba(0, 0, 0, 0.18) 45%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0.18) 55%,
+    rgba(0, 0, 0, 0.06) 75%,
+    transparent 100%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ── Left Page ─────────────────────────────────────────────────────────── */
+.book-page-left {
+  flex: 1;
+  background: linear-gradient(135deg, #FEFCF5 0%, #FAF5E4 40%, #F5EDD0 100%);
+  padding: var(--space-8) var(--space-6) var(--space-6) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.book-page-left::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 24px,
+    rgba(181, 148, 88, 0.05) 24px,
+    rgba(181, 148, 88, 0.05) 25px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Right Page ─────────────────────────────────────────────────────────── */
+.book-page-right {
+  flex: 1;
+  background: linear-gradient(225deg, #FEFCF5 0%, #FAF5E4 40%, #F3EBC8 100%);
+  padding: var(--space-8) var(--space-8) var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.book-page-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 24px,
+    rgba(181, 148, 88, 0.05) 24px,
+    rgba(181, 148, 88, 0.05) 25px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.book-page-left > *,
+.book-page-right > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Book Header ────────────────────────────────────────────────────────── */
+.book-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  border-bottom: 1.5px solid rgba(181, 148, 88, 0.28);
+  margin-bottom: var(--space-5);
+}
+
+.book-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(111, 78, 22, 0.65);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.book-close-btn {
+  font-size: 1.35rem;
+  color: rgba(111, 78, 22, 0.45);
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--dur-fast) ease, transform var(--dur-fast) ease;
+}
+
+.book-close-btn:hover {
+  color: rgba(111, 78, 22, 0.9);
+  transform: scale(1.2);
+}
+
+/* ── Page Body ──────────────────────────────────────────────────────────── */
+.book-page-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-4) 0;
+  transform-style: preserve-3d;
+}
+
+.book-page-stage.page-turn-forward {
+  animation: bookPageTurnForward 700ms cubic-bezier(0.42, 0, 0.58, 1) forwards;
+}
+
+.book-page-stage.page-turn-backward {
+  animation: bookPageTurnBackward 700ms cubic-bezier(0.42, 0, 0.58, 1) forwards;
+}
+
+@keyframes bookPageTurnForward {
+  0%   { opacity: 1; transform: rotateY(0deg) scale(1); }
+  40%  { opacity: 0.12; transform: rotateY(-42deg) scale(0.96); }
+  100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+}
+
+@keyframes bookPageTurnBackward {
+  0%   { opacity: 1; transform: rotateY(0deg) scale(1); }
+  40%  { opacity: 0.12; transform: rotateY(42deg) scale(0.96); }
+  100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+}
+
+/* ── Parchment Typography ───────────────────────────────────────────────── */
+.book-page-tl {
+  font-family: Georgia, var(--font-heading);
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #3A1F06;
+  white-space: pre-line;
+  margin-bottom: var(--space-4);
+  max-width: 330px;
+  text-align: center;
+  position: relative;
+  padding: 0 var(--space-3);
+}
+
+.book-page-tl::before {
+  content: '\201C';
+  position: absolute;
+  top: -14px;
+  left: -8px;
+  font-size: 4rem;
+  color: rgba(201, 162, 39, 0.28);
+  font-family: Georgia, serif;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.book-page-en {
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: rgba(58, 31, 6, 0.5);
+  white-space: pre-line;
+  max-width: 300px;
+  line-height: 1.65;
+}
+
+/* ── Final CTA ──────────────────────────────────────────────────────────── */
+.book-final-cta-wrap {
+  margin-top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ── Page Number ────────────────────────────────────────────────────────── */
+.book-page-number {
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  color: rgba(111, 78, 22, 0.4);
+  text-align: center;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-2);
+}
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.book-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1.5px solid rgba(181, 148, 88, 0.22);
+  padding-top: var(--space-3);
+  margin-top: var(--space-2);
+  position: relative;
+  z-index: 1;
+}
+
+.book-dots-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.book-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(181, 148, 88, 0.28);
+  transition: all var(--dur-fast) ease;
+}
+
+.book-dot.is-active {
+  background: #C9A227;
+  transform: scale(1.5);
+  box-shadow: 0 0 6px rgba(201, 162, 39, 0.5);
+}
+
+/* ── Dark Theme ─────────────────────────────────────────────────────────── */
+[data-theme="dark"] .book-frame {
+  background: linear-gradient(160deg, #180D07 0%, #0F0804 60%, #080502 100%);
+}
+
+[data-theme="dark"] .book-page-left,
+[data-theme="dark"] .book-page-right {
+  background: linear-gradient(135deg, #22180F 0%, #1B1209 40%, #150E06 100%);
+}
+
+[data-theme="dark"] .book-page-tl { color: #EDD9AA; }
+[data-theme="dark"] .book-page-en { color: rgba(220, 195, 150, 0.55); }
+[data-theme="dark"] .book-badge   { color: rgba(201, 162, 39, 0.5); }
+[data-theme="dark"] .book-close-btn { color: rgba(201, 162, 39, 0.45); }
+[data-theme="dark"] .book-close-btn:hover { color: var(--color-accent-gold); }
+[data-theme="dark"] .book-page-number { color: rgba(201, 162, 39, 0.35); }
+
+/* ── Mobile: Stacked pages ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .book-content-container {
+    flex-direction: column;
+  }
+
+  .book-content-container::before { display: none; }
+
+  .book-page-left {
+    padding: var(--space-6) var(--space-5) var(--space-4) var(--space-5);
+  }
+
+  .book-page-right {
+    padding: var(--space-4) var(--space-5) var(--space-6) var(--space-5);
+    border-top: 1.5px solid rgba(181, 148, 88, 0.18);
+  }
+
+  .book-page-tl { font-size: 1.28rem; max-width: 100%; }
+  .book-page-en { font-size: 0.86rem; max-width: 100%; }
+  .book-ribbon-bookmark { left: 50px; }
+
+  .book-frame {
+    border-radius: 4px 12px 12px 4px;
+    min-height: 420px;
+  }
+
+  .book-viewport { max-width: 100%; }
+}
+
+
+
 
 .book-modal-overlay.is-hidden {
   opacity: 0;
