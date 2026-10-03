@@ -1,0 +1,60 @@
+/* ==========================================================================
+   BENA — Utility Classes & Accessibility Helpers
+   ========================================================================== */
+
+/* Visually Hidden (Screen-reader only) */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Accessible Focus Rings (Never outline: none) */
+:focus-visible {
+  outline: 2.5px solid var(--color-accent-gold) !important;
+  outline-offset: 3px !important;
+}
+
+/* Skeleton Loaders with Soft Shimmer */
+.skeleton {
+  background: linear-gradient(90deg, var(--color-border) 25%, var(--color-surface) 50%, var(--color-border) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.8s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Display & Spacing Utilities */
+.is-hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.font-italic {
+  font-style: italic !important;
+}
+
+.accent-gold {
+  color: var(--color-accent-gold) !important;
+}
+
+.accent-clay {
+  color: var(--color-accent-clay) !important;
+}

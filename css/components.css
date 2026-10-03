@@ -1,0 +1,944 @@
+/* ==========================================================================
+   BENA — Components Styles (Codex & Historical Manuscript Aesthetics)
+   Sanctuary Candle, Illuminated Plates, Ancient Folios, Altar, Shrine
+   ========================================================================== */
+
+/* ── 1. Buttons ──────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 10px 22px;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out-soft);
+  position: relative;
+  border: 1.5px solid transparent;
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #B89020 100%);
+  color: #1A1A1A;
+  box-shadow: var(--shadow-gold);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(201, 162, 39, 0.45);
+}
+
+.btn--ghost {
+  background: rgba(201, 162, 39, 0.06);
+  border-color: var(--color-accent-gold);
+  color: var(--color-accent-gold);
+}
+
+.btn--ghost:hover {
+  background: rgba(201, 162, 39, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn--sm {
+  padding: 6px 14px;
+  font-size: 0.82rem;
+}
+
+.btn--lg {
+  padding: 14px 28px;
+  font-size: 1.05rem;
+}
+
+/* ── 2. Floating Sanctuary Candle ────────────────────────────────────── */
+.sanctuary-candle-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: var(--space-6) auto;
+  cursor: pointer;
+  width: fit-content;
+  position: relative;
+  text-decoration: none;
+}
+
+.sanctuary-candle {
+  width: 68px;
+  height: 96px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform var(--dur-base) var(--ease-out-soft);
+}
+
+.candle-glow-aura {
+  position: absolute;
+  top: -26px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.5) 0%, rgba(201, 162, 39, 0.12) 55%, transparent 70%);
+  pointer-events: none;
+  transition: transform var(--dur-base) ease, opacity var(--dur-base) ease;
+}
+
+.candle-flame-svg {
+  width: 26px;
+  height: 38px;
+  z-index: 2;
+  margin-bottom: -4px;
+  filter: drop-shadow(0 0 10px rgba(201, 162, 39, 0.8));
+}
+
+.candle-wax-body {
+  width: 30px;
+  height: 56px;
+  background: linear-gradient(180deg, #FAF6EE 0%, #E5DCB8 100%);
+  border-radius: 6px 6px 4px 4px;
+  border: 1.5px solid rgba(201, 162, 39, 0.35);
+  box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.9), 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .candle-wax-body {
+  background: linear-gradient(180deg, #E5DCB8 0%, #B8A882 100%);
+}
+
+.candle-invitation-label {
+  margin-top: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-accent-gold);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 4px rgba(201, 162, 39, 0.2);
+}
+
+.sanctuary-candle-wrap:hover .sanctuary-candle {
+  transform: translateY(-4px) scale(1.05);
+}
+
+.sanctuary-candle-wrap:hover .candle-glow-aura {
+  transform: scale(1.25);
+  opacity: 0.95;
+}
+
+/* ── Keyframes for Hanging Leaf Swaying in Canopy Breeze ────────────── */
+@keyframes leafHangSway1 {
+  0% { transform: rotate(-2.5deg) translateY(0); }
+  50% { transform: rotate(-0.5deg) translateY(-6px); }
+  100% { transform: rotate(-2.5deg) translateY(0); }
+}
+
+@keyframes leafHangSway2 {
+  0% { transform: rotate(2.5deg) translateY(0); }
+  50% { transform: rotate(0.8deg) translateY(-7px); }
+  100% { transform: rotate(2.5deg) translateY(0); }
+}
+
+@keyframes leafHangSway3 {
+  0% { transform: rotate(-1.5deg) translateY(0); }
+  50% { transform: rotate(0.5deg) translateY(-5px); }
+  100% { transform: rotate(-1.5deg) translateY(0); }
+}
+
+@keyframes leafBudGlow {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.25); opacity: 1; filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.8)); }
+}
+
+/* ── 3. Daily Filipino Pride Reminder Banner (Sacred Bodhi Leaf) ─────── */
+.quotes-banner {
+  background: linear-gradient(140deg, #FCFAF2 0%, #F5F7EE 45%, #EEF4E8 100%);
+  border: 2px solid rgba(59, 110, 74, 0.45);
+  border-radius: 46px 14px 46px 14px;
+  padding: var(--space-6) var(--space-8);
+  margin-bottom: var(--space-12);
+  position: relative;
+  overflow: visible;
+  box-shadow: 0 6px 24px rgba(27, 58, 47, 0.08), inset 0 0 28px rgba(142, 188, 133, 0.14);
+  animation: leafHangSway3 9s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .quotes-banner {
+  background: linear-gradient(140deg, #18281E 0%, #132419 60%, #0F1E14 100%);
+  border-color: rgba(90, 163, 115, 0.55);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Hanging Tendril Stem anchoring the Daily Reminder Leaf */
+.quotes-banner::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 36px;
+  width: 32px;
+  height: 22px;
+  border-left: 3.5px solid var(--color-canopy-mid);
+  border-top: 3.5px solid var(--color-canopy-mid);
+  border-top-left-radius: 18px;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(59, 110, 74, 0.3));
+}
+
+.quotes-banner-shimmer {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+}
+
+.quotes-banner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.quotes-badge {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-canopy-mid);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+[data-theme="dark"] .quotes-badge {
+  color: var(--color-accent-gold);
+}
+
+.quote-text-tl {
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+  line-height: 1.45;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+  transition: opacity var(--dur-fast) ease;
+}
+
+.quote-text-en {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  transition: opacity var(--dur-fast) ease;
+}
+
+.quotes-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* ── 4. "Walang Kasarian ang Talento" Section & Organic Hanging Leaves ── */
+.section-header-block {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto var(--space-8);
+}
+
+.section-title {
+  font-size: 2.3rem;
+  color: var(--color-canopy-deep);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.01em;
+}
+
+.section-sub {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+/* Filter Pills */
+.filter-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.filter-pill-btn {
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--dur-fast) var(--ease-out-soft);
+}
+
+.filter-pill-btn:hover {
+  border-color: var(--color-accent-gold);
+  color: var(--color-text-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.filter-pill-btn.is-active {
+  background: linear-gradient(135deg, var(--color-canopy-deep) 0%, #2D5845 100%);
+  border-color: var(--color-canopy-deep);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(27, 58, 47, 0.25);
+}
+
+[data-theme="dark"] .filter-pill-btn.is-active {
+  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #B89020 100%);
+  border-color: var(--color-accent-gold);
+  color: #1A1A1A;
+}
+
+/* Achievements Grid (Organic Hanging Canopy Bough) */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px 28px;
+  margin-bottom: var(--space-16);
+  position: relative;
+  padding-top: var(--space-4);
+}
+
+/* Organic Leaf Cards Hanging From Implied Canopy Bough */
+.achievement-card {
+  background: linear-gradient(145deg, #FCFBF7 0%, #F5F9F1 50%, #ECF5E8 100%);
+  border: 2px solid rgba(46, 115, 69, 0.45);
+  border-radius: 48px 12px 48px 12px;
+  padding: var(--space-6) var(--space-6) var(--space-6) calc(var(--space-6) + 10px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 22px rgba(27, 58, 47, 0.08), inset 0 0 24px rgba(142, 188, 133, 0.15);
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+  transform-origin: 30px -10px;
+  transition: transform 0.35s var(--ease-out-soft),
+              box-shadow 0.35s var(--ease-out-soft),
+              border-color 0.35s var(--ease-out-soft);
+}
+
+[data-theme="dark"] .achievement-card {
+  background: linear-gradient(145deg, #18281E 0%, #132419 60%, #0F1E14 100%);
+  border-color: rgba(90, 163, 115, 0.5);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45), inset 0 0 24px rgba(0, 0, 0, 0.6);
+}
+
+/* Staggered Hanging Offsets & Organic Alternating Leaf Shapes */
+.achievement-card:nth-child(1) {
+  border-radius: 48px 12px 48px 12px;
+  margin-top: 0;
+  animation: leafHangSway1 7.2s ease-in-out infinite alternate;
+}
+
+.achievement-card:nth-child(2) {
+  border-radius: 12px 48px 12px 48px;
+  margin-top: 24px;
+  transform-origin: calc(100% - 30px) -10px;
+  animation: leafHangSway2 8s ease-in-out infinite alternate 0.4s;
+}
+
+.achievement-card:nth-child(3) {
+  border-radius: 44px 16px 44px 16px;
+  margin-top: -8px;
+  animation: leafHangSway3 7.6s ease-in-out infinite alternate 0.9s;
+}
+
+.achievement-card:nth-child(4) {
+  border-radius: 16px 46px 16px 46px;
+  margin-top: 22px;
+  transform-origin: calc(100% - 30px) -10px;
+  animation: leafHangSway2 8.4s ease-in-out infinite alternate 1.3s;
+}
+
+.achievement-card:nth-child(5) {
+  border-radius: 46px 14px 46px 14px;
+  margin-top: 6px;
+  animation: leafHangSway1 6.8s ease-in-out infinite alternate 0.7s;
+}
+
+.achievement-card:nth-child(6) {
+  border-radius: 14px 46px 14px 46px;
+  margin-top: 28px;
+  transform-origin: calc(100% - 30px) -10px;
+  animation: leafHangSway3 8.2s ease-in-out infinite alternate 1.1s;
+}
+
+/* Sprouting Green Vine Stem (Petiole) Connecting Card to Bough */
+.achievement-card::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 24px;
+  width: 28px;
+  height: 20px;
+  border-left: 3.5px solid var(--color-canopy-mid);
+  border-top: 3.5px solid var(--color-canopy-mid);
+  border-top-left-radius: 16px;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 2px 3px rgba(59, 110, 74, 0.35));
+}
+
+.achievement-card:nth-child(even)::before {
+  left: auto;
+  right: 24px;
+  border-left: none;
+  border-right: 3.5px solid var(--color-canopy-mid);
+  border-top-right-radius: 16px;
+}
+
+/* Translucent Central Leaf Vein running along the card */
+.achievement-card::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 24px;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(46, 115, 69, 0.45) 0%, rgba(201, 162, 39, 0.25) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.achievement-card:nth-child(even)::after {
+  left: auto;
+  right: 24px;
+}
+
+/* Hover State: Leaf gently lifts and illuminates */
+.achievement-card:hover {
+  animation-play-state: paused;
+  transform: translateY(-8px) rotate(0deg) scale(1.02) !important;
+  border-color: var(--color-accent-gold);
+  box-shadow: 0 14px 34px rgba(27, 58, 47, 0.16), 0 0 28px rgba(201, 162, 39, 0.3);
+}
+
+.achievement-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.achievement-category {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(59, 110, 74, 0.12);
+  color: var(--color-canopy-mid);
+  border: 1px solid rgba(59, 110, 74, 0.25);
+}
+
+[data-theme="dark"] .achievement-category {
+  background: rgba(90, 147, 108, 0.16);
+  color: #A7D590;
+  border-color: rgba(90, 147, 108, 0.35);
+}
+
+.achievement-name {
+  font-size: 1.45rem;
+  color: var(--color-canopy-deep);
+  margin-bottom: var(--space-2);
+}
+
+.achievement-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+  flex-grow: 1;
+}
+
+.achievement-why-snippet {
+  background: rgba(201, 162, 39, 0.1);
+  border-left: 3.5px solid var(--color-accent-gold);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--color-text-primary);
+}
+
+/* ── 5. Babaylan Spotlight Panel (Ancestral Forest Canopy Shrine) ─────── */
+.babaylan-shrine-card {
+  background: linear-gradient(135deg, #17281F 0%, #0F1D16 100%);
+  color: #E8EFE6;
+  border: 2px solid var(--color-border-gold);
+  border-radius: 44px 16px 44px 16px;
+  padding: var(--space-12) var(--space-8);
+  margin-bottom: var(--space-16);
+  position: relative;
+  box-shadow: var(--shadow-lg), inset 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Hanging Tendril Accent for Babaylan */
+.babaylan-shrine-card::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 40px;
+  width: 32px;
+  height: 22px;
+  border-left: 3.5px solid var(--color-accent-gold);
+  border-top: 3.5px solid var(--color-accent-gold);
+  border-top-left-radius: 18px;
+  pointer-events: none;
+}
+
+.babaylan-accent-line {
+  width: 80px;
+  height: 3.5px;
+  background: linear-gradient(90deg, var(--color-accent-gold) 0%, transparent 100%);
+  margin-bottom: var(--space-4);
+}
+
+.babaylan-title {
+  font-size: 2.3rem;
+  color: #FFFFFF;
+  margin-bottom: var(--space-4);
+}
+
+.babaylan-body {
+  font-size: 1.12rem;
+  line-height: 1.75;
+  color: #D8E4DA;
+  max-width: 840px;
+  margin-bottom: var(--space-4);
+}
+
+.babaylan-nuance-box {
+  border-top: 1px solid rgba(201, 162, 39, 0.3);
+  padding-top: var(--space-4);
+  margin-top: var(--space-6);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-accent-gold-light);
+}
+
+/* ── 6. "Kailangan Mong Malaman" Factual Cards (Hanging Herbal Folios) ── */
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 36px 28px;
+  margin-bottom: var(--space-16);
+  padding-top: var(--space-4);
+}
+
+.fact-card {
+  background: linear-gradient(135deg, #FDFBF7 0%, #F7F3E6 100%);
+  border: 1.5px solid var(--color-border-gold);
+  border-radius: 38px 10px 38px 10px;
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm), inset 0 0 16px rgba(181, 148, 88, 0.06);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: visible;
+  transition: transform 0.35s var(--ease-out-soft), box-shadow 0.35s var(--ease-out-soft);
+}
+
+[data-theme="dark"] .fact-card {
+  background: linear-gradient(135deg, #1A2A20 0%, #152219 100%);
+  border-color: var(--color-border-gold);
+  box-shadow: var(--shadow-sm), inset 0 0 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Staggered Hanging Tilts for Fact Cards */
+.fact-card:nth-child(odd) {
+  border-radius: 38px 10px 38px 10px;
+  animation: leafHangSway1 8.5s ease-in-out infinite alternate;
+}
+
+.fact-card:nth-child(even) {
+  border-radius: 10px 38px 10px 38px;
+  margin-top: 18px;
+  animation: leafHangSway2 9s ease-in-out infinite alternate 0.5s;
+}
+
+/* Hanging Tendril Stem for Fact Leaf */
+.fact-card::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 22px;
+  width: 24px;
+  height: 16px;
+  border-left: 2.8px solid var(--color-canopy-mid);
+  border-top: 2.8px solid var(--color-canopy-mid);
+  border-top-left-radius: 14px;
+  pointer-events: none;
+}
+
+.fact-card:nth-child(even)::before {
+  left: auto;
+  right: 22px;
+  border-left: none;
+  border-right: 2.8px solid var(--color-canopy-mid);
+  border-top-right-radius: 14px;
+}
+
+.fact-card:hover {
+  animation-play-state: paused;
+  transform: translateY(-6px) rotate(0deg) scale(1.02) !important;
+  box-shadow: var(--shadow-md), 0 0 20px rgba(201, 162, 39, 0.25);
+}
+
+.fact-card-title {
+  font-size: 1.3rem;
+  color: var(--color-canopy-deep);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+  padding-bottom: var(--space-2);
+}
+
+.fact-card-text {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--space-4);
+  flex-grow: 1;
+}
+
+.fact-content-warning {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent-clay);
+  background: rgba(181, 83, 42, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-2);
+}
+
+/* ── 7. Wall of Truth & Vow Composer (Sacred Altar) ───────────────────── */
+.wall-of-truth-section {
+  background: linear-gradient(180deg, #FDFBF7 0%, #F5EFE0 100%);
+  border: 2px solid var(--color-border-gold);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+  margin-bottom: var(--space-16);
+  box-shadow: var(--shadow-md), inset 0 0 32px rgba(181, 148, 88, 0.1);
+}
+
+[data-theme="dark"] .wall-of-truth-section {
+  background: linear-gradient(180deg, #18281E 0%, #132018 100%);
+  border-color: var(--color-border-gold);
+  box-shadow: var(--shadow-md), inset 0 0 32px rgba(0, 0, 0, 0.5);
+}
+
+.vow-form-card {
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border-gold);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  max-width: 700px;
+  margin: 0 auto var(--space-8);
+  box-shadow: var(--shadow-sm);
+}
+
+.vow-pledge-text {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.25rem;
+  text-align: center;
+  color: var(--color-canopy-deep);
+  margin-bottom: var(--space-4);
+  line-height: 1.45;
+}
+
+.vow-textarea {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 96px;
+  margin-bottom: var(--space-2);
+}
+
+.vow-textarea:focus {
+  outline: 2.5px solid var(--color-accent-gold) !important;
+  border-color: var(--color-accent-gold);
+}
+
+.vow-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.vow-char-counter {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.vow-privacy-note {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: var(--space-3);
+}
+
+.vows-wall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: var(--space-4);
+}
+
+.vow-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.vow-card--seeded {
+  border-left: 4px solid var(--color-accent-gold);
+}
+
+.vow-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.vow-author {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-accent-gold);
+}
+
+.vow-delete-btn {
+  font-size: 0.78rem;
+  color: var(--color-accent-clay);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.vow-text {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-text-primary);
+}
+
+/* ── 8. Kalasag Shield & Refuge Components ───────────────────────────── */
+.shield-guidelines-card, .shield-hotlines-card, .shield-ally-card, .shield-privacy-card {
+  background: linear-gradient(135deg, #FDFBF7 0%, #F6F1E3 100%);
+  border: 1.5px solid var(--color-border-gold);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .shield-guidelines-card,
+[data-theme="dark"] .shield-hotlines-card,
+[data-theme="dark"] .shield-ally-card,
+[data-theme="dark"] .shield-privacy-card {
+  background: linear-gradient(135deg, #1A2A20 0%, #152219 100%);
+}
+
+.guidelines-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.guideline-item {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.guideline-num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-accent-gold);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.hotlines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.hotline-card {
+  background: var(--color-bg);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  padding: var(--space-4);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all var(--dur-fast) ease;
+}
+
+.hotline-card:hover {
+  border-color: var(--color-accent-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.hotline-name {
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--color-text-primary);
+}
+
+.hotline-number {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  color: var(--color-accent-gold);
+  font-weight: 700;
+}
+
+.hotline-verify {
+  font-size: 0.78rem;
+  color: var(--color-accent-clay);
+}
+
+/* ── 9. Yakap Welcome Modal & Generic Modals ─────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 31, 24, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  opacity: 1;
+  transition: opacity var(--dur-base) ease;
+}
+
+.modal-overlay.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.modal-box {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border-gold);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+  max-width: 600px;
+  width: 100%;
+  box-shadow: var(--shadow-lg), 0 0 32px rgba(201, 162, 39, 0.2);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.yakap-modal-box {
+  text-align: center;
+  border-color: rgba(201, 162, 39, 0.6);
+}
+
+.yakap-halo {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto var(--space-4);
+  color: var(--color-accent-gold);
+  filter: drop-shadow(0 0 12px rgba(201, 162, 39, 0.6));
+}
+
+.yakap-title {
+  font-size: 2rem;
+  color: var(--color-canopy-deep);
+  margin-bottom: var(--space-4);
+}
+
+.yakap-copy {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  line-height: 1.75;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-6);
+  white-space: pre-line;
+}
+
+.yakap-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ── 10. Toasts ──────────────────────────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-accent-gold);
+  border-radius: var(--radius-btn);
+  padding: 12px 20px;
+  box-shadow: var(--shadow-md);
+  font-size: 0.94rem;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  pointer-events: auto;
+  transform: translateY(12px);
+  opacity: 0;
+  transition: all var(--dur-base) var(--ease-out-soft);
+}
+
+.toast.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+}

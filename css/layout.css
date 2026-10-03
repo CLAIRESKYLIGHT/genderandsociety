@@ -1,0 +1,598 @@
+/* ==========================================================================
+   BENA — Layout Styles
+   Canopy background layers, Woven Vine Spine on Scroll, Header "Sanga", 2 Tabs
+   ========================================================================== */
+
+/* ── 1. Canopy Ambient Background Layering ───────────────────────────── */
+.canopy-ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.canopy-photo-layer {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/forest-canopy.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  opacity: 0.09;
+  filter: saturate(1.15) contrast(1.05);
+  transition: opacity var(--dur-base) ease;
+}
+
+[data-theme="dark"] .canopy-photo-layer {
+  opacity: 0.14;
+  filter: brightness(0.85) contrast(1.15);
+}
+
+.canopy-radial-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 35%, rgba(247, 245, 236, 0.4) 0%, rgba(247, 245, 236, 0.85) 60%, var(--color-bg) 100%);
+  transition: background var(--dur-base) ease;
+}
+
+[data-theme="dark"] .canopy-radial-vignette {
+  background: radial-gradient(ellipse at 50% 35%, rgba(15, 31, 24, 0.35) 0%, rgba(15, 31, 24, 0.85) 60%, var(--color-bg) 100%);
+}
+
+/* ── 2. Container & Base Page Layout ─────────────────────────────────── */
+.site-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: calc(var(--space-4) + 24px);
+  padding-right: var(--space-4);
+  position: relative;
+}
+
+.page {
+  display: none;
+  width: 100%;
+  padding-bottom: var(--space-16);
+  position: relative;
+}
+
+.page.is-active {
+  display: block;
+}
+
+/* ── 3. Flowing Central Vine Canvas (Connects All Home Sections) ───────── */
+.tahanan-container {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.tahanan-flow-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flow-vine-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Central Climbing Vine Stem */
+.vine-main-stem {
+  fill: none;
+  stroke: var(--color-canopy-mid);
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* Scroll-driven thread draw animation */
+  stroke-dasharray: 4800;
+  stroke-dashoffset: 4800;
+  transition: stroke var(--dur-base) ease;
+  filter: drop-shadow(0 0 8px rgba(59, 110, 74, 0.45));
+}
+
+[data-theme="dark"] .vine-main-stem {
+  stroke: #5A936C;
+  filter: drop-shadow(0 0 10px rgba(90, 147, 108, 0.6));
+}
+
+/* Secondary Braided Vine Tendril (Intertwined Spiral through center) */
+.vine-secondary-stem {
+  fill: none;
+  stroke: #8EBC85;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 8 4;
+  opacity: 0.75;
+  filter: drop-shadow(0 0 4px rgba(201, 162, 39, 0.25));
+  transition: stroke var(--dur-base) ease;
+}
+
+[data-theme="dark"] .vine-secondary-stem {
+  stroke: #C9A227;
+  opacity: 0.65;
+}
+
+/* Branching Tendril Shoots reaching into Content Cards */
+.vine-tendril-branch {
+  fill: none;
+  stroke: var(--color-canopy-mid);
+  stroke-width: 2.2px;
+  stroke-linecap: round;
+  stroke-dasharray: 5 3;
+  opacity: 0.82;
+  transition: stroke var(--dur-base) ease;
+}
+
+[data-theme="dark"] .vine-tendril-branch {
+  stroke: #8EBC85;
+}
+
+/* Leaf clusters — ambient & scroll-driven sway */
+.vine-cluster {
+  transition: transform 0.45s var(--ease-out-soft);
+  transform-origin: 0 0;
+  filter: drop-shadow(0 2px 6px rgba(27, 58, 47, 0.3));
+}
+
+body.is-scrolling .vine-cluster:nth-child(odd) {
+  transform: rotate(-4deg) scale(1.05);
+}
+
+body.is-scrolling .vine-cluster:nth-child(even) {
+  transform: rotate(4deg) scale(1.05);
+}
+
+/* Ensure all content sections sit comfortably above the background vine canvas */
+.hero-section,
+.quotes-banner,
+#talentoSection,
+.babaylan-shrine-card,
+#factsSection {
+  position: relative;
+  z-index: 2;
+}
+
+/* Old vine-spine-track — keep for Kalasag backward compat */
+.vine-spine-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 8px;
+  width: 32px;
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vine-spine-svg {
+  width: 24px;
+  height: 100%;
+  overflow: visible;
+}
+
+.vine-spine-path {
+  stroke: var(--color-canopy-mid);
+  stroke-width: 2.2px;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 6 4;
+  opacity: 0.65;
+  transition: stroke-dashoffset 0.1s linear, stroke var(--dur-base) ease;
+}
+
+[data-theme="dark"] .vine-spine-path {
+  stroke: var(--color-accent-gold);
+  opacity: 0.55;
+}
+
+/* Dynamic Leaf Nodes along the Vine Spine */
+.vine-leaf-node {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  color: var(--color-canopy-mid);
+  transition: transform 0.25s var(--ease-out-soft), color var(--dur-base) ease;
+  will-change: transform;
+}
+
+.vine-leaf-node.node--gold {
+  color: var(--color-accent-gold);
+}
+
+.vine-leaf-node.side--left {
+  left: -10px;
+  transform: rotate(-35deg);
+}
+
+.vine-leaf-node.side--right {
+  right: -10px;
+  transform: rotate(35deg);
+}
+
+/* When user scrolls, body gets scrolling class to gently sway leaves */
+body.is-scrolling .vine-leaf-node.side--left {
+  transform: rotate(-45deg) translateY(-2px);
+}
+
+body.is-scrolling .vine-leaf-node.side--right {
+  transform: rotate(45deg) translateY(-2px);
+}
+
+
+/* ── 4. Modern Glassmorphic Header & Capsule Navigation ───────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 12px var(--space-4);
+  background: transparent;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(59, 110, 74, 0.18);
+  border-radius: 999px;
+  box-shadow: 0 8px 30px rgba(27, 58, 47, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all var(--dur-base) ease;
+}
+
+[data-theme="dark"] .header-inner {
+  background: rgba(14, 26, 19, 0.88);
+  border-color: rgba(201, 162, 39, 0.28);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-sun-emblem {
+  width: 40px;
+  height: 40px;
+  color: var(--color-accent-gold);
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px rgba(201, 162, 39, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.brand-wrap:hover .brand-sun-emblem {
+  transform: rotate(15deg) scale(1.06);
+}
+
+.brand-sun-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-canopy-deep);
+  line-height: 1.1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.brand-baybayin {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-accent-gold);
+  text-shadow: 0 0 8px rgba(201, 162, 39, 0.3);
+}
+
+.brand-subtitle {
+  font-size: 0.74rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* Modern Capsule Nav */
+.modern-nav-capsule {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(59, 110, 74, 0.08);
+  border: 1px solid rgba(59, 110, 74, 0.16);
+  border-radius: 999px;
+  padding: 4px;
+}
+
+[data-theme="dark"] .modern-nav-capsule {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(201, 162, 39, 0.22);
+}
+
+.leaf-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 18px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.22s var(--ease-out-soft);
+  border: 1px solid transparent;
+}
+
+.nav-tab-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.nav-tab-label {
+  letter-spacing: 0.01em;
+}
+
+.leaf-tab-btn:hover {
+  color: var(--color-text-primary);
+  background: rgba(59, 110, 74, 0.06);
+}
+
+.leaf-tab-btn.is-active {
+  background: linear-gradient(135deg, var(--color-canopy-deep) 0%, #2D5845 100%);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(27, 58, 47, 0.22);
+}
+
+[data-theme="dark"] .leaf-tab-btn.is-active {
+  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #B89020 100%);
+  color: #1A1A1A !important;
+  box-shadow: 0 4px 14px rgba(201, 162, 39, 0.35);
+}
+
+/* Header Actions: Modern Theme switch & Yakap pill */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modern-theme-btn, .modern-yakap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(59, 110, 74, 0.2);
+  background: rgba(59, 110, 74, 0.06);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out-soft);
+}
+
+.modern-theme-btn:hover {
+  background: rgba(59, 110, 74, 0.12);
+  border-color: var(--color-canopy-mid);
+  transform: translateY(-1px);
+}
+
+.modern-yakap-btn {
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.14) 0%, rgba(201, 162, 39, 0.06) 100%);
+  border-color: var(--color-accent-gold);
+  color: var(--color-accent-gold);
+  font-weight: 700;
+}
+
+.modern-yakap-btn:hover {
+  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #B89020 100%);
+  color: #1A1A1A;
+  box-shadow: 0 4px 14px rgba(201, 162, 39, 0.35);
+  transform: translateY(-1px);
+}
+
+.theme-toggle-btn, .header-help-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--dur-fast) var(--ease-out-soft);
+}
+
+.theme-toggle-btn:hover, .header-help-btn:hover {
+  border-color: var(--color-accent-gold);
+  color: var(--color-text-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── 5. Main Hero Section ────────────────────────────────────────────── */
+.hero-section {
+  position: relative;
+  text-align: center;
+  padding: var(--space-12) var(--space-4) var(--space-12);
+  margin-bottom: var(--space-8);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 25%, rgba(201, 162, 39, 0.12) 0%, transparent 70%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+  background: rgba(201, 162, 39, 0.15);
+  border: 1.5px solid var(--color-border-gold);
+  color: var(--color-accent-gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-4);
+  box-shadow: 0 2px 8px rgba(201, 162, 39, 0.15);
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1.1;
+  color: var(--color-canopy-deep);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
+}
+
+.hero-message {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.45rem;
+  color: var(--color-accent-clay);
+  margin-bottom: var(--space-3);
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  max-width: 680px;
+  margin: 0 auto var(--space-6);
+  line-height: 1.65;
+}
+
+/* ── 6. Footer Layout ────────────────────────────────────────────────── */
+.site-footer {
+  margin-top: auto;
+  border-top: 2px solid var(--color-border-gold);
+  background: var(--color-surface-parchment);
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-8);
+  box-shadow: inset 0 6px 20px rgba(181, 148, 88, 0.08);
+  transition: background-color var(--dur-base) ease;
+}
+
+[data-theme="dark"] .site-footer {
+  background: var(--color-surface);
+  box-shadow: inset 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.footer-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--color-canopy-deep);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footer-copy-bar {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-6);
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    padding: 8px var(--space-2);
+  }
+  .header-inner {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+  .brand-subtitle {
+    display: none;
+  }
+  .brand-title {
+    font-size: 1.15rem;
+  }
+  .brand-sun-emblem {
+    width: 32px;
+    height: 32px;
+  }
+  .leaf-tab-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    gap: 4px;
+  }
+  .modern-theme-btn {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+  .modern-yakap-btn {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+  .hero-section {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+  .tahanan-container {
+    padding: 0 var(--space-3);
+  }
+}

@@ -1,103 +1,205 @@
 /* ==========================================================================
-   BENA — Hablon Design Tokens & Variables
-   Inspired by pre-colonial Filipino goldwork (Surigao / Agusan),
-   inabel/t'nalak indigenous weaves, and deep ritual midnight sky.
+   BENA — Forest Canopy Design System & Tokens
+   Concept: Standing under a sunlit forest canopy, looking up.
+   A warm, sunlit, safe forest where light filters through leaves
+   and everything feels calm, breathing, and alive.
    ========================================================================== */
 
 :root {
-  /* Hablon Motion Design System ("The Weaving") */
-  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  /* ── Motion System: Breath of the Forest ─────────────────────────────── */
+  --ease-breath:      cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-leaf:        cubic-bezier(0.34, 1.3, 0.64, 1);
+  --ease-out-soft:    cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-fast: 180ms;
-  --dur-base: 320ms;
-  --dur-slow: 600ms;
-  --dur-ambient: 24s;
 
-  /* Color Palette — Handwoven Rice Parchment (Light Mode) */
-  --ink:          #130E26;       /* Deep Ritual Midnight */
-  --ink-surface:  #1E163B;       /* Secondary dark surface */
-  --ink-card:     #251C47;       /* Dark card background */
-  
-  --paper:        #FAF3E0;       /* Warm Handwoven Rice Parchment */
-  --paper-subtle: #F3E9CE;       /* Neutral warm surface */
-  --paper-border: #DFD0AC;       /* Subtle golden-beige border */
-  --card-bg:      #FFFDF7;       /* Card bright surface */
-  
-  --gold-primary: #C59828;       /* Traditional Filipino Gold */
-  --gold-bright:  #F7C948;       /* Sunray Radiance Gold */
-  --gold-glow:    rgba(247, 201, 72, 0.35);
-  --gold-soft:    #FDF5D9;
-  
-  --coral:        #D84A38;       /* Katutubong Terracotta & Clay */
-  --coral-soft:   rgba(216, 74, 56, 0.12);
-  
-  --teal:         #1F6E5B;       /* Ancient Forest Jade */
-  --teal-soft:    rgba(31, 110, 91, 0.12);
-  
-  --purple:       #6B4C85;       /* Babaylan Ritual Amethyst */
-  --purple-soft:  rgba(107, 76, 133, 0.12);
+  --dur-fast:         240ms;
+  --dur-base:         500ms;
+  --dur-slow:         850ms;
+  --dur-xslow:        1400ms;
+  --dur-ambient:      24s;
+  --dur-breath:       4200ms;
 
-  --text-dark:    #211A34;       /* Primary High-contrast Text */
-  --text-muted:   #5E5572;       /* Secondary Muted Text */
-  --text-light:   #FAF3E0;       /* Inverted text */
-  --text-on-gold: #241A00;       /* Text on gold backgrounds */
+  /* ── Forest Palette (Sunlit Canopy & Glade) ─────────────────────────── */
+
+  /* Deep Understory Greens */
+  --forest-understory: #112217;
+  --forest-deep:       #183222;
+  --forest-dark:       #20402d;
+  --forest-card:       #193524;
+
+  /* Mid Leaf Greens */
+  --leaf-mid:          #2e5f3f;
+  --leaf-forest:       #38744e;
+  --leaf-emerald:      #458a5e;
+  --leaf-glass:        rgba(56, 116, 78, 0.12);
+
+  /* Sunlit Leaf Greens */
+  --leaf-sunlit:       #64a85c;
+  --leaf-bright:       #82c575;
+  --leaf-pale:         #c9ecc0;
+  --leaf-dew:          #e6f7e0;
+  --leaf-glow:         rgba(130, 197, 117, 0.35);
+
+  /* Soft Sky Blue Peeking Through */
+  --sky-soft:          #d5eaf5;
+  --sky-glade:         #a1cbe2;
+  --sky-azure:         #67a3c8;
+  --sky-mist:          rgba(213, 234, 245, 0.65);
+  --sky-glass:         rgba(161, 203, 226, 0.16);
+
+  /* Accent: Warm Forest Gold (Active state, sunlight rays, sparingly) */
+  --gold-primary:      #d49d24;
+  --gold-bright:       #f5c642;
+  --gold-pale:         #fef4d2;
+  --gold-glow:         rgba(245, 198, 66, 0.35);
+  --gold-glass:        rgba(245, 198, 66, 0.14);
+
+  /* Accent: Terracotta Earth (Warm accent, sparingly, no gender coding) */
+  --terracotta:        #c65e3e;
+  --terracotta-soft:   rgba(198, 94, 62, 0.14);
+  --terracotta-glow:   rgba(198, 94, 62, 0.28);
+
+  /* Legacy mappings for seamless compatibility */
+  --coral:             var(--terracotta);
+  --coral-soft:        var(--terracotta-soft);
+  --rose:              var(--terracotta);
+  --rose-soft:         var(--terracotta-soft);
+  --teal-dark:         var(--forest-deep);
+  --teal-primary:      var(--leaf-forest);
+  --teal-bright:       var(--leaf-sunlit);
+  --teal-glass:        var(--leaf-glass);
+  --teal-soft:         rgba(56, 116, 78, 0.12);
+  --thread-gold:       var(--gold-bright);
+  --thread-teal:       var(--leaf-sunlit);
+  --thread-rose:       var(--terracotta);
+  --thread-width:      2.5px;
+
+  /* Neutrals: Sun-dappled parchment & forest soil */
+  --ink:               #112016;   /* Deepest understory */
+  --ink-mid:           #1e3626;
+  --card-dark:         #182f21;
+  --paper:             #f7faf5;   /* Warm sunlit glade parchment */
+  --paper-subtle:      #edf4ea;
+  --paper-border:      #d4e3cf;
+  --card-bg:           rgba(255, 255, 255, 0.90);
+
+  /* Text */
+  --text-primary:      #122217;
+  --text-muted:        #425e4d;
+  --text-light:        #f7faf5;
+  --text-on-gold:      #1d1f14;
+  --text-dark:         #122217;
+
+  /* Glass surfaces */
+  --glass-white:       rgba(255, 255, 255, 0.75);
+  --glass-dark:        rgba(17, 34, 23, 0.65);
+  --glass-border:      rgba(56, 116, 78, 0.16);
+  --glass-blur:        16px;
 
   /* Typography */
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body:    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+  --font-display:      "Playfair Display", Georgia, serif;
+  --font-body:         "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:         "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Branch & Foliage */
+  --branch-color:      #4a3728;
+  --branch-light:      #6b523e;
+  --branch-bark:       #372619;
+  --canopy-opacity:    0.09;
 
   /* Elevation & Radii */
-  --radius-sm:    8px;
-  --radius-md:    14px;
-  --radius-lg:    22px;
-  --radius-full:  9999px;
-  
-  --shadow-sm:    0 2px 8px -2px rgba(19, 14, 38, 0.08);
-  --shadow-md:    0 8px 24px -6px rgba(19, 14, 38, 0.12);
-  --shadow-lg:    0 18px 40px -10px rgba(19, 14, 38, 0.22);
-  --shadow-gold:  0 8px 25px -4px rgba(197, 152, 40, 0.35);
+  --radius-xs:         4px;
+  --radius-sm:         10px;
+  --radius-md:         18px;
+  --radius-lg:         30px;
+  --radius-xl:         48px;
+  --radius-leaf:       4px 28px 4px 28px;
+  --radius-leaf-alt:   28px 4px 28px 4px;
+  --radius-full:       9999px;
+
+  --shadow-sm:         0 2px 12px -2px rgba(17, 34, 23, 0.08);
+  --shadow-md:         0 8px 30px -6px rgba(17, 34, 23, 0.14);
+  --shadow-lg:         0 20px 56px -12px rgba(17, 34, 23, 0.22);
+  --shadow-gold:       0 8px 32px -4px rgba(212, 157, 36, 0.35);
+  --shadow-forest:     0 8px 32px -4px rgba(46, 95, 63, 0.30);
+  --shadow-leaf:       0 12px 28px -6px rgba(30, 54, 38, 0.18);
 
   /* Transitions */
-  --tr-fast:      var(--dur-fast) var(--ease-out-soft);
-  --tr-normal:    var(--dur-base) var(--ease-out-soft);
+  --tr-fast:           var(--dur-fast) var(--ease-breath);
+  --tr-base:           var(--dur-base) var(--ease-breath);
+  --tr-slow:           var(--dur-slow) var(--ease-breath);
 }
 
 /* ==========================================================================
-   Dark Mode ("Gabi ng mga Ninuno")
-   Deep ritual obsidian, warm golden embers, and sacred amethyst
+   Dark Mode — Forest at Dusk
+   Not pure black. Twilight settling upon the canopy, deep emerald moss,
+   fireflies dancing in the understory, soft evening sky, and amber glow.
    ========================================================================== */
 [data-theme="dark"] {
-  --ink:          #0A0618;
-  --ink-surface:  #140E2A;
-  --ink-card:     #1D153B;
-  
-  --paper:        #110C24;       /* Deep warm dark background */
-  --paper-subtle: #191233;       /* Surface slightly elevated */
-  --paper-border: #352A56;       /* Subtle dark border */
-  --card-bg:      #1B1438;       /* Card dark surface */
-  
-  --gold-primary: #E5B643;       /* Elevated luminous gold for dark mode */
-  --gold-bright:  #FBD767;
-  --gold-glow:    rgba(251, 215, 103, 0.28);
-  --gold-soft:    rgba(247, 201, 72, 0.12);
-  
-  --coral:        #FF6C58;
-  --coral-soft:   rgba(255, 108, 88, 0.16);
-  
-  --teal:         #2EB394;
-  --teal-soft:    rgba(46, 179, 148, 0.16);
-  
-  --purple:       #B286D8;
-  --purple-soft:  rgba(178, 134, 216, 0.2);
+  --forest-understory: #09130c;
+  --forest-deep:       #0e1c13;
+  --forest-dark:       #15291c;
+  --forest-card:       #122218;
 
-  --text-dark:    #F6F2FF;       /* High-contrast crisp light text */
-  --text-muted:   #ABA0C7;       /* Soft readable secondary text */
-  --text-light:   #110C24;
-  --text-on-gold: #1A1200;
+  --leaf-mid:          #244b32;
+  --leaf-forest:       #306141;
+  --leaf-emerald:      #3e7953;
+  --leaf-glass:        rgba(62, 121, 83, 0.18);
 
-  --shadow-sm:    0 2px 10px -2px rgba(0, 0, 0, 0.5);
-  --shadow-md:    0 8px 26px -6px rgba(0, 0, 0, 0.65);
-  --shadow-lg:    0 20px 48px -10px rgba(0, 0, 0, 0.8);
-  --shadow-gold:  0 8px 28px -4px rgba(247, 201, 72, 0.22);
+  --leaf-sunlit:       #54944d;
+  --leaf-bright:       #74b768;
+  --leaf-pale:         #a1d995;
+  --leaf-dew:          #213828;
+  --leaf-glow:         rgba(116, 183, 104, 0.28);
+
+  --sky-soft:          #1c2d38;
+  --sky-glade:         #294252;
+  --sky-azure:         #476f8a;
+  --sky-mist:          rgba(28, 45, 56, 0.70);
+  --sky-glass:         rgba(71, 111, 138, 0.18);
+
+  /* Gold Lantern & Firefly Glow */
+  --gold-primary:      #e5a92a;
+  --gold-bright:       #fcd35e;
+  --gold-pale:         #423207;
+  --gold-glow:         rgba(252, 211, 94, 0.28);
+  --gold-glass:        rgba(252, 211, 94, 0.12);
+
+  /* Terracotta Dusk Embers */
+  --terracotta:        #d46e4d;
+  --terracotta-soft:   rgba(212, 110, 77, 0.18);
+  --terracotta-glow:   rgba(212, 110, 77, 0.35);
+
+  /* Dusk Neutrals */
+  --ink:               #070d09;
+  --ink-mid:           #0e1a12;
+  --card-dark:         #112017;
+  --paper:             #0c1610;   /* Deep twilight moss, never pure black */
+  --paper-subtle:      #122018;
+  --paper-border:      #1c3326;
+  --card-bg:           rgba(17, 31, 23, 0.88);
+
+  /* Dusk Text */
+  --text-primary:      #edf5ef;
+  --text-muted:        #8ea896;
+  --text-light:        #0c1610;
+  --text-on-gold:      #12180d;
+  --text-dark:         #edf5ef;
+
+  /* Glass surfaces */
+  --glass-white:       rgba(20, 36, 27, 0.72);
+  --glass-dark:        rgba(8, 16, 11, 0.82);
+  --glass-border:      rgba(116, 183, 104, 0.18);
+
+  --branch-color:      #302219;
+  --branch-light:      #4a372a;
+  --branch-bark:       #21160f;
+  --canopy-opacity:    0.11;
+
+  --shadow-sm:         0 2px 12px -2px rgba(0, 0, 0, 0.45);
+  --shadow-md:         0 8px 30px -6px rgba(0, 0, 0, 0.65);
+  --shadow-lg:         0 20px 56px -12px rgba(0, 0, 0, 0.85);
+  --shadow-gold:       0 8px 32px -4px rgba(252, 211, 94, 0.22);
+  --shadow-forest:     0 8px 32px -4px rgba(48, 97, 65, 0.35);
+  --shadow-leaf:       0 12px 28px -6px rgba(0, 0, 0, 0.50);
 }

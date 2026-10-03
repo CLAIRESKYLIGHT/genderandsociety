@@ -1,1342 +1,762 @@
 <!DOCTYPE html>
-<html lang="fil">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BENA — Yakap para sa Kaluluwang Pilipino</title>
-  <meta name="description" content="BENA is a digital hug for Filipinos — celebrating pre-colonial egalitarian culture, indigenous heritage, music, dance, and the truth that no gender is greater than another.">
-  <meta name="theme-color" content="#15102A">
+  <title>BENA • Under the Forest Canopy — Gender &amp; Society Sanctuary</title>
+  <meta name="description"
+    content="BENA is a quiet, sacred digital sanctuary reminding every Filipino that they are accepted, remembered, and never alone. Walang kasarian ang mas mataas sa iba.">
+  <meta name="theme-color" content="#1B3A2F">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23F7C948'/><circle cx='50' cy='50' r='20' fill='%23C59828'/></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23C9A227'/><circle cx='50' cy='50' r='20' fill='%234A7C59'/></svg>">
 
-  <!-- Google Fonts: Fraunces (Warm Editorial Serif), Plus Jakarta Sans (Clean Modern Sans), IBM Plex Mono -->
+  <!-- Google Fonts: Fraunces (warm serif) & Inter (clean sans) & IBM Plex Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="variables.css">
-  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Modular CSS Files -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/book.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/utilities.css">
 </head>
+
 <body>
 
-<!-- ============ 1. HABLON SCROLL THREAD ============ -->
-<div class="hablon-thread" id="hablonThread" aria-hidden="true">
-  <div class="hablon-fill" id="hablonFill"></div>
-</div>
-
-<!-- ============ YAKAP WELCOME MODAL (DIGITAL HUG) ============ -->
-<div class="yakap-overlay" id="yakapOverlay" role="dialog" aria-modal="true" aria-labelledby="yakapTitle">
-  <div class="yakap-modal">
-    <div class="yakap-sun-halo" aria-hidden="true">
-      <svg class="sun-mark sun-mark--lg" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="16" fill="var(--gold-bright)"/>
-        <g stroke="var(--gold-bright)" stroke-width="4" stroke-linecap="round">
-          <line x1="50" y1="5" x2="50" y2="21"/>
-          <line x1="50" y1="79" x2="50" y2="95"/>
-          <line x1="5" y1="50" x2="21" y2="50"/>
-          <line x1="79" y1="50" x2="95" y2="50"/>
-          <line x1="18" y1="18" x2="29" y2="29"/>
-          <line x1="71" y1="71" x2="82" y2="82"/>
-          <line x1="82" y1="18" x2="71" y2="29"/>
-          <line x1="29" y1="71" x2="18" y2="82"/>
-        </g>
-      </svg>
-    </div>
-
-    <p class="yakap-eyebrow">ᜌᜃᜉ᜔ • MAINIT AT LIGTAS NA KANLUNGAN</p>
-    <h1 id="yakapTitle" class="yakap-title">Ikaw ay ganap. Ikaw ay anak ng mga <em>Babaylan</em>.</h1>
-    
-    <div class="yakap-body-wrapper">
-      <p class="yakap-body">
-        Bago pa man dumating ang kolonyalismong nagtakda ng mahigpit na kahon sa kasarian, ang ating mga ninuno ay namuhay sa isang lipunang may pantay na dangal. Ang kababaihan, kalalakihan, at mga kapatid nating may damdaming <strong>Asog</strong> at <strong>Bayoguin</strong> (gender-fluid / LGBTQIA+) ay iginagalang bilang espirituwal na pinuno.
-      </p>
-      <div class="gender-pledge-box">
-        <span class="gender-pledge-tag">🌸 PANATA SA KASARIAN AT LIPUNAN</span>
-        <p class="gender-pledge-text">
-          <strong>Walang kasarian ang higit sa isa pa.</strong> Dito sa BENA, protektado ang iyong pagkakakilanlan (SOGIESC), iginagalang ang iyong mga panghalip (pronouns), at pinahahalagahan ang iyong katotohanan.
-        </p>
-      </div>
-      <p class="yakap-body yakap-highlight">
-        Ang <strong>BENA</strong> ay iyong ligtas na digital na yakap — nagpapagaling sa sugat ng kahihiyan at nagdiriwang sa iyong likas na kagandahan.
-      </p>
-    </div>
-
-    <div class="yakap-actions">
-      <button class="btn btn--gold btn--lg" id="yakapClose">
-        <span>Salamat po. Tuloy na ako sa Tahanan</span>
-        <span aria-hidden="true">🌻</span>
-      </button>
-      <button class="btn btn--ghost-gold" id="yakapMuteSound" title="Patugtugin o I-mute ang Mahinahong Kulintang Chime">
-        <span id="soundStatusText">🎵 Ambiance: Naka-on</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- ============ GENDER SENSITIVITY & SOGIESC GUIDE MODAL ============ -->
-<div class="gender-guide-overlay is-hidden" id="genderGuideOverlay" role="dialog" aria-modal="true" aria-labelledby="genderGuideTitle">
-  <div class="gender-guide-modal">
-    <div class="guide-modal-header">
-      <span class="guide-icon">🌈</span>
-      <div>
-        <h3 id="genderGuideTitle" class="guide-title">Gabay sa Kasarian at Lipunan (Gender Sensitivity)</h3>
-        <p class="guide-subtitle">Bakit Ligtas at Gender-Sensitive ang Espasyo ng BENA?</p>
-      </div>
-      <button class="guide-close-btn" id="closeGenderGuideBtn" aria-label="Isara ang gabay">&times;</button>
-    </div>
-    
-    <div class="guide-modal-body">
-      
-      <div class="guide-point-card">
-        <h4>1. Ang Wikang Filipino ay Likas na Gender-Neutral</h4>
-        <p>
-          Sa katutubong Tagalog, Bisaya, Ilokano, at iba pang wika sa Pilipinas, walang "he" o "she". Ang salitang <strong>“Siya”</strong> at <strong>“Kanya”</strong> ay pantay na yumayakap sa bawat tao, anuman ang kanilang kasarian. Ang pagkakapantay-pantay ay nakaukit na sa ating wika.
-        </p>
-      </div>
-
-      <div class="guide-point-card">
-        <h4>2. Paggalang sa SOGIESC (Kasarian, Pagkakakilanlan, at Pagpapahayag)</h4>
-        <p>
-          Kinikilala ng BENA ang buong spectrum ng SOGIESC:
-          <br>• <strong>Sexual Orientation:</strong> Kanino tumitibok ang iyong puso.
-          <br>• <strong>Gender Identity:</strong> Kung sino ka sa iyong kalooban (Babae, Lalaki, Non-binary, Transgender).
-          <br>• <strong>Gender Expression:</strong> Paano mo ipinapakita ang iyong sarili (pananamit, kilos).
-          <br>• <strong>Sex Characteristics:</strong> Ang pisikal at biyolohikal na katangian.
-        </p>
-      </div>
-
-      <div class="guide-point-card">
-        <h4>3. Katutubong Pamana: Mga Babaylan, Asog, at Catalonan</h4>
-        <p>
-          Ang mga Espanyol lamang ang nagpataw ng paniniwalang may "mababang kasarian." Sa ating kasaysayan, ang mga lalaking nagdamit at kumilos bilang babae (<em>Asog / Bayoguin</em>) ay pinagkakatiwalaan ng buong pamayanan upang mamuno sa mga ritwal at panggagamot.
-        </p>
-      </div>
-
-      <div class="guide-point-card">
-        <h4>4. Mga Panuntunan sa BENA (Community Code of Respect)</h4>
-        <ul class="guide-checklist">
-          <li>✓ <strong>Igalang ang Panghalip (Pronouns):</strong> Tawagin ang kapwa ayon sa kanilang nais na pagkakakilanlan.</li>
-          <li>✓ <strong>Bawal ang Hate Speech o Pangungutya:</strong> Hindi pinahihintulutan ang misogyny, homophobia, transphobia, o panlalait sa kasarian.</li>
-          <li>✓ <strong>Maglagay ng Babala sa Sensitibong Paksa (Content Warning):</strong> Kung ang post ay may kwento ng pananakit o diskriminasyon, gamitin ang Content Warning toggle upang maprotektahan ang kapwa.</li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="guide-modal-footer">
-      <button class="btn btn--gold" id="acceptGenderGuideBtn">Naiintindihan at Iginagalang Ko 🌻</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============ SITE HEADER ============ -->
-<header class="site-header">
-  <!-- 2. Banig Ambient Background Layer -->
-  <div class="banig-ambient-layer" aria-hidden="true">
-    <div class="banig-track">
-      <svg viewBox="0 0 400 120" preserveAspectRatio="none" class="banig-svg">
-        <defs>
-          <pattern id="banigHdr" width="32" height="32" patternUnits="userSpaceOnUse">
-            <path d="M0 16 L16 0 L32 16 L16 32 Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M0 0 L16 16 M16 0 L0 16" stroke="currentColor" stroke-width="0.8"/>
-            <path d="M16 16 L32 32 M32 16 L16 32" stroke="currentColor" stroke-width="0.8"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#banigHdr)"/>
-      </svg>
-      <svg viewBox="0 0 400 120" preserveAspectRatio="none" class="banig-svg">
-        <rect width="100%" height="100%" fill="url(#banigHdr)"/>
-      </svg>
-    </div>
+  <!-- ============ FOREST CANOPY AMBIENT BACKGROUND & VIGNETTE ============ -->
+  <div class="canopy-ambient-bg" aria-hidden="true">
+    <div class="canopy-photo-layer"></div>
+    <div class="canopy-radial-vignette"></div>
   </div>
 
-  <div class="header-inner">
-    <div class="brand">
-      <svg class="sun-mark" viewBox="0 0 100 100" aria-hidden="true">
-        <circle cx="50" cy="50" r="15" fill="var(--gold-bright)"/>
-        <g stroke="var(--gold-bright)" stroke-width="4.5" stroke-linecap="round">
-          <line x1="50" y1="6" x2="50" y2="20"/>
-          <line x1="50" y1="80" x2="50" y2="94"/>
-          <line x1="6" y1="50" x2="20" y2="50"/>
-          <line x1="80" y1="50" x2="94" y2="50"/>
-          <line x1="18" y1="18" x2="28" y2="28"/>
-          <line x1="72" y1="72" x2="82" y2="82"/>
-          <line x1="82" y1="18" x2="72" y2="28"/>
-          <line x1="28" y1="72" x2="18" y2="82"/>
-        </g>
-      </svg>
-      <div class="brand-text">
-        <span class="brand-name">BENA <span class="baybayin-brand" title="Baybayin for BENA">ᜊᜒᜈ</span></span>
-        <span class="brand-tagline">yakap sa kaluluwang Pilipino • gender & society</span>
-      </div>
-    </div>
 
-    <div class="header-actions">
-      <!-- Dark Mode Theme Toggle Button -->
-      <button class="btn btn--header-theme" id="themeToggleBtn" title="Palitan ang Tema (Araw / Gabi)" aria-label="Palitan ang Tema ng Kulay">
-        <span class="theme-icon" id="themeIcon" aria-hidden="true">🌙</span>
-        <span class="theme-label" id="themeLabel">Gabi</span>
-      </button>
+  <!-- ============ SITE WRAPPER ============ -->
+  <div class="site-wrapper">
 
-      <button class="btn btn--header-guide" id="openGenderGuideBtn" title="Basahin ang Gabay sa Kasarian at Lipunan">
-        <span aria-hidden="true">🌈</span>
-        <span>Gabay sa Kasarian</span>
-      </button>
-      <button class="btn btn--header-hug" id="reopenYakapBtn" title="Buksan muli ang Yakap Welcome Modal">
-        <span aria-hidden="true">🫂</span>
-        <span>Kailangan ko ng Yakap</span>
-      </button>
-    </div>
-  </div>
-</header>
+    <!-- ============ MODERN SANCTUARY HEADER ============ -->
+    <header class="site-header">
+      <div class="container header-inner">
 
-<!-- 4. Alon Section Divider: Header to Pride Banner -->
-<div class="alon-divider" aria-hidden="true">
-  <div class="alon-wave-track alon-wave-track--gold">
-    <svg class="alon-svg" viewBox="0 0 1440 32" preserveAspectRatio="none">
-      <path d="M0,16 C240,30 480,2 720,16 C960,30 1200,2 1440,16 L1440,32 L0,32 Z" fill="var(--gold-bright)"/>
-    </svg>
-    <svg class="alon-svg" viewBox="0 0 1440 32" preserveAspectRatio="none">
-      <path d="M0,16 C240,30 480,2 720,16 C960,30 1200,2 1440,16 L1440,32 L0,32 Z" fill="var(--gold-bright)"/>
-    </svg>
-  </div>
-  <div class="alon-wave-track alon-wave-track--coral">
-    <svg class="alon-svg" viewBox="0 0 1440 32" preserveAspectRatio="none">
-      <path d="M0,12 C180,2 420,26 720,12 C1020,2 1260,26 1440,12 L1440,32 L0,32 Z" fill="var(--coral)"/>
-    </svg>
-    <svg class="alon-svg" viewBox="0 0 1440 32" preserveAspectRatio="none">
-      <path d="M0,12 C180,2 420,26 720,12 C1020,2 1260,26 1440,12 L1440,32 L0,32 Z" fill="var(--coral)"/>
-    </svg>
-  </div>
-</div>
-
-<!-- ============ DAILY FILIPINO PRIDE REMINDER ============ -->
-<section class="pride-banner" aria-label="Araw-araw na Paalala ng Pagmamalaki sa Sarili">
-  <div class="pride-banner-inner">
-    <div class="pride-banner-badge">
-      <span class="pride-icon">☀️</span>
-      <span>Araw-araw na Paalala ng Lahi at Kasarian</span>
-    </div>
-    
-    <div class="pride-quote-box">
-      <p class="pride-quote" id="prideQuote" aria-live="polite">“Naglo-load ng paalala...”</p>
-    </div>
-
-    <div class="pride-banner-actions">
-      <button class="btn btn--banner" id="newQuoteBtn" title="Magpakita ng bagong paalala">
-        <span class="refresh-icon" aria-hidden="true">↻</span>
-        <span>Bagong Paalala</span>
-      </button>
-      <button class="btn btn--banner btn--banner-subtle" id="copyQuoteBtn" title="Kopyahin ang paalala para maibahagi">
-        <span aria-hidden="true">📋</span>
-        <span id="copyQuoteText">Kopyahin</span>
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- ============ STICKY NAV TABS ============ -->
-<nav class="tabs-nav" aria-label="Pangunahing Paglalayag ng Web App">
-  <div class="tabs-scroll-container" role="tablist">
-    <button class="tab-btn is-active" data-tab="tahanan" role="tab" aria-selected="true" aria-controls="tahanan" id="tab-tahanan">
-      <span class="tab-icon" aria-hidden="true">🏠</span>
-      <span>Tahanan</span>
-    </button>
-    <button class="tab-btn" data-tab="aralin" role="tab" aria-selected="false" aria-controls="aralin" id="tab-aralin">
-      <span class="tab-icon" aria-hidden="true">📖</span>
-      <span>Aralin</span>
-    </button>
-    <button class="tab-btn" data-tab="dangal" role="tab" aria-selected="false" aria-controls="dangal" id="tab-dangal">
-      <span class="tab-icon" aria-hidden="true">✨</span>
-      <span>Dangal ng Lahi</span>
-    </button>
-    <button class="tab-btn" data-tab="galing" role="tab" aria-selected="false" aria-controls="galing" id="tab-galing">
-      <span class="tab-icon" aria-hidden="true">🌟</span>
-      <span>Galing</span>
-    </button>
-    <button class="tab-btn" data-tab="dambana" role="tab" aria-selected="false" aria-controls="dambana" id="tab-dambana">
-      <span class="tab-icon" aria-hidden="true">🕯️</span>
-      <span>Dambana ng Diwa</span>
-    </button>
-    <button class="tab-btn" data-tab="kalasag" role="tab" aria-selected="false" aria-controls="kalasag" id="tab-kalasag">
-      <span class="tab-icon" aria-hidden="true">🛡️</span>
-      <span>Kalasag</span>
-    </button>
-    <button class="tab-btn" data-tab="sanggunian" role="tab" aria-selected="false" aria-controls="sanggunian" id="tab-sanggunian">
-      <span class="tab-icon" aria-hidden="true">📚</span>
-      <span>Sanggunian</span>
-    </button>
-    <button class="tab-btn" data-tab="magpost" role="tab" aria-selected="false" aria-controls="magpost" id="tab-magpost">
-      <span class="tab-icon" aria-hidden="true">✍️</span>
-      <span>Mag-post</span>
-    </button>
-    <button class="tab-btn" data-tab="manifesto" role="tab" aria-selected="false" aria-controls="manifesto" id="tab-manifesto">
-      <span class="tab-icon" aria-hidden="true">📜</span>
-      <span>Manifesto</span>
-    </button>
-
-    <!-- 3. Hablon Signature Interaction: Woven Nav Indicator -->
-    <div class="woven-indicator" id="wovenIndicator" aria-hidden="true">
-      <svg viewBox="0 0 60 6" fill="none" xmlns="http://www.w3.org/2000/svg" class="woven-svg">
-        <path d="M0 3 Q7.5 0.5 15 3 T30 3 T45 3 T60 3" stroke="var(--gold-bright)" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M0 3 Q7.5 5.5 15 3 T30 3 T45 3 T60 3" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2 3"/>
-        <circle cx="2" cy="3" r="1.5" fill="var(--gold-bright)"/>
-        <circle cx="58" cy="3" r="1.5" fill="var(--gold-bright)"/>
-      </svg>
-    </div>
-  </div>
-</nav>
-
-<!-- 4. Alon Section Divider: Nav to Main Content -->
-<div class="alon-divider" aria-hidden="true">
-  <div class="alon-wave-track alon-wave-track--gold">
-    <svg class="alon-svg" viewBox="0 0 1440 28" preserveAspectRatio="none">
-      <path d="M0,14 C240,26 480,2 720,14 C960,26 1200,2 1440,14 L1440,28 L0,28 Z" fill="var(--gold-bright)"/>
-    </svg>
-    <svg class="alon-svg" viewBox="0 0 1440 28" preserveAspectRatio="none">
-      <path d="M0,14 C240,26 480,2 720,14 C960,26 1200,2 1440,14 L1440,28 L0,28 Z" fill="var(--gold-bright)"/>
-    </svg>
-  </div>
-  <div class="alon-wave-track alon-wave-track--coral">
-    <svg class="alon-svg" viewBox="0 0 1440 28" preserveAspectRatio="none">
-      <path d="M0,10 C180,2 420,22 720,10 C1020,2 1260,22 1440,10 L1440,28 L0,28 Z" fill="var(--coral)"/>
-    </svg>
-    <svg class="alon-svg" viewBox="0 0 1440 28" preserveAspectRatio="none">
-      <path d="M0,10 C180,2 420,22 720,10 C1020,2 1260,22 1440,10 L1440,28 L0,28 Z" fill="var(--coral)"/>
-    </svg>
-  </div>
-</div>
-
-<!-- ============ MAIN CONTENT CONTAINER ============ -->
-<main id="mainContent">
-
-  <!-- ==================== 1. TAHANAN (PUBLIC FEED) ==================== -->
-  <section id="tahanan" class="page is-active" role="tabpanel" aria-labelledby="tab-tahanan">
-    <div class="page-inner">
-      
-      <!-- Feed Header & Introduction -->
-      <div class="section-intro">
-        <div class="safe-space-badge">
-          <span>🌸 LIGTAS NA ESPASYO PARA SA LAHAT NG KASARIAN (SOGIESC-INCLUSIVE)</span>
-        </div>
-        <h2 class="page-heading">Ang Tahanan</h2>
-        <p class="page-sub">
-          Isang maaliwalas na kanlungan para sa mga opinyon, sining, at tinig ng mga kabataang Pilipino ukol sa kasarian, pagkatao, at kultura. Walang mapanghusgang algorithm — tanging kapayapaan at paggalang.
-        </p>
-
-        <!-- The "Local MVP" Honesty Note -->
-        <div class="honesty-note-banner">
-          <div class="honesty-note-icon" aria-hidden="true">🕊️</div>
-          <div class="honesty-note-text">
-            <strong>Pahayag ng Katapatan (Local Community Safe Space):</strong>
-            <span>Ang BENA ay isang ligtas na platapormang tumatakbo nang walang mapanghimasok na algorithm o tracking. Ang iyong mga kwento at likha ay nananatili sa komunidad at sa iyong browser/lokal na imbakan.</span>
+        <!-- Brand Identity: Modern Golden Sun + Refined Typography -->
+        <a href="#tahanan" class="brand-wrap" aria-label="BENA Home">
+          <div class="brand-sun-emblem" aria-hidden="true">
+            <svg class="brand-sun-svg" viewBox="0 0 44 44" fill="none">
+              <defs>
+                <radialGradient id="sunGlowGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#E5C158"/>
+                  <stop offset="100%" stop-color="#C9A227"/>
+                </radialGradient>
+              </defs>
+              <circle cx="22" cy="22" r="9" fill="url(#sunGlowGrad)" />
+              <g stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+                <line x1="22" y1="3" x2="22" y2="8" />
+                <line x1="22" y1="36" x2="22" y2="41" />
+                <line x1="3" y1="22" x2="8" y2="22" />
+                <line x1="36" y1="22" x2="41" y2="22" />
+                <line x1="8.5" y1="8.5" x2="12" y2="12" />
+                <line x1="32" y1="32" x2="35.5" y2="35.5" />
+                <line x1="35.5" y1="8.5" x2="32" y2="12" />
+                <line x1="12" y1="32" x2="8.5" y2="35.5" />
+              </g>
+            </svg>
           </div>
-        </div>
-      </div>
-
-      <!-- Feed Controls: Search & Category Filters -->
-      <div class="feed-controls">
-        <div class="search-box">
-          <span class="search-icon" aria-hidden="true">🔍</span>
-          <input type="text" id="feedSearchInput" placeholder="Maghanap ayon sa pamagat, awtor, o salita..." aria-label="Maghanap sa Tahanan">
-          <button id="clearSearchBtn" class="clear-search-btn" title="Linisin ang paghahanap" hidden>&times;</button>
-        </div>
-
-        <div class="filter-pills" role="group" aria-label="I-filter ang feed ayon sa kategorya">
-          <button class="filter-pill is-active" data-filter="all">Lahat (<span id="countAll">0</span>)</button>
-          <button class="filter-pill" data-filter="Artikulo">📝 Artikulo</button>
-          <button class="filter-pill" data-filter="Sining">🎨 Sining</button>
-          <button class="filter-pill" data-filter="latest">✨ Pinaka-bago</button>
-          <button class="filter-pill" data-filter="Karanasan">💬 Karanasan</button>
-        </div>
-      </div>
-
-      <!-- Skeleton Loader with Shimmer (Motion Item 10) -->
-      <div id="feedSkeleton" class="feed-skeleton" aria-hidden="true" hidden>
-        <div class="skeleton-card">
-          <div class="skeleton-line skeleton-badge"></div>
-          <div class="skeleton-line skeleton-title"></div>
-          <div class="skeleton-line skeleton-meta"></div>
-          <div class="skeleton-line skeleton-body-1"></div>
-          <div class="skeleton-line skeleton-body-2"></div>
-        </div>
-        <div class="skeleton-card">
-          <div class="skeleton-line skeleton-badge"></div>
-          <div class="skeleton-line skeleton-title"></div>
-          <div class="skeleton-line skeleton-meta"></div>
-          <div class="skeleton-line skeleton-body-1"></div>
-          <div class="skeleton-line skeleton-body-2"></div>
-        </div>
-      </div>
-
-      <!-- Feed List Container -->
-      <div id="feedList" class="feed-list" aria-live="polite">
-        <!-- Rendered dynamically by script.js -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== ARALIN (LESSONS & MODULES — PHASE 5) ==================== -->
-  <section id="aralin" class="page" role="tabpanel" aria-labelledby="tab-aralin" hidden>
-    <div class="page-inner">
-      <div class="section-intro">
-        <div class="safe-space-badge">
-          <span>📖 EDUKASYON AT PAGKATAO</span>
-        </div>
-        <h2 class="page-heading">Mga Aralin sa Kasarian at Lipunan</h2>
-        <p class="page-sub">
-          Isang komprehensibong serye ng sampung aralin, pagsusulit, at talasalitaan ukol sa pre-kolonyal na kasaysayan, SOGIESC, at mga batas na nagtatanggol sa pantay na dangal ng bawat Pilipino.
-        </p>
-      </div>
-
-      <!-- Aralin Progress Tracker -->
-      <div class="aralin-progress-card" aria-label="Progreso sa mga Aralin">
-        <div class="aralin-progress-header">
-          <span class="progress-label">Iyong Progreso</span>
-          <span class="progress-fraction" id="aralinProgressFraction">0 / 10 Aralin</span>
-        </div>
-        <div class="aralin-progress-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="10" aria-label="Mga natapos na aralin" id="aralinProgressBar">
-          <div class="aralin-progress-fill" id="aralinProgressFill" style="width:0%"></div>
-        </div>
-        <p class="progress-encouragement" id="progressEncouragement">Simulan ang unang aralin upang magsimulang mag-iwan ng bakas! 🌱</p>
-      </div>
-
-      <!-- Lesson Accordion -->
-      <div class="aralin-accordion" id="aralinAccordion" aria-label="Listahan ng mga Aralin">
-        <!-- Injected by script.js via renderAralin() -->
-      </div>
-
-      <!-- Alon Divider -->
-      <div class="alon-divider alon-divider--inline" aria-hidden="true"><svg viewBox="0 0 1440 16" fill="none"><path d="M0,8 C240,15 480,1 720,8 C960,15 1200,1 1440,8" stroke="var(--gold-soft)" stroke-width="1.5"/></svg></div>
-
-      <!-- Glossary Section -->
-      <div class="glossary-section" id="aralinGlossary">
-        <div class="glossary-header">
-          <span class="glossary-icon" aria-hidden="true">📖</span>
-          <div>
-            <h3 class="glossary-title">Talasalitaan ng Kasarian at Lipunan</h3>
-            <p class="glossary-sub">Higit sa 30 terminolohiya na may depinosyon — hover o focus para makita ang buong kahulugan.</p>
+          <div class="brand-text-block">
+            <span class="brand-title">BENA <span class="brand-baybayin" title="Baybayin for BENA">ᜊᜒᜈ</span></span>
+            <span class="brand-subtitle">Santuwaryo ng Kasarian at Lipunan</span>
           </div>
-        </div>
+        </a>
 
-        <!-- Glossary Search -->
-        <div class="glossary-search-box">
-          <span aria-hidden="true">🔍</span>
-          <input type="search" id="glossarySearch" placeholder="Maghanap ng salita..." aria-label="Maghanap sa talasalitaan" autocomplete="off">
-        </div>
-
-        <!-- Glossary Grid -->
-        <div class="glossary-grid" id="glossaryGrid" aria-label="Mga salitang may kahulugan" role="list">
-          <!-- Injected by script.js -->
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== 2. DANGAL NG LAHI (NEW FEATURE: MUSIC, DANCE, ARTS, ACHIEVEMENTS) ==================== -->
-  <section id="dangal" class="page" role="tabpanel" aria-labelledby="tab-dangal" hidden>
-    <div class="page-inner">
-      <div class="section-intro">
-        <div class="badge-pill-header">
-          <span>🇵🇭 PAMANA AT KINABUKASAN</span>
-        </div>
-        <h2 class="page-heading">Dangal ng Lahi</h2>
-        <p class="page-sub">
-          Bago pa tayo turuan ng kolonyalismo na maliit ang ating bansa, ang ating mga ninuno ay may mayayamang sayaw, banal na musika ng mga gong, pambihirang sining ng paghahabi, at lipunang ginagalang ang bawat kasarian. Narito ang mga patunay ng ating kadakilaan.
-        </p>
-      </div>
-
-      <!-- Dangal Category Filter -->
-      <div class="dangal-filters" role="group" aria-label="Pumili ng larangan ng dangal">
-        <button class="dangal-filter-btn is-active" data-dangal="all">Lahat ng Pamana</button>
-        <button class="dangal-filter-btn" data-dangal="sayaw">💃 Sayaw at Kilos</button>
-        <button class="dangal-filter-btn" data-dangal="musika">🎵 Musika at Tinig</button>
-        <button class="dangal-filter-btn" data-dangal="habi">🧵 Sining at Habi</button>
-        <button class="dangal-filter-btn" data-dangal="babaylan">👑 Babaylan at Bayani</button>
-        <button class="dangal-filter-btn" data-dangal="tagumpay">🥇 Pandaigdigang Dangal</button>
-      </div>
-
-      <!-- Dangal Grid of Achievement Cards -->
-      <div class="dangal-grid" id="dangalGrid">
-        <!-- Injected via script.js -->
-      </div>
-
-      <!-- Call to Action Banner -->
-      <div class="dangal-cta-card">
-        <div class="dangal-cta-text">
-          <h3>May nais ka bang ibahaging sining o opinyon?</h3>
-          <p>Ibahagi ang iyong sariling likha, sayaw, tula, o kwento sa Tahanan upang maging inspirasyon sa iba.</p>
-        </div>
-        <button class="btn btn--gold" id="dangalPostCta">Mag-post sa Tahanan ✍️</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== GALING (ACHIEVEMENTS & PRIDE — PHASE 6) ==================== -->
-  <section id="galing" class="page" role="tabpanel" aria-labelledby="tab-galing" hidden>
-    <div class="page-inner">
-      <div class="section-intro">
-        <div class="badge-pill-header">
-          <span>🌟 KATANGIAN AT TALINO</span>
-        </div>
-        <h2 class="page-heading">Galing ng Lahi</h2>
-        <p class="page-sub">
-          Pagpupugay sa pambihirang husay, tapang, at pamumuno ng mga kababaihan, babaylan, at LGBTQIA+ Pilipino na humubog sa ating bansa at nag-iwan ng di-mabuburang bakas sa daigdig.
-        </p>
-      </div>
-
-      <!-- Babaylan Spotlight -->
-      <div class="babaylan-spotlight-card" id="babaylanSpotlight">
-        <div class="spotlight-crown" aria-hidden="true">👑</div>
-        <div class="spotlight-content">
-          <span class="spotlight-eyebrow">ESPESYAL NA PAGGUNITA</span>
-          <h3 class="spotlight-title" id="spotlightTitle"></h3>
-          <p class="spotlight-intro" id="spotlightIntro"></p>
-          <ul class="spotlight-facts" id="spotlightFacts"></ul>
-        </div>
-      </div>
-
-      <!-- Gallery Filters -->
-      <div class="galing-filters" role="group" aria-label="I-filter ang galeri ayon sa larangan">
-        <button class="galing-filter-btn is-active" data-galing="all" id="galingFilterAll">Lahat</button>
-        <button class="galing-filter-btn" data-galing="Musika">🎵 Musika</button>
-        <button class="galing-filter-btn" data-galing="Sayaw">💃 Sayaw</button>
-        <button class="galing-filter-btn" data-galing="Panitikan">✍️ Panitikan</button>
-        <button class="galing-filter-btn" data-galing="Sining">🎨 Sining</button>
-        <button class="galing-filter-btn" data-galing="Agham">🔬 Agham</button>
-        <button class="galing-filter-btn" data-galing="Aktibismo">✊ Aktibismo</button>
-        <button class="galing-filter-btn" data-galing="Katutubo">🪶 Katutubo</button>
-      </div>
-
-      <!-- Gallery Grid -->
-      <div class="galing-gallery-grid" id="galingGalleryGrid" aria-live="polite" aria-label="Galeri ng mga notable na Pilipino">
-        <!-- Injected by script.js via renderGaling() -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== 3. DAMBANA NG DIWA (INTERACTIVE GENDER EQUALITY & CANDLE WALL) ==================== -->
-  <section id="dambana" class="page" role="tabpanel" aria-labelledby="tab-dambana" hidden>
-    <div class="page-inner">
-      <div class="section-intro">
-        <div class="dambana-badge-header">
-          <span>🕯️ SAGRADONG DAMBANA NG PAGKAKAPANTAY-PANTAY</span>
-        </div>
-        <h2 class="page-heading">Dambana ng Diwa</h2>
-        <p class="page-sub">
-          Isang interaktibong santuwaryo para sa panata, pagninilay, at pag-ibig sa kapwa. Bago dumating ang kolonyalismo, ang ating mga ninuno ay nagsindi ng sagradong apoy at nag-alay ng bulaklak sa dambana bilang panata ng paggalang sa bawat buhay. Magsindi ka ng kandila o mag-iwan ng panata para sa pagkakapantay-pantay ng lahat ng kasarian.
-        </p>
-      </div>
-
-      <!-- Live Collective Altar Counter Banner -->
-      <div class="altar-hero-card">
-        <div class="altar-flame-wrapper" aria-hidden="true">
-          <div class="ritual-flame">
-            <div class="flame-core"></div>
-            <div class="flame-glow"></div>
-          </div>
-        </div>
-        
-        <div class="altar-stats-row">
-          <div class="altar-stat">
-            <span class="stat-number" id="candleCount">1,248</span>
-            <span class="stat-label">🕯️ Kandila ng Pagkakapantay ang Nagsisindi</span>
-          </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="altar-stat">
-            <span class="stat-number" id="sampaguitaCount">612</span>
-            <span class="stat-label">🌸 Sampaguita ang Naialay para sa Kapwa</span>
-          </div>
-        </div>
-
-        <!-- Quick Offering Actions -->
-        <div class="altar-actions-row">
-          <button class="btn btn--gold btn--lg btn-light-candle" id="btnLightCandle">
-            <span class="btn-candle-icon">🕯️</span>
-            <span>Magsindi ng Kandila ng Pagkakapantay</span>
-          </button>
-          <button class="btn btn--ghost-gold btn--lg btn-offer-flower" id="btnOfferSampaguita">
-            <span>🌸 Mag-alay ng Sampaguita</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Interactive Vow / Panata Composer -->
-      <div class="panata-composer-card">
-        <div class="panata-composer-head">
-          <span class="composer-icon">✍️</span>
-          <div>
-            <h3 class="composer-title">Mag-iwan ng Panata sa Pader ng Pagkakapantay</h3>
-            <p class="composer-sub">Ang iyong panata ay lilitaw bilang isang nagliliwanag na kandila sa ating komunidad.</p>
-          </div>
-        </div>
-
-        <!-- 1-Click Quick Preset Panata -->
-        <div class="quick-panata-section">
-          <span class="quick-label">Mabilisang Piliin ang Nais na Panata:</span>
-          <div class="quick-panata-pills" id="quickPanataPills">
-            <button type="button" class="quick-panata-btn" data-vow="Alay sa mga Babaylan at Kababaihang naging tanglaw at lakas ng ating kapuluan. 🌸" data-tag="🌸 Alay sa Kababaihan">
-              🌸 Alay sa Kababaihan
-            </button>
-            <button type="button" class="quick-panata-btn" data-vow="Alay sa mga Asog at LGBTQIA+ kapatid: Kayo ay sagrado, marangal, at may puwang sa ating bayan. 🌈" data-tag="🌈 Asog at LGBTQIA+ Diwa">
-              🌈 Alay sa LGBTQIA+ at Asog
-            </button>
-            <button type="button" class="quick-panata-btn" data-vow="Panata: Titindig ako laban sa patriarkiya, misogyny, at pambabastos sa kapwa. 🛡️" data-tag="🛡️ Laban sa Patriarkiya">
-              🛡️ Panata Laban sa Patriarkiya
-            </button>
-            <button type="button" class="quick-panata-btn" data-vow="Panata: Hinding-hindi ko na ikakahiya ang aking wika, kulay ng balat, at kasarian. 🌻" data-tag="🌻 Dangal ng Pagkatao">
-              🌻 Pagbawi sa Dangal
-            </button>
-          </div>
-        </div>
-
-        <!-- Panata Form -->
-        <form id="panataForm" class="panata-form">
-          <div class="panata-inputs-grid">
-            <div class="panata-field">
-              <label for="panataAuthor">Iyong Pangalan o Sagisag (Opsyonal)</label>
-              <input type="text" id="panataAuthor" placeholder="Kapwa Pilipino (o iwang blangko)" maxlength="40">
-            </div>
-            <div class="panata-field">
-              <label for="panataTag">Kategorya ng Panata</label>
-              <select id="panataTag">
-                <option value="🌸 Alay sa Kababaihan">🌸 Alay sa Kababaihan</option>
-                <option value="🌈 Asog at LGBTQIA+ Diwa">🌈 Asog at LGBTQIA+ Diwa</option>
-                <option value="🛡️ Laban sa Patriarkiya">🛡️ Laban sa Patriarkiya</option>
-                <option value="🌻 Dangal ng Pagkatao">🌻 Dangal ng Pagkatao</option>
-                <option value="🕊️ Kapayapaan at Pagkakapantay">🕊️ Kapayapaan at Pagkakapantay</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="panata-field">
-            <label for="panataText">Ang Iyong Panata o Mensahe ng Pagkakapantay <span class="required">*</span></label>
-            <textarea id="panataText" rows="3" required maxlength="250" placeholder="Halimbawa: Ipinapangako kong igagalang ang bawat kasarian at itataguyod ang ligtas na lipunan para sa lahat..."></textarea>
-          </div>
-
-          <div class="panata-submit-wrap">
-            <button type="submit" class="btn btn--gold">
-              <span>Ilayag ang Panata sa Dambana</span>
-              <span aria-hidden="true">🕯️</span>
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Glowing Wall of Candles & Vows (Pader ng Dambana) -->
-      <div class="dambana-wall-section">
-        <div class="dambana-wall-header">
-          <div class="wall-title-box">
-            <h3 class="wall-heading">Pader ng mga Kandila at Panata</h3>
-            <span class="wall-sub" id="wallCountBadge">Mga pagninilay at liwanag ng ating komunidad</span>
-          </div>
-          <div class="dambana-filter-row" role="group" aria-label="I-filter ang pader ng panata">
-            <button class="dambana-wall-filter is-active" data-wall-filter="all">Lahat ng Liwanag</button>
-            <button class="dambana-wall-filter" data-wall-filter="Kababaihan">Kababaihan</button>
-            <button class="dambana-wall-filter" data-wall-filter="LGBTQIA+">LGBTQIA+ / Asog</button>
-            <button class="dambana-wall-filter" data-wall-filter="Patriarkiya">Pagtindig</button>
-          </div>
-        </div>
-
-        <div class="dambana-candles-grid" id="dambanaCandlesGrid" aria-live="polite">
-          <!-- Rendered dynamically by script.js -->
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== KALASAG (PROTECTION & SAFE SPACES — PHASE 6) ==================== -->
-  <section id="kalasag" class="page" role="tabpanel" aria-labelledby="tab-kalasag" hidden>
-    <div class="page-inner">
-      <div class="section-intro">
-        <div class="dambana-badge-header">
-          <span>🛡️ KANLUNGAN AT PROTEKSYON</span>
-        </div>
-        <h2 class="page-heading">Kalasag: Ligtas na Espasyo</h2>
-        <p class="page-sub">
-          Mga direktoryo ng agarang saklolo, gabay sa karapatang legal, at komunidad na komunidad para sa proteksyon ng bawat Pilipino mula sa gender-based violence at diskriminasyon.
-        </p>
-      </div>
-
-      <!-- Dynamic Report Target Flag Banner (Wired for I-report links) -->
-      <div id="kalasagReportBanner" class="kalasag-report-banner" hidden>
-        <div class="report-banner-icon">🛡️</div>
-        <div class="report-banner-content">
-          <h4 id="reportBannerTitle">Nakatanggap ng Kahilingan sa Pagsusuri ng Nilalaman</h4>
-          <p id="reportBannerDesc"></p>
-          <span class="report-banner-badge">Pansamantalang naitala para sa opisyal na pagsusuri ng komunidad</span>
-        </div>
-        <button type="button" class="btn btn--small btn--ghost-gold" id="clearReportBannerBtn">I-dismiss</button>
-      </div>
-
-      <!-- Community Guidelines -->
-      <div class="kalasag-guidelines-card">
-        <h3 class="kalasag-section-title">📋 Gabay ng Komunidad ng BENA</h3>
-        <ul class="kalasag-guidelines-list">
-          <li><strong>Igalang ang SOGIESC ng bawat tao.</strong> Walang kasariang mas mataas o mas mababa.</li>
-          <li><strong>Bawal ang hate speech, homophobia, transphobia, at misogyny</strong> sa anumang anyo.</li>
-          <li><strong>Lagyan ng Content Warning</strong> ang anumang nilalaman na may diskriminasyon, karahasan, o trigger na paksa.</li>
-          <li><strong>Igalang ang privacy.</strong> Huwag i-share ang personal na impormasyon ng kapwa nang walang pahintulot.</li>
-          <li><strong>Maging mapagkalinga.</strong> Ang mga pagkakamali sa pagkatuto ay iba sa sadyang paminsalahin ng kapwa.</li>
-        </ul>
-      </div>
-
-      <!-- Emergency Hotlines -->
-      <div class="kalasag-hotlines-card">
-        <h3 class="kalasag-section-title">📞 Mga Emergency Hotline</h3>
-        <p class="kalasag-verify-note">⚠️ Palaging i-verify ang mga numero sa opisyal na website ng ahensya bago tumawag. Ang mga numero ay maaaring magbago.</p>
-        <div class="hotlines-grid">
-          <a href="tel:911" class="hotline-card hotline-card--emergency">
-            <span class="hotline-num">911</span>
-            <span class="hotline-name">Emergency (PNP / BFP)</span>
-            <span class="hotline-verify">📌 Opisyal na Emergency Number</span>
+        <!-- Modern Capsule Navigation (Exactly 2 Tabs: Tahanan & Kalasag) -->
+        <nav class="modern-nav-capsule" aria-label="Main Navigation">
+          <a href="#tahanan" class="leaf-tab-btn is-active" data-tab="tahanan" role="tab" aria-selected="true"
+            aria-current="page" id="tab-tahanan">
+            <span class="nav-tab-icon" aria-hidden="true">🌿</span>
+            <span class="nav-tab-label">Tahanan</span>
           </a>
-          <div class="hotline-card">
-            <span class="hotline-num">(02) 8723-0401</span>
-            <span class="hotline-name">PNP Women & Children Protection Center</span>
-            <span class="hotline-verify">⚠️ I-verify sa <a href="https://pnp.gov.ph" target="_blank" rel="noopener">pnp.gov.ph</a></span>
-          </div>
-          <div class="hotline-card">
-            <span class="hotline-num">1553</span>
-            <span class="hotline-name">National Center for Mental Health Crisis Hotline</span>
-            <span class="hotline-verify">⚠️ I-verify sa <a href="https://ncmh.gov.ph" target="_blank" rel="noopener">ncmh.gov.ph</a></span>
-          </div>
-          <div class="hotline-card">
-            <span class="hotline-num">8888</span>
-            <span class="hotline-name">DSWD Crisis Hotline</span>
-            <span class="hotline-verify">⚠️ I-verify sa <a href="https://dswd.gov.ph" target="_blank" rel="noopener">dswd.gov.ph</a></span>
-          </div>
-          <div class="hotline-card">
-            <span class="hotline-num">(02) 8527-8000</span>
-            <span class="hotline-name">Commission on Human Rights (CHR)</span>
-            <span class="hotline-verify">⚠️ I-verify sa <a href="https://chr.gov.ph" target="_blank" rel="noopener">chr.gov.ph</a></span>
-          </div>
-          <div class="hotline-card">
-            <span class="hotline-num">(02) 8736-0396</span>
-            <span class="hotline-name">GABRIELA Hotline</span>
-            <span class="hotline-verify">⚠️ I-verify sa opisyal na GABRIELA channels</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Report Form -->
-      <div class="kalasag-report-form-card">
-        <h3 class="kalasag-section-title">🛡️ Mag-ulat ng Nilalaman</h3>
-        <p class="kalasag-report-note">Ang form na ito ay para sa pag-uulat ng nilalaman sa loob ng BENA na lumalabag sa ating Gabay ng Komunidad. Para sa mga aktwal na emergency o legal na kaso, makipag-ugnayan sa mga hotline sa itaas.</p>
-        <form id="kalasagReportForm" class="kalasag-form" novalidate>
-          <div class="form-group">
-            <label for="reportType" class="form-label">Uri ng Ulat <span class="required">*</span></label>
-            <select id="reportType" name="reportType" required>
-              <option value="">Pumili ng uri...</option>
-              <option value="hate-speech">Hate Speech o Panlalait sa Kasarian</option>
-              <option value="harassment">Online Harassment o Pang-iinsulto</option>
-              <option value="misinformation">Maling Impormasyon ukol sa Kasarian</option>
-              <option value="privacy">Paglabag sa Privacy</option>
-              <option value="other">Iba pa</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="reportDescription" class="form-label">Paliwanag <span class="required">*</span></label>
-            <textarea id="reportDescription" name="reportDescription" rows="4" maxlength="1000" required placeholder="Ipaliwanag nang maayos ang iyong ulat upang mas mabilis na masuri ng komunidad..."></textarea>
-          </div>
-          <div class="form-group">
-            <label for="reportTargetId" class="form-label">ID ng Post o Komento (kung available)</label>
-            <input type="text" id="reportTargetId" name="reportTargetId" placeholder="Awtomatikong nalalaman kung nagmula sa I-report link">
-          </div>
-          <div class="form-group">
-            <label class="community-checkbox-pill">
-              <input type="checkbox" id="reportPrivacyConsent" required>
-              <span class="checkbox-custom" aria-hidden="true"></span>
-              <span>Naiintindihan ko na ang ulat na ito ay susuriin ng volunteer moderators ng komunidad, at hindi ito garantiya ng agarang aksyon.</span>
-            </label>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn--gold" id="submitReportBtn">Isumite ang Ulat 🛡️</button>
-          </div>
-        </form>
-      </div>
+          <a href="#kalasag" class="leaf-tab-btn" data-tab="kalasag" role="tab" aria-selected="false"
+            id="tab-kalasag">
+            <span class="nav-tab-icon" aria-hidden="true">🛡️</span>
+            <span class="nav-tab-label">Kalasag</span>
+          </a>
+        </nav>
 
-      <!-- Privacy Statement -->
-      <div class="kalasag-privacy-card">
-        <h3 class="kalasag-section-title">🔒 Pahayag ng Privacy</h3>
-        <p>Ang BENA ay hindi nagtatago ng personal na impormasyon ng gumagamit sa anumang third-party server. Ang lahat ng data — mga post, panata, at mga aralin na natapos — ay nananatili sa iyong browser (localStorage) o sa lokal na community server kung saan ito pinaglilingkuran.</p>
-        <ul class="kalasag-privacy-list">
-          <li>✓ Walang tracking cookies o analytics na nagtatala ng iyong pagkilos</li>
-          <li>✓ Walang ibinabahaging data sa Facebook, Google, o anumang third-party</li>
-          <li>✓ Ang mga larawan na ina-upload ay compressed at nananatili sa lokal na data ng browser</li>
-          <li>✓ Maaari mong burahin ang lahat ng data sa pamamagitan ng Settings sa footer</li>
-        </ul>
-        <p class="kalasag-disclaimer">⚠️ <strong>Paunawa:</strong> Ang BENA ay hindi opisyal na ahensya ng gobyerno. Hindi ito kapalit ng propesyonal na legal o mental health na tulong. Para sa mga emergency, makipag-ugnayan sa mga awtoridad sa pamamagitan ng mga hotline sa itaas.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SANGGUNIAN (MASTER REFERENCES — PHASE 6) ==================== -->
-  <section id="sanggunian" class="page" role="tabpanel" aria-labelledby="tab-sanggunian" hidden>
-    <div class="page-inner">
-      <div class="section-intro">
-        <div class="safe-space-badge">
-          <span>📚 AKADEMYA AT BATAYAN</span>
-        </div>
-        <h2 class="page-heading">Master Sanggunian at Talaan ng Pinagmulan</h2>
-        <p class="page-sub">
-          Ang mga opisyal na teorya, aklat-pangkasaysayan, batas, at estadistika na naging pundasyon ng BENA.
-        </p>
-      </div>
-
-      <!-- Educational Disclaimer -->
-      <div class="reference-disclaimer-card">
-        <span class="disclaimer-icon">⚠️</span>
-        <p><strong>Paunawa sa Edukasyon:</strong> Ang mga sanggunian na ito ay para sa edukasyonal na layunin. Ang mga numero at datos ay dapat i-verify sa pinakabagong publikasyon ng pinagmulan. Ang mga URL ay naka-marka bilang <code>url: null</code> kung hindi maaaring matiyak ang isang matatag na link — huwag kailanman mag-fabricate ng mga link.</p>
-      </div>
-
-      <!-- Filter Buttons -->
-      <div class="sanggunian-filters" role="group" aria-label="I-filter ang mga sanggunian">
-        <button class="sanggunian-filter-btn is-active" data-refcat="all">Lahat</button>
-        <button class="sanggunian-filter-btn" data-refcat="kasaysayan">📜 Kasaysayan</button>
-        <button class="sanggunian-filter-btn" data-refcat="teorya">🧠 Teorya</button>
-        <button class="sanggunian-filter-btn" data-refcat="batas">⚖️ Batas</button>
-        <button class="sanggunian-filter-btn" data-refcat="datos">📊 Datos</button>
-        <button class="sanggunian-filter-btn" data-refcat="organisasyon">🏛️ Organisasyon</button>
-      </div>
-
-      <!-- Reference List -->
-      <div class="sanggunian-master-list" id="sanggunianMasterList" aria-live="polite">
-        <!-- Injected by script.js via renderSanggunianPage() -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== 4. MAG-POST (SUBMISSION FORM) ==================== -->
-  <section id="magpost" class="page" role="tabpanel" aria-labelledby="tab-magpost" hidden>
-    <div class="page-inner page-inner--narrow">
-      <div class="section-intro">
-        <h2 class="page-heading">Ibahagi ang Iyong Tinig</h2>
-        <p class="page-sub">
-          Walang opinyong masyadong maliit, at walang sining na hindi mahalaga. Ang iyong boses ay bahagi ng kasaysayan ng BENA.
-        </p>
-      </div>
-
-      <form id="postForm" class="post-form-card" novalidate>
-        
-        <!-- Post Type Selection -->
-        <div class="form-group">
-          <label class="form-label">Anong uri ng likha ang iyong ibabahagi?</label>
-          <div class="post-type-selector">
-            <label class="type-card">
-              <input type="radio" name="postCategory" value="Artikulo" checked>
-              <div class="type-card-content">
-                <span class="type-icon">📝</span>
-                <span class="type-name">Artikulo</span>
-                <span class="type-desc">Sanaysay, opinyon, o pagninilay</span>
-              </div>
-            </label>
-
-            <label class="type-card">
-              <input type="radio" name="postCategory" value="Sining">
-              <div class="type-card-content">
-                <span class="type-icon">🎨</span>
-                <span class="type-name">Sining</span>
-                <span class="type-desc">Guhit, larawan, o likhang-kamay</span>
-              </div>
-            </label>
-
-            <label class="type-card">
-              <input type="radio" name="postCategory" value="Karanasan">
-              <div class="type-card-content">
-                <span class="type-icon">💬</span>
-                <span class="type-name">Karanasan</span>
-                <span class="type-desc">Personal na kwento o patotoo</span>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <!-- Title Field -->
-        <div class="form-group">
-          <div class="form-label-row">
-            <label for="postTitle" class="form-label">Pamagat ng iyong likha <span class="required">*</span></label>
-            <span class="char-count" id="titleCharCount">0 / 120</span>
-          </div>
-          <input type="text" id="postTitle" name="postTitle" required maxlength="120" placeholder="Halimbawa: Ang Diwa ng Aking Ina at ng mga Babaylan" aria-describedby="postTitleError" aria-invalid="false">
-          <span id="postTitleError" class="field-error-msg" hidden role="alert">Pakilagyan ng pamagat (hindi bababa sa 3 titik).</span>
-        </div>
-
-        <!-- Author Field with Pronouns -->
-        <div class="form-group">
-          <div class="form-label-row">
-            <label for="postAuthor" class="form-label">Iyong Pangalan o Sagisag-panulat <span class="required" id="authorReqStar">*</span></label>
-            <span class="char-count" id="authorCharCount">0 / 50</span>
-          </div>
-          <input type="text" id="postAuthor" name="postAuthor" required maxlength="50" placeholder="Halimbawa: Tala ng Kabisayaan" aria-describedby="postAuthorError" aria-invalid="false">
-          <span id="postAuthorError" class="field-error-msg" hidden role="alert">Pakilagyan ng pangalan o lagyan ng tsek ang 'I-post nang Lihim'.</span>
-          
-          <!-- Gender-Sensitive Pronouns Selector (Opsyonal) -->
-          <div class="pronouns-picker-group">
-            <span class="pronouns-label">Iyong Panghalip / Pronouns (Opsyonal):</span>
-            <div class="pronouns-pills" id="pronounsPicker">
-              <label class="pronoun-pill">
-                <input type="radio" name="postPronouns" value="siya/kanya" checked>
-                <span>Siya / Kanya (Likas)</span>
-              </label>
-              <label class="pronoun-pill">
-                <input type="radio" name="postPronouns" value="she/her">
-                <span>She / Her</span>
-              </label>
-              <label class="pronoun-pill">
-                <input type="radio" name="postPronouns" value="he/him">
-                <span>He / Him</span>
-              </label>
-              <label class="pronoun-pill">
-                <input type="radio" name="postPronouns" value="they/them">
-                <span>They / Them</span>
-              </label>
-              <label class="pronoun-pill">
-                <input type="radio" name="postPronouns" value="any">
-                <span>Anumang Panghalip</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Anonymous Option -->
-          <label class="anon-checkbox-pill">
-            <input type="checkbox" id="postAnonymous" name="postAnonymous">
-            <span class="checkbox-custom" aria-hidden="true"></span>
-            <span class="anon-label-text">
-              <strong>I-post nang Lihim (Anonymous)</strong>
-              <small>Protektahan ang iyong pagkakakilanlan kung sensitibo ang iyong kwento.</small>
-            </span>
-          </label>
-        </div>
-
-        <!-- Gender & Society Topic Tags Selector -->
-        <div class="form-group">
-          <label class="form-label">Pumili ng Paksa sa Kasarian at Lipunan (Pumili ng isa o higit pa):</label>
-          <div class="topic-tags-selector" id="topicTagsGroup">
-            <label class="tag-selector-pill">
-              <input type="checkbox" name="postTags" value="#BabaylanAtAsog" checked>
-              <span>#BabaylanAtAsog</span>
-            </label>
-            <label class="tag-selector-pill">
-              <input type="checkbox" name="postTags" value="#Kababaihan">
-              <span>#Kababaihan</span>
-            </label>
-            <label class="tag-selector-pill">
-              <input type="checkbox" name="postTags" value="#LGBTQIA+">
-              <span>#LGBTQIA+</span>
-            </label>
-            <label class="tag-selector-pill">
-              <input type="checkbox" name="postTags" value="#PantayNaKarapatan">
-              <span>#PantayNaKarapatan</span>
-            </label>
-            <label class="tag-selector-pill">
-              <input type="checkbox" name="postTags" value="#LabanSaPatriarkiya">
-              <span>#LabanSaPatriarkiya</span>
-            </label>
-            <label class="tag-selector-pill">
-              <input type="checkbox" name="postTags" value="#WikaAtKultura">
-              <span>#WikaAtKultura</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Image Upload Field (for Sining, or optional visual) -->
-        <div class="form-group" id="artUploadField">
-          <div class="form-label-row">
-            <label for="postImage" class="form-label">
-              <span id="artUploadLabel">Larawan ng Sining (JPG/PNG/WebP)</span>
-            </label>
-            <span class="sining-recommend-tag" id="siningRecommendTag" hidden>🎨 Inirerekomenda para sa Sining</span>
-          </div>
-          <div class="upload-dropzone" id="uploadDropzone">
-            <input type="file" id="postImage" name="postImage" accept="image/png, image/jpeg, image/webp">
-            <div class="dropzone-content">
-              <span class="dropzone-icon">🖼️</span>
-              <p class="dropzone-text"><strong>Pindutin upang pumili ng larawan</strong> o i-drag dito</p>
-              <p class="dropzone-sub">Awtomatikong kino-compress sa pinakamainam na laki (max 800px / 500KB) para sa mabilis na paglo-load.</p>
-            </div>
-          </div>
-          
-          <!-- Preview Area -->
-          <div id="imagePreviewContainer" class="image-preview-container" hidden>
-            <img id="imagePreview" class="image-preview" alt="Paunang tingin sa larawan">
-            <button type="button" id="removeImageBtn" class="btn btn--small btn--danger-subtle">Alisin ang Larawan ✕</button>
-          </div>
-        </div>
-
-        <!-- Content Area -->
-        <div class="form-group">
-          <div class="form-label-row">
-            <label for="postContent" class="form-label" id="contentLabel">Sulatin o Mensahe <span class="required">*</span></label>
-            <span class="char-count" id="contentCharCount">0 / 2000</span>
-          </div>
-          <textarea id="postContent" name="postContent" rows="7" required maxlength="2000" placeholder="Ibuhos ang iyong saloobin, ipaliwanag ang iyong sining, o ibahagi ang iyong pagninilay ukol sa kasarian at lipunan..." aria-describedby="postContentError" aria-invalid="false"></textarea>
-          <span id="postContentError" class="field-error-msg" hidden role="alert">Pakilagyan ng sulatin o mensahe (hindi bababa sa 10 titik).</span>
-          <div class="textarea-footer">
-            <span class="field-hint">Maging magalang, sensitibo sa damdamin ng kapwa, at makatao sa bawat salita.</span>
-          </div>
-        </div>
-
-        <!-- Sensitive Content Warning (Content Warning / Trigger Warning) -->
-        <div class="form-group">
-          <label class="sensitive-warning-toggle">
-            <input type="checkbox" id="postSensitiveWarning" name="postSensitiveWarning">
-            <span class="warning-toggle-text">
-              <strong>⚠️ Naglalaman ba ito ng Sensitibong Paksa? (Content Warning)</strong>
-              <small>Lagyan ng tsek kung may pagtalakay sa diskriminasyon, panliligalig, o matinding trauma ukol sa kasarian upang mabigyan ng babala ang kapwa bago basahin.</small>
-            </span>
-          </label>
-        </div>
-
-        <!-- Pre-submit Community Guidelines Consent Checkbox -->
-        <div class="form-group community-guidelines-group">
-          <label class="community-checkbox-pill">
-            <input type="checkbox" id="postGuidelinesConsent" name="postGuidelinesConsent" required aria-describedby="guidelinesError" aria-invalid="false">
-            <span class="checkbox-custom" aria-hidden="true"></span>
-            <span class="guidelines-label-text">
-              <strong>Sumasang-ayon ako sa Gabay ng Komunidad ng BENA 🌸</strong>
-              <small>Ipinapangako kong igagalang ang bawat kasarian (SOGIESC), walang pambabastos, diskriminasyon, o paninira sa kapwa.</small>
-            </span>
-          </label>
-          <span id="guidelinesError" class="field-error-msg" hidden role="alert">Kinakailangang sumang-ayon sa Gabay ng Komunidad bago mag-post.</span>
-        </div>
-
-        <!-- Submission Button -->
-        <div class="form-actions">
-          <button type="submit" class="btn btn--gold btn--block btn--lg" id="submitPostBtn">
-            <span>Ipahayag sa Tahanan</span>
-            <span aria-hidden="true">🌻</span>
+        <!-- Header Actions: Modern Theme switch & Yakap pill -->
+        <div class="header-actions">
+          <button type="button" class="modern-theme-btn" id="themeToggleBtn" aria-label="Toggle Forest Theme">
+            <span id="themeIcon" aria-hidden="true">🌙</span>
+            <span id="themeLabel">Dusk</span>
+          </button>
+          <button type="button" class="modern-yakap-btn" id="headerHelpBtn" aria-label="Buksan ang Yakap Welcome Modal">
+            <span aria-hidden="true">🫂</span>
+            <span>Yakap</span>
           </button>
         </div>
-      </form>
-    </div>
-  </section>
 
-  <!-- ==================== 4. MANIFESTO (THE SOUL OF PRE-COLONIAL GENDER EQUALITY) ==================== -->
-  <section id="manifesto" class="page" role="tabpanel" aria-labelledby="tab-manifesto" hidden>
-    <div class="page-inner">
-      
-      <div class="manifesto-hero">
-        <span class="manifesto-eyebrow">ᜋᜈᜒᜉᜒᜐ᜔ᜆᜓ • ANG DIWA NG BENA</span>
-        <h2 class="manifesto-title">Bago tayo sakupin, tayo ay ganap at pantay-pantay na.</h2>
-        <p class="manifesto-lead">
-          Ang kolonyalismo ay nagdala ng patriarkiya, ng kahihiyan sa sariling wika at kulay, at ng maling paniniwalang may isang kasariang mas higit sa iba. Ang BENA ay ang ating kolektibong pagbabalik-loob sa katotohanang tayo ay may dangal.
-        </p>
-      </div>
-
-      <!-- Comparative History Grid: Noon, Kolonisasyon, Ngayon -->
-      <div class="history-grid">
-        
-        <div class="history-card history-card--past">
-          <div class="history-badge">NOONG PANAHON NG NINUNO</div>
-          <h3 class="history-title">Ang Lipunang Babaylan</h3>
-          <ul class="history-list">
-            <li><strong>Espirituwal na Pamumuno:</strong> Ang mga <em>Babaylan</em> (at <em>Catalonan</em>) ang tagapamagitan sa kalikasan at tao — madalas kababaihan, at iginagalang katumbas ng mga Datu.</li>
-            <li><strong>Paggalang sa Non-binary at Asog:</strong> Ang mga taong nagbihis-babae at may katangiang pambabae (<em>Asog</em> o <em>Bayoguin</em>) ay itinuturing na may espesyal na basbas ng espiritu, hindi hinahamak.</li>
-            <li><strong>Pantay na Pag-aari at Diborsyo:</strong> Ang mga kababaihan ay maaaring magmay-ari ng lupa, maging mandirigma o mangangalakal, at may karapatang magpasya sa sariling buhay.</li>
-          </ul>
-        </div>
-
-        <div class="history-card history-card--wound">
-          <div class="history-badge">ANG SUGAT NG KOLONYALISMO</div>
-          <h3 class="history-title">Ang Ipinataw na Kahihiyan</h3>
-          <ul class="history-list">
-            <li><strong>Patriarkiya at Subordinasyon:</strong> Tinuruan ang mga kababaihang manahimik, sumunod, at ikulong ang sarili sa apat na sulok ng bahay.</li>
-            <li><strong>Pagwasak sa mga Babaylan:</strong> Tinawag silang "bruha," sinunog ang kanilang mga ritwal, at pinarusahan ang mga asog at katutubong pinuno.</li>
-            <li><strong>Kahihiyan sa Pinagmulan:</strong> Natutunan nating ikahiya ang kulay-kayumanggi nating balat, ang ating mga katutubong wika, at ang ating sariling kultura.</li>
-          </ul>
-        </div>
-
-        <div class="history-card history-card--future">
-          <div class="history-badge">ANG TAHANAN NG BENA</div>
-          <h3 class="history-title">Ang Pagbawi sa Ating Diwa</h3>
-          <ul class="history-list">
-            <li><strong>Walang Kasarian ang Higit:</strong> Walang lalaki, babae, o LGBTQ+ na mas mataas o mas mababa. Tayo ay magkakapantay na bunga ng iisang lupa.</li>
-            <li><strong>Ligtas na Kanlungan:</strong> Isang platapormang walang algoritmo ng pagkamuhi — bawat kwento at sining ay binibigyang-halaga.</li>
-            <li><strong>Pagyakap sa Sarili:</strong> Ipagmalaki ang iyong punto, ang iyong mukha, at ang dugo ng mga ninunong lumaban upang ikaw ay makatayo nang may dangal.</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- SOGIESC Educational Deep Dive -->
-      <div class="sogiesc-primer-card">
-        <div class="sogiesc-primer-header">
-          <span class="primer-badge">GABAY SA KASARIAN AT LIPUNAN</span>
-          <h3>Bakit Likas na Gender-Sensitive ang Diwang Pilipino?</h3>
-        </div>
-        <div class="sogiesc-primer-grid">
-          <div class="primer-col">
-            <h4>🌿 Ang Salitang “Siya”</h4>
-            <p>
-              Ipinapakita ng linggwistika na ang mga wikang Austronesyo tulad ng Tagalog, Ilokano, at Bisaya ay <strong>genderless</strong>. Walang salungatan ng "he" o "she." Sa mata ng ating wika, bawat nilalang ay <em>tao</em> at <em>kapwa</em> muna bago ang kasarian.
-            </p>
-          </div>
-          <div class="primer-col">
-            <h4>🕊️ Ang SOGIESC sa Ating Kasaysayan</h4>
-            <p>
-              Ang konsepto ng <strong>SOGIESC</strong> ay hindi bagong "banyagang kaisipan." Noon pa mang ika-16 na siglo, itinala na ng mga unang mananalaysay tulad nina Fray Alcina ang mga <em>Asog</em> sa Visayas na namuhay bilang iginagalang na mga lider ng ritwal.
-            </p>
-          </div>
-          <div class="primer-col">
-            <h4>🛡️ Pagtataguyod ng Ligtas na Espasyo</h4>
-            <p>
-              Ang pagiging gender-sensitive ay nangangahulugang hindi natin pinapaliit ang karanasan ng kababaihan, hindi natin ipinagkakait ang karapatan ng LGBTQIA+, at hindi natin kinukundena ang kalalakihan sa makalumang toxic masculinity.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Deep Dive Manifesto Article -->
-      <article class="manifesto-prose-card">
-        <h3>Isang Liham Para sa Bawat Pilipinong Nakaramdam ng Kahihiyan</h3>
-        <p>
-          Kung minsan mo nang ikinahiya ang punto ng iyong pagsasalita noong lumuwas ka sa lungsod; kung ikaw ay pinatahimik dahil ikaw ay babae; kung ikaw ay kinutya dahil hindi umaayon ang iyong puso sa mahigpit na kahon ng lipunan — <strong>ang pahinang ito ay para sa iyo.</strong>
-        </p>
-        <p>
-          Hindi tayo nagsimula sa pagkaalipin. Nagsimula tayo sa isang kapuluan ng mga makata, manghahabi, manlalayag, at mga espirituwal na gabay na nakakita ng kabanalan sa bawat anyo ng buhay. Ang pagiging Pilipino ay hindi isang pagkukulang na kailangang punan ng banyagang pagsang-ayon; ito ay isang kayamanang kailangang gunitain.
-        </p>
-        
-        <blockquote class="manifesto-quote">
-          “Sa bawat Babaylan na pinatahimik ng kasaysayan, may isang kabataang Pilipinong muling magsasalita nang may katapangan at pagmamahal.”
-        </blockquote>
-
-        <p>
-          Huwag mong itago ang iyong ganda. Huwag mong ikahiya ang iyong pinagmulan. Sa BENA, ikaw ay laging may tahanan.
-        </p>
-        <div class="manifesto-sign">
-          <p class="sign-text">Nang may buong puso at paggalang,</p>
-          <p class="sign-author">Ang Pamilya at Pamayanan ng BENA 🌻</p>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-</main>
-
-<!-- 4. Alon Section Divider: Main Content to Footer -->
-<div class="alon-divider" aria-hidden="true">
-  <div class="alon-wave-track alon-wave-track--gold">
-    <svg class="alon-svg" viewBox="0 0 1440 32" preserveAspectRatio="none">
-      <path d="M0,16 C240,30 480,2 720,16 C960,30 1200,2 1440,16 L1440,32 L0,32 Z" fill="var(--gold-bright)"/>
-    </svg>
-    <svg class="alon-svg" viewBox="0 0 1440 32" preserveAspectRatio="none">
-      <path d="M0,16 C240,30 480,2 720,16 C960,30 1200,2 1440,16 L1440,32 L0,32 Z" fill="var(--gold-bright)"/>
-    </svg>
-  </div>
-  <div class="alon-wave-track alon-wave-track--coral">
-    <svg class="alon-svg" viewBox="0 0 1440 32" preserveAspectRatio="none">
-      <path d="M0,12 C180,2 420,26 720,12 C1020,2 1260,26 1440,12 L1440,32 L0,32 Z" fill="var(--coral)"/>
-    </svg>
-    <svg class="alon-svg" viewBox="0 0 1440 32" preserveAspectRatio="none">
-      <path d="M0,12 C180,2 420,26 720,12 C1020,2 1260,26 1440,12 L1440,32 L0,32 Z" fill="var(--coral)"/>
-    </svg>
-  </div>
-</div>
-
-<!-- ============ SITE FOOTER ============ -->
-<footer class="site-footer">
-  <!-- 2. Banig Ambient Background Layer in Footer -->
-  <div class="banig-ambient-layer" aria-hidden="true">
-    <div class="banig-track">
-      <svg viewBox="0 0 400 120" preserveAspectRatio="none" class="banig-svg">
-        <defs>
-          <pattern id="banigFtr" width="32" height="32" patternUnits="userSpaceOnUse">
-            <path d="M0 16 L16 0 L32 16 L16 32 Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M0 0 L16 16 M16 0 L0 16" stroke="currentColor" stroke-width="0.8"/>
-            <path d="M16 16 L32 32 M32 16 L16 32" stroke="currentColor" stroke-width="0.8"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#banigFtr)"/>
-      </svg>
-      <svg viewBox="0 0 400 120" preserveAspectRatio="none" class="banig-svg">
-        <rect width="100%" height="100%" fill="url(#banigFtr)"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <span class="footer-logo">BENA</span>
-      <p class="footer-core-msg">Ginawa nang may pagmamahal para sa Gender and Society. Walang kasarian ang higit sa isa pa.</p>
-    </div>
-
-    <div class="footer-links">
-      <button class="footer-link-btn" id="footerHugBtn">🫂 Humiling ng Yakap</button>
-      <span class="footer-dot">•</span>
-      <button class="footer-link-btn" id="footerGuideBtn">🌈 Gabay sa Kasarian</button>
-      <span class="footer-dot">•</span>
-      <button class="footer-link-btn" id="footerResetBtn">↺ I-reset sa Default Data</button>
-      <span class="footer-dot">•</span>
-      <button class="footer-link-btn" id="footerSettingsBtn">⚙️ Mga Setting</button>
-    </div>
-
-    <p class="footer-copyright">
-      Pamanang Pilipino © 2026 BENA. Gumagana nang lokal sa iyong browser gamit ang localStorage.
-    </p>
-  </div>
-</footer>
-
-<!-- ============ TOAST NOTIFICATION CONTAINER ============ -->
-<div id="toastContainer" class="toast-container" aria-live="assertive"></div>
-
-<!-- ============ TEMPLATE: POST CARD FOR FEED ============ -->
-<template id="postCardTemplate">
-  <article class="post-card" data-id="">
-    <!-- Card Header -->
-    <header class="post-card-header">
-      <div class="post-meta-left">
-        <span class="badge category-badge"></span>
-        <span class="post-time"></span>
-      </div>
-      <div class="post-meta-right">
-        <!-- I-report link wired to Kalasag -->
-        <button type="button" class="btn-report-post" title="I-report sa Kalasag" aria-label="I-report ang post na ito">
-          <span aria-hidden="true">🛡️</span>
-          <span class="report-text">I-report</span>
-        </button>
-        <button type="button" class="btn-share-post" title="Ibahagi ang link ng kwento" aria-label="Ibahagi ang post">
-          <span aria-hidden="true">🔗</span>
-        </button>
       </div>
     </header>
 
-    <!-- Post Title & Author with Pronouns -->
-    <h3 class="post-title"></h3>
-    <div class="post-author-row">
-      <span class="post-author-avatar" aria-hidden="true">👤</span>
-      <span class="post-author"></span>
-      <span class="pronoun-badge" hidden></span>
-    </div>
 
-    <!-- Topic Tags -->
-    <div class="post-tags-row" hidden></div>
+    <!-- ============ MAIN CONTENT CONTAINER ============ -->
+    <main id="mainContent">
 
-    <!-- Sensitive Content Warning Veil (if flagged) -->
-    <div class="sensitive-content-veil" hidden>
-      <div class="sensitive-warning-box">
-        <span class="warning-icon">⚠️</span>
-        <div>
-          <strong>Naglalaman ng Sensitibong Paksa Ukol sa Kasarian</strong>
-          <p>Maaaring maglaman ito ng pagtalakay sa diskriminasyon o personal na pagsubok.</p>
-        </div>
-        <button type="button" class="btn btn--small btn--ghost-gold btn-reveal-sensitive">Basahin Pa Rin</button>
-      </div>
-    </div>
+      <!-- ==================== 1. TAHANAN (HOME — FULL SANCTUARY SPEC) ==================== -->
+      <section id="tahanan" class="page is-active" role="tabpanel" aria-labelledby="tab-tahanan">
+        <div class="container tahanan-container">
+          <!-- Flowing Central Vine Canvas: weaves directly THROUGH and connects all home sections -->
+          <div class="tahanan-flow-canvas" aria-hidden="true">
+            <svg class="flow-vine-svg" id="spiralVineSvg" viewBox="0 0 1000 3400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="vineStemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#3B6E4A"/>
+                  <stop offset="30%" stop-color="#2D5845"/>
+                  <stop offset="60%" stop-color="#5A936C"/>
+                  <stop offset="85%" stop-color="#3B6E4A"/>
+                  <stop offset="100%" stop-color="#8EBC85"/>
+                </linearGradient>
+                <linearGradient id="vineTendrilGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#8EBC85"/>
+                  <stop offset="50%" stop-color="#C9A227"/>
+                  <stop offset="100%" stop-color="#5A936C"/>
+                </linearGradient>
+                <linearGradient id="leafGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#5A936C"/>
+                  <stop offset="100%" stop-color="#2D5845"/>
+                </linearGradient>
+                <linearGradient id="leafGradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#E5C158"/>
+                  <stop offset="100%" stop-color="#C9A227"/>
+                </linearGradient>
+              </defs>
 
-    <!-- Post Content Container -->
-    <div class="post-content-container">
-      <!-- Post Image (if Sining or has image) -->
-      <div class="post-image-frame" hidden>
-        <img class="post-image" alt="Likhang Sining" loading="lazy">
-      </div>
+              <!-- Secondary Braided Vine Tendril (Intertwined Spiral through center) -->
+              <path class="vine-secondary-stem" id="vineSecondaryStem"
+                d="M500,40
+                   C360,180 640,300 500,440
+                   C320,560 680,680 500,800
+                   C260,940 740,1100 500,1240
+                   C260,1380 740,1540 500,1680
+                   C260,1820 740,1980 500,2120
+                   C340,2260 660,2400 500,2540
+                   C300,2680 700,2820 500,2960
+                   C340,3100 660,3240 500,3380"
+              />
 
-      <!-- Post Content Body -->
-      <p class="post-content"></p>
-    </div>
+              <!-- Main Central Winding Green Vine Stem Flowing Directly Through All Content -->
+              <path class="vine-main-stem" id="vineMainStem"
+                d="M500,40
+                   C640,180 360,300 500,440
+                   C680,560 320,680 500,800
+                   C740,940 260,1100 500,1240
+                   C740,1380 260,1540 500,1680
+                   C740,1820 260,1980 500,2120
+                   C660,2260 340,2400 500,2540
+                   C700,2680 300,2820 500,2960
+                   C660,3100 340,3240 500,3380"
+              />
 
-    <!-- Post Actions: Heart/Yakap reaction & Comment toggle -->
-    <footer class="post-card-footer">
-      <div class="post-actions">
-        <button type="button" class="btn-action btn-reaction" aria-label="Magbigay ng Yakap o Puso">
-          <span class="reaction-heart" aria-hidden="true">❤️</span>
-          <span class="reaction-label">Yakap</span>
-          <span class="reaction-count">0</span>
-        </button>
+              <!-- Lateral Branching Tendrils reaching directly into Content Cards -->
+              <!-- Hero / Quote Branches -->
+              <path class="vine-tendril-branch" d="M500,440 C400,460 260,490 180,500" />
+              <path class="vine-tendril-branch" d="M500,440 C600,460 740,490 820,500" />
 
-        <button type="button" class="btn-action usapan-toggle" aria-expanded="false">
-          <span class="comment-icon" aria-hidden="true">💬</span>
-          <span class="comment-label">Usapan</span>
-          <span class="comment-count">0</span>
-        </button>
-      </div>
+              <!-- Talento Achievements Branch Connections (Left & Right Cards) -->
+              <path class="vine-tendril-branch" d="M500,940 C380,960 260,1000 180,1060" />
+              <path class="vine-tendril-branch" d="M500,1240 C620,1260 740,1300 820,1360" />
+              <path class="vine-tendril-branch" d="M500,1380 C380,1400 260,1440 180,1500" />
+              <path class="vine-tendril-branch" d="M500,1680 C620,1700 740,1740 820,1800" />
+              <path class="vine-tendril-branch" d="M500,1820 C380,1840 260,1880 180,1940" />
+              <path class="vine-tendril-branch" d="M500,2120 C620,2140 740,2180 820,2240" />
 
-      <!-- Usapan (Comments Thread) Section with 1-level deep replies -->
-      <section class="usapan-section" hidden aria-label="Mga komento at usapan">
-        <div class="usapan-divider"></div>
-        <div class="usapan-header-row">
-          <h4 class="usapan-heading">Mga Pagpapahayag at Usapan</h4>
-          <span class="usapan-badge-sub">Maging magalang at mapagkalinga</span>
-        </div>
-        
-        <ul class="comment-list" aria-live="polite"></ul>
+              <!-- Babaylan Shrine Branches -->
+              <path class="vine-tendril-branch" d="M500,2400 C320,2440 180,2500 130,2580" />
+              <path class="vine-tendril-branch" d="M500,2400 C680,2440 820,2500 870,2580" />
 
-        <!-- Add Main Comment Form with Live Char Counter and Anonymous Checkbox -->
-        <form class="comment-form">
-          <div class="comment-form-head">
-            <input type="text" class="comment-author-input" placeholder="Pangalan mo (o kapwa Pilipino)" maxlength="30">
-            <label class="comment-anon-pill">
-              <input type="checkbox" class="comment-anon-checkbox">
-              <span>Lihim</span>
-            </label>
+              <!-- Facts Cards Branch Connections -->
+              <path class="vine-tendril-branch" d="M500,2820 C360,2840 240,2880 180,2920" />
+              <path class="vine-tendril-branch" d="M500,2960 C640,2980 760,3020 820,3060" />
+              <path class="vine-tendril-branch" d="M500,3100 C360,3120 240,3160 180,3200" />
+              <path class="vine-tendril-branch" d="M500,3240 C640,3260 760,3300 820,3340" />
+
+              <!-- Sprouting Leaf Node Clusters at Every Connecting Bend -->
+              <!-- Cluster 1 — Hero / Quote Bend (440px) -->
+              <g class="vine-cluster" transform="translate(500,440)">
+                <ellipse cx="-28" cy="-12" rx="18" ry="9" fill="url(#leafGrad1)" opacity="0.9" transform="rotate(-30 -28 -12)"/>
+                <ellipse cx="26" cy="-10" rx="15" ry="7.5" fill="#3B6E4A" opacity="0.85" transform="rotate(25 26 -10)"/>
+                <circle cx="-28" cy="-12" r="3.2" fill="#E5C158"/>
+              </g>
+
+              <!-- Cluster 2 — Talento Header (800px) -->
+              <g class="vine-cluster" transform="translate(500,800)">
+                <ellipse cx="28" cy="-12" rx="18" ry="9" fill="url(#leafGradGold)" opacity="0.9" transform="rotate(30 28 -12)"/>
+                <ellipse cx="-24" cy="-8" rx="14" ry="7" fill="#2D5845" opacity="0.85" transform="rotate(-25 -24 -8)"/>
+                <circle cx="28" cy="-12" r="3.5" fill="#FAF6EE"/>
+              </g>
+
+              <!-- Cluster 3 — Card 1 Connection (940px) -->
+              <g class="vine-cluster" transform="translate(500,940)">
+                <ellipse cx="-30" cy="-14" rx="20" ry="10" fill="#2D5845" opacity="0.9" transform="rotate(-35 -30 -14)"/>
+                <ellipse cx="22" cy="-8" rx="14" ry="7" fill="#5A936C" opacity="0.85" transform="rotate(20 22 -8)"/>
+                <circle cx="-30" cy="-14" r="3.5" fill="#E5C158"/>
+              </g>
+
+              <!-- Cluster 4 — Card 2 Connection (1240px) -->
+              <g class="vine-cluster" transform="translate(500,1240)">
+                <ellipse cx="30" cy="-14" rx="20" ry="10" fill="url(#leafGrad1)" opacity="0.9" transform="rotate(35 30 -14)"/>
+                <ellipse cx="-22" cy="-8" rx="14" ry="7" fill="#3B6E4A" opacity="0.85" transform="rotate(-20 -22 -8)"/>
+                <circle cx="30" cy="-14" r="3.5" fill="#C9A227"/>
+              </g>
+
+              <!-- Cluster 5 — Card 3 Connection (1380px) -->
+              <g class="vine-cluster" transform="translate(500,1380)">
+                <ellipse cx="-30" cy="-12" rx="19" ry="9.5" fill="#2D5845" opacity="0.9" transform="rotate(-30 -30 -12)"/>
+                <ellipse cx="24" cy="-8" rx="15" ry="7.5" fill="#8EBC85" opacity="0.85" transform="rotate(25 24 -8)"/>
+                <circle cx="-30" cy="-12" r="3.2" fill="#E5C158"/>
+              </g>
+
+              <!-- Cluster 6 — Card 4 Connection (1680px) -->
+              <g class="vine-cluster" transform="translate(500,1680)">
+                <ellipse cx="30" cy="-12" rx="19" ry="9.5" fill="url(#leafGrad1)" opacity="0.9" transform="rotate(30 30 -12)"/>
+                <ellipse cx="-24" cy="-8" rx="15" ry="7.5" fill="#3B6E4A" opacity="0.85" transform="rotate(-25 -24 -8)"/>
+                <circle cx="30" cy="-12" r="3.2" fill="#C9A227"/>
+              </g>
+
+              <!-- Cluster 7 — Card 5 Connection (1820px) -->
+              <g class="vine-cluster" transform="translate(500,1820)">
+                <ellipse cx="-30" cy="-14" rx="20" ry="10" fill="#2D5845" opacity="0.9" transform="rotate(-35 -30 -14)"/>
+                <ellipse cx="24" cy="-8" rx="15" ry="7.5" fill="#5A936C" opacity="0.85" transform="rotate(20 24 -8)"/>
+                <circle cx="-30" cy="-14" r="3.5" fill="#E5C158"/>
+              </g>
+
+              <!-- Cluster 8 — Card 6 Connection (2120px) -->
+              <g class="vine-cluster" transform="translate(500,2120)">
+                <ellipse cx="30" cy="-14" rx="20" ry="10" fill="url(#leafGrad1)" opacity="0.9" transform="rotate(35 30 -14)"/>
+                <ellipse cx="-24" cy="-8" rx="15" ry="7.5" fill="#3B6E4A" opacity="0.85" transform="rotate(-20 -24 -8)"/>
+                <circle cx="30" cy="-14" r="3.5" fill="url(#leafGradGold)"/>
+              </g>
+
+              <!-- Cluster 9 — Babaylan Sanctuary Bough (2540px) -->
+              <g class="vine-cluster" transform="translate(500,2540)">
+                <ellipse cx="34" cy="-16" rx="22" ry="11" fill="#2D5845" opacity="0.95" transform="rotate(25 34 -16)"/>
+                <ellipse cx="-30" cy="-12" rx="18" ry="9" fill="url(#leafGradGold)" opacity="0.9" transform="rotate(-40 -30 -12)"/>
+                <circle cx="34" cy="-16" r="4" fill="#FAF6EE"/>
+              </g>
+
+              <!-- Cluster 10 — Facts Section Flow (2960px) -->
+              <g class="vine-cluster" transform="translate(500,2960)">
+                <ellipse cx="-28" cy="-12" rx="18" ry="9" fill="url(#leafGrad1)" opacity="0.9" transform="rotate(-30 -28 -12)"/>
+                <ellipse cx="26" cy="-10" rx="16" ry="8" fill="#3B6E4A" opacity="0.85" transform="rotate(25 26 -10)"/>
+                <circle cx="-28" cy="-12" r="3.2" fill="#E5C158"/>
+              </g>
+
+              <!-- Terminal Bough Node (3380px) -->
+              <g class="vine-cluster" transform="translate(500,3380)">
+                <ellipse cx="26" cy="-10" rx="16" ry="8" fill="#5A936C" opacity="0.9" transform="rotate(25 26 -10)"/>
+                <ellipse cx="-22" cy="-8" rx="14" ry="7" fill="url(#leafGradGold)" opacity="0.85" transform="rotate(-30 -22 -8)"/>
+                <circle cx="26" cy="-10" r="3.5" fill="#FAF6EE"/>
+              </g>
+            </svg>
           </div>
-          <div class="comment-input-area">
-            <textarea class="comment-input" rows="2" placeholder="Mag-iwan ng nakapagpapalakas at magalang na komento..." required maxlength="1000"></textarea>
-            <div class="comment-form-bottom">
-              <span class="char-count comment-char-count">0 / 1000</span>
-              <button type="submit" class="btn btn--gold btn--small">
-                <span>Ipahayag</span>
-                <span aria-hidden="true">🌻</span>
+
+          <!-- Hero Section: Full-Bleed Canopy Atmosphere -->
+          <div class="hero-section">
+            <div class="hero-content">
+              <div class="hero-badge">
+                <span>🌿 SANTUWARYO NG KASARIAN AT LIPUNAN</span>
+              </div>
+              <h1 class="hero-title">BENA</h1>
+              <p class="hero-message">“Walang kasarian ang mas mataas sa iba.”</p>
+              <p class="hero-sub">
+                Isang santuwaryo para sa lahat ng kasarian. Magpahinga sa lilim ng gubat, tuklasin ang pamanang
+                katutubo, at damhin ang liwanag ng pagkakapantay-pantay.
+              </p>
+
+              <!-- Floating Sanctuary Candle below title -->
+              <div class="sanctuary-candle-wrap" id="floatingCandle" role="button" tabindex="0"
+                aria-label="Pindutin upang buksan ang Aklat ng Paalala at magsindi ng kandila"
+                title="Pindutin upang buksan ang Aklat ng Paalala">
+                <div class="sanctuary-candle">
+                  <div class="candle-glow-aura" aria-hidden="true"></div>
+                  <svg class="candle-flame-svg" viewBox="0 0 24 36" fill="none" aria-hidden="true">
+                    <path d="M12 2C12 2 4 14 4 22C4 26.4 7.6 30 12 30C16.4 30 20 26.4 20 22C20 14 12 2 12 2Z"
+                      fill="#C9A227" />
+                    <path d="M12 10C12 10 7 18 7 23C7 25.8 9.2 28 12 28C14.8 28 17 25.8 17 23C17 18 12 10 12 10Z"
+                      fill="#F4F7F0" opacity="0.9" />
+                    <circle cx="12" cy="23" r="3" fill="#B5532A" />
+                  </svg>
+                  <div class="candle-wax-body" aria-hidden="true"></div>
+                </div>
+                <span class="candle-invitation-label">Buksan ang Aklat ng Paalala 📖</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Daily Filipino Pride Reminder Banner -->
+          <section class="quotes-banner" aria-label="Pang-araw-araw na Paalala">
+            <div class="quotes-banner-shimmer" aria-hidden="true"></div>
+            <div class="quotes-banner-header">
+              <div class="quotes-badge">
+                <span aria-hidden="true">🍃</span>
+                <span>Pang-araw-araw na Paalala ng Dangal</span>
+              </div>
+            </div>
+            <p class="quote-text-tl" id="dailyQuoteTl">“Ang iyong boses ay bahagi ng kasaysayan.”</p>
+            <p class="quote-text-en" id="dailyQuoteEn">“Your voice is part of history.”</p>
+            <div class="quotes-banner-actions">
+              <button type="button" class="btn btn--primary btn--sm" id="newQuoteBtn">
+                <span aria-hidden="true">↻</span>
+                <span>Bagong Paalala</span>
+              </button>
+              <button type="button" class="btn btn--ghost btn--sm" id="copyQuoteBtn">
+                <span aria-hidden="true">📋</span>
+                <span>Kopyahin</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- "Walang Kasarian ang Talento" (Achievements Gallery) -->
+          <section id="talentoSection" style="margin-bottom: var(--space-16);">
+            <div class="section-header-block">
+              <h2 class="section-title">Walang Kasarian ang Talento</h2>
+              <p class="section-sub">
+                Bawat tagumpay, bawat likha, bawat tapang — walang kasarian. Ang bawat Pilipino ay may ambag sa ating
+                kultura, kasaysayan, at hinaharap.
+              </p>
+            </div>
+
+            <!-- Filter Pills -->
+            <div class="filter-pills-row" id="achievementFilterPills" role="group"
+              aria-label="I-filter ang mga talento">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Achievements Cards Grid -->
+            <div class="achievements-grid" id="achievementsGrid" aria-live="polite">
+              <!-- Dynamically populated from ACHIEVEMENTS -->
+            </div>
+          </section>
+
+          <!-- Babaylan Spotlight Panel -->
+          <section class="babaylan-shrine-card reveal-on-scroll" aria-labelledby="babaylanTitle">
+            <div class="babaylan-accent-line" aria-hidden="true"></div>
+            <h2 class="babaylan-title" id="babaylanTitle">Ang mga Babaylan</h2>
+            <p class="babaylan-body">
+              Bago pa man dumating ang mga dayuhang mananakop na nagdala ng patriarkiya, ang ating mga sinaunang
+              pamayanan ay pinamunuan ng mga <strong>Babaylan</strong>, <strong>Catalonan</strong>,
+              <strong>Asog</strong>, at <strong>Bayoguin</strong>. Sila ang mga pinunong espirituwal, manggagamot,
+              tagapayo ng datu, at tagapagingat ng kasaysayan at ritwal.
+            </p>
+            <p class="babaylan-body">
+              Sa sinaunang lipunang Pilipino, ang kababaihan at ang mga taong may fluid o pambabaeng diwa ay may mataas
+              na katayuan at karapatan sa pagmamay-ari at pamumuno. Ang kolonyalismo ang muling humubog sa ating kultura
+              upang ikulong ang kasarian sa magkahiwalay na kahon.
+            </p>
+            <div class="babaylan-nuance-box">
+              <p>
+                <strong>Tala ng Kasaysayan:</strong> Ang ating mga ninuno ay hindi perpekto, ngunit pinatutunayan ng
+                kasaysayan na ang patriarkiya ay hindi likas sa dugong Pilipino — ito ay itinuro lamang, at maaari
+                nating iwaksi.
+              </p>
+            </div>
+          </section>
+
+
+          <!-- "Kailangan Mong Malaman" (Core Gender & Society Rubric Factual Cards) -->
+          <section id="factsSection" style="margin-bottom: var(--space-16);">
+            <div class="section-header-block">
+              <h2 class="section-title">Kailangan Mong Malaman</h2>
+              <p class="section-sub">
+                Mga mahalagang batayang konsepto sa Kasarian at Lipunan na dapat maunawaan ng bawat mag-aaral at
+                mamamayan.
+              </p>
+            </div>
+
+            <div class="facts-grid">
+              <!-- Fact Card 1: SOGIESC -->
+              <article class="fact-card reveal-on-scroll">
+                <h3 class="fact-card-title">1. Sex vs. Gender vs. Sexuality vs. SOGIESC</h3>
+                <p class="fact-card-text">
+                  Ang <strong>Sex</strong> ay biyolohikal na katangian ng katawan (chromosomes, hormones, genitalia).
+                  Ang <strong>Gender</strong> ay panlipunang gampanin at inaasahan. Ang <strong>Sexuality</strong> ay
+                  emosyonal at sekswal na atraksyon. Ang <strong>SOGIESC</strong> ay kumakatawan sa buong spectrum:
+                  Sexual Orientation, Gender Identity, Gender Expression, at Sex Characteristics. Bawat tao ay may
+                  sariling natatanging SOGIESC.
+                </p>
+              </article>
+
+              <!-- Fact Card 2: Patriarchy -->
+              <article class="fact-card reveal-on-scroll">
+                <h3 class="fact-card-title">2. Patriarkiya at Kapangyarihan (Patriarchy &amp; Power)</h3>
+                <p class="fact-card-text">
+                  Ang patriarkiya ay isang sistemang panlipunan kung saan ang kalalakihan ang may hawak ng pangunahing
+                  kapangyarihan sa politika, ekonomiya, at pamilya. Hindi ito simpleng galit sa indibidwal na lalaki,
+                  kundi isang institusyonal na istruktura na nagpapahirap sa kababaihan, nagdidikta ng toxic na
+                  pamantayan sa kalalakihan, at nagwawantang-bahagi sa LGBTQIA+.
+                </p>
+              </article>
+
+              <!-- Fact Card 3: Intersectionality -->
+              <article class="fact-card reveal-on-scroll">
+                <h3 class="fact-card-title">3. Interseksyonalidad (Intersectionality)</h3>
+                <p class="fact-card-text">
+                  Ipinakilala ni Kimberlé Crenshaw noong 1989, ipinapaliwanag ng interseksyonalidad na ang
+                  diskriminasyon ay hindi nag-iisa. Ang kasarian ng isang tao ay nakakabit sa kanyang uri (class),
+                  lahi/katutubong pinagmulan, edad, at kapansanan. Ang isang katutubong mahirap na babae ay nakakaranas
+                  ng patong-patong na opresyon kaysa sa isang may-kayang babae sa lungsod.
+                </p>
+              </article>
+
+              <!-- Fact Card 4: Hegemonic Masculinity -->
+              <article class="fact-card reveal-on-scroll">
+                <h3 class="fact-card-title">4. Hegemonic Masculinity &amp; Femininities</h3>
+                <p class="fact-card-text">
+                  Ayon kay R.W. Connell, ang hegemonic masculinity ay ang ideyal na uri ng pagkalalaki na nagpapairal ng
+                  dominasyon, pag-iwas sa emosyon, at karahasan. Ipinagkakait nito sa kalalakihan ang malayang
+                  pagpapahayag ng lambot at kalinga. Ang pagbuwag dito ay nagpapalaya sa kalalakihan mula sa
+                  mapaminsalang pamantayan.
+                </p>
+              </article>
+
+              <!-- Fact Card 5: Gender-Based Violence (with CW) -->
+              <article class="fact-card reveal-on-scroll">
+                <span class="fact-content-warning">⚠️ Content Warning: Karahasan at Pang-aabuso</span>
+                <h3 class="fact-card-title">5. Gender-Based Violence (Karahasang Nakabatay sa Kasarian)</h3>
+                <p class="fact-card-text">
+                  Ang GBV ay anumang mapaminsalang gawa na ipinapataw laban sa kagustuhan ng isang tao dahil sa kanyang
+                  kasarian. Kabilang dito ang pisikal, sekswal, sikolohikal, at ekonomikong pang-aabuso, pati na rin ang
+                  online gender-based harassment. Hindi ito pribadong away-pamilya lamang kundi paglabag sa karapatang
+                  pantao.
+                </p>
+              </article>
+
+              <!-- Fact Card 6: Philippine Gender Laws -->
+              <article class="fact-card reveal-on-scroll">
+                <h3 class="fact-card-title">6. Mga Batas sa Kasarian sa Pilipinas</h3>
+                <p class="fact-card-text">
+                  Pinoprotektahan ng batas ang mamamayan sa pamamagitan ng <strong>RA 9710</strong> (Magna Carta of
+                  Women), <strong>RA 9262</strong> (Anti-VAWC Act laban sa pananakit sa kababaihan at anak), <strong>RA
+                    11313</strong> (Safe Spaces Act o Bawal Bastos Law laban sa pambabastos sa kalsada at online), at
+                  <strong>RA 7877</strong> (Anti-Sexual Harassment). Patuloy na ipinaglalaban ang <strong>SOGIE Equality
+                    Bill</strong> para sa pambansang proteksyon laban sa diskriminasyon.
+                </p>
+              </article>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+
+      <!-- ==================== 2. KALASAG (SHIELD — SAFETY, RIGHTS & REFUGE) ==================== -->
+      <section id="kalasag" class="page" role="tabpanel" aria-labelledby="tab-kalasag" hidden>
+        <div class="container">
+          <!-- Tactile Woven Vine Thread Spine -->
+          <div class="vine-spine-track" aria-hidden="true"></div>
+
+          <div class="hero-section" style="padding-bottom: var(--space-6);">
+            <div class="hero-content">
+              <div class="hero-badge">
+                <span>🛡️ GABAY SA KALIGTASAN AT KARAPATAN</span>
+              </div>
+              <h1 class="hero-title">Kalasag</h1>
+              <p class="hero-message">“Ligtas ka rito. May proteksyon ang iyong dangal.”</p>
+              <p class="hero-sub">
+                Ang Kalasag ay ang iyong kalasag at tanggulan — naglalaman ng mga patakaran ng respeto sa komunidad, mga
+                numerong matatawagan sa oras ng pangangailangan, at mga hakbang upang maging tunay na kakampi.
+              </p>
+            </div>
+          </div>
+
+          <!-- Community Guidelines -->
+          <section class="shield-guidelines-card">
+            <h2 class="section-title" style="font-size: 1.65rem; margin-bottom: var(--space-4);">
+              📋 Mga Alituntunin ng Komunidad (Community Guidelines)
+            </h2>
+            <div class="guidelines-list" id="shieldGuidelinesList">
+              <!-- Rendered from SHIELD_DATA.guidelines -->
+            </div>
+          </section>
+
+          <!-- Emergency Hotlines -->
+          <section class="shield-hotlines-card">
+            <h2 class="section-title" style="font-size: 1.65rem; margin-bottom: var(--space-2);">
+              📞 Mga Emergency Hotline at Suporta
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+              I-verify ang mga numerong ito bago gamitin. Pindutin ang numero upang direktang tawagan sa telepono.
+            </p>
+            <div class="hotlines-grid" id="shieldHotlinesGrid">
+              <!-- Rendered from SHIELD_DATA.hotlines -->
+            </div>
+          </section>
+
+          <!-- "Paano Maging Mabuting Kakampi" (10 Ally Tips) -->
+          <section class="shield-ally-card">
+            <h2 class="section-title" style="font-size: 1.65rem; margin-bottom: var(--space-4);">
+              🌱 Paano Maging Mabuting Kakampi (Ally Guide)
+            </h2>
+            <ol id="shieldAllyList"
+              style="padding-left: var(--space-4); line-height: 1.7; color: var(--color-text-primary);">
+              <!-- Rendered from SHIELD_DATA.allyTips -->
+            </ol>
+          </section>
+
+          <!-- Report Form (mailto link with prefilled subject/body) -->
+          <section class="shield-guidelines-card">
+            <h2 class="section-title" style="font-size: 1.65rem; margin-bottom: var(--space-2);">
+              ✉️ Ligtas na Ulat at Alalahanin (Report Form)
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+              Magbubukas ito ng isang pre-filled email para sa ligtas at kompidensyal na pag-uulat sa BENA moderation
+              team.
+            </p>
+            <form id="shieldReportForm" style="max-width: 600px;">
+              <div style="margin-bottom: var(--space-3);">
+                <label for="reportType"
+                  style="font-weight: 600; font-size: 0.88rem; display: block; margin-bottom: 4px;">Uri ng
+                  Alalahanin:</label>
+                <select id="reportType"
+                  style="width: 100%; padding: 8px 12px; border-radius: var(--radius-btn); border: 1px solid var(--color-border); background: var(--color-bg);">
+                  <option value="Pambabastos o Harassment">Pambabastos o Harassment</option>
+                  <option value="Homophobia o Transphobia">Homophobia o Transphobia</option>
+                  <option value="Pangangailangan ng Suporta">Pangangailangan ng Suporta / Referral</option>
+                  <option value="Maling Impormasyon">Maling Impormasyon sa Nilalaman</option>
+                  <option value="Iba Pa">Iba Pa</option>
+                </select>
+              </div>
+
+              <div style="margin-bottom: var(--space-4);">
+                <label for="reportDesc"
+                  style="font-weight: 600; font-size: 0.88rem; display: block; margin-bottom: 4px;">Mensahe o
+                  Detalye:</label>
+                <textarea id="reportDesc" rows="4"
+                  style="width: 100%; padding: 8px 12px; border-radius: var(--radius-btn); border: 1px solid var(--color-border); background: var(--color-bg);"
+                  placeholder="Ilarawan ang kaganapan o alalahanin..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn--primary">
+                <span>Ipadala ang Ulat (Mailto)</span>
+                <span aria-hidden="true">🛡️</span>
+              </button>
+            </form>
+          </section>
+
+          <!-- Privacy Statement -->
+          <section class="shield-privacy-card">
+            <h2 class="section-title" style="font-size: 1.65rem; margin-bottom: var(--space-2);">
+              🔒 Pahayag sa Privacy at Lokal na Data
+            </h2>
+            <p
+              style="font-size: 0.92rem; line-height: 1.6; color: var(--color-text-secondary); margin-bottom: var(--space-3);">
+              <strong>“Anonymous sa iba, pero hindi sa device mo.”</strong>
+            </p>
+            <p
+              style="font-size: 0.92rem; line-height: 1.6; color: var(--color-text-secondary); margin-bottom: var(--space-4);">
+              Ang lahat ng iyong sinulat na vow, binasang aralin, at binagong tema ay nananatili lamang sa
+              <code>localStorage</code> ng iyong sariling web browser. Walang database na nag-iipon ng iyong personal na
+              data. Maaari mong burahin ang lahat ng ito anumang oras gamit ang reset button sa ibaba.
+            </p>
+            <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+              <button type="button" class="btn btn--ghost btn--sm" id="exportDataBtn">
+                <span>I-export ang Data (JSON)</span>
+                <span aria-hidden="true">📤</span>
+              </button>
+              <button type="button" class="btn btn--ghost btn--sm" id="resetDataBtn"
+                style="color: var(--color-accent-clay); border-color: var(--color-accent-clay);">
+                <span>Burahin ang Lahat ng Data</span>
+                <span aria-hidden="true">🗑️</span>
+              </button>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+    </main>
+
+
+    <!-- ============ FOOTER (SANGGUNIAN, BUMUO NG BENA, COPYRIGHT) ============ -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+
+        <!-- Section A — SANGGUNIAN (Scholarly References) -->
+        <section aria-labelledby="sanggunianTitle">
+          <h3 class="footer-section-title" id="sanggunianTitle">
+            <span>📚 SANGGUNIAN (Master References &amp; Legal Treatises)</span>
+          </h3>
+          <div class="filter-pills-row" style="justify-content: flex-start; margin-bottom: var(--space-3);">
+            <button type="button" class="filter-pill-btn ref-filter-pill is-active" data-filter="Lahat">Lahat</button>
+            <button type="button" class="filter-pill-btn ref-filter-pill" data-filter="Teorya">Teorya</button>
+            <button type="button" class="filter-pill-btn ref-filter-pill" data-filter="Kasaysayan">Kasaysayan</button>
+            <button type="button" class="filter-pill-btn ref-filter-pill" data-filter="Batas">Batas</button>
+            <button type="button" class="filter-pill-btn ref-filter-pill" data-filter="Datos">Datos</button>
+            <button type="button" class="filter-pill-btn ref-filter-pill" data-filter="SOGIESC">SOGIESC</button>
+          </div>
+
+          <div id="footerReferencesList" style="max-height: 280px; overflow-y: auto; padding-right: 8px;">
+            <!-- Populated from REFERENCES -->
+          </div>
+          <p
+            style="font-size: 0.8rem; font-style: italic; color: var(--color-text-secondary); margin-top: var(--space-2);">
+            Ang mga sanggunian na ito ay para sa edukasyonal na layunin. Ang mga numero at datos ay dapat i-verify sa
+            pinakabagong publikasyon ng pinagmulan.
+          </p>
+        </section>
+
+        <!-- Section C — COPYRIGHT & CREDITS -->
+        <div class="footer-copy-bar">
+          <p><strong>© 2026 BENA · Walang kasarian ang mas mataas sa iba.</strong></p>
+          <p>Belen · Bio · Gibaga · Soliman · Monticalbo.</p>
+          <p style="font-size: 0.78rem;">Gender and Society · SorSU - BC · 2026-2027</p>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ============ MODAL 1: YAKAP WELCOME MODAL (FIRST VISIT) ============ -->
+  <div class="modal-overlay is-hidden" id="yakapModalOverlay" role="dialog" aria-modal="true"
+    aria-labelledby="yakapModalTitle">
+    <div class="modal-box yakap-modal-box">
+      <svg class="yakap-halo" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <circle cx="50" cy="50" r="20" fill="currentColor" opacity="0.2" />
+        <circle cx="50" cy="50" r="14" fill="currentColor" />
+        <g stroke="currentColor" stroke-width="3" stroke-linecap="round">
+          <line x1="50" y1="12" x2="50" y2="24" />
+          <line x1="50" y1="76" x2="50" y2="88" />
+          <line x1="12" y1="50" x2="24" y2="50" />
+          <line x1="76" y1="50" x2="88" y2="50" />
+        </g>
+      </svg>
+      <h2 class="yakap-title" id="yakapModalTitle">Yakap</h2>
+      <div class="yakap-copy">
+        Maligayang pagdating sa BENA.
+        Ikaw ay maganda. Ikaw ay mahalaga.
+        Ang iyong mga ninuno ay proud sa iyo.
+        Sa espasyong ito, walang kasarian ang mas mataas sa iba.
+        Huminga ka. Magpahinga ka. Narito ka.
+      </div>
+      <div class="yakap-actions">
+        <button type="button" class="btn btn--primary" id="yakapDismissBtn">
+          <span>Salamat 🌻</span>
+        </button>
+        <button type="button" class="btn btn--ghost" id="yakapNeverBtn">
+          <span>Huwag nang ipakita</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============ MODAL 2: "AKLAT NG PAALALA" (THE SMALL BOOK MODAL) ============ -->
+  <div class="book-modal-overlay is-hidden" id="bookModalOverlay" role="dialog" aria-modal="true"
+    aria-labelledby="bookModalTitle">
+    <div class="book-viewport">
+      <div class="book-frame">
+        <div class="book-spine-binding" aria-hidden="true"></div>
+
+        <div class="book-content-container">
+          <div class="book-header">
+            <div class="book-badge" id="bookModalTitle">
+              <span aria-hidden="true">🌿</span>
+              <span>AKLAT NG PAALALA</span>
+            </div>
+            <button type="button" class="book-close-btn" id="bookCloseBtn"
+              aria-label="Isara ang Aklat ng Paalala">&times;</button>
+          </div>
+
+          <div class="book-page-stage" id="bookPageStage">
+            <div style="font-size: 1.8rem; margin-bottom: var(--space-3);" aria-hidden="true">🕯️</div>
+            <p class="book-page-tl" id="bookPageTl">Maligayang pagdating.&#10;Ikaw ay naririto.&#10;Sapat na iyon.</p>
+            <p class="book-page-en" id="bookPageEn">Welcome.&#10;You are here.&#10;That is enough.</p>
+
+            <div class="book-final-cta-wrap is-hidden" id="bookFinalCta">
+              <button type="button" class="btn btn--primary btn--lg" id="bookGoToVowBtn">
+                <span>Magsindi ng Kandila at Mag-alay ng Vow 🕯️</span>
               </button>
             </div>
           </div>
-        </form>
-      </section>
-    </footer>
-  </article>
-</template>
 
-<!-- Data files (loaded before script.js) -->
-<script src="js/references.js"></script>
-<script src="js/aralin-data.js"></script>
-<script src="js/galing-data.js"></script>
-<script src="js/credits.js"></script>
-<script src="script.js"></script>
-
-<!-- Settings / Export / Reset Modal -->
-<div class="modal-overlay is-hidden" id="settingsModalOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
-  <div class="modal-box modal-box--settings">
-    <div class="modal-box-header">
-      <h3 id="settingsModalTitle">⚙️ Mga Setting ng BENA</h3>
-      <button class="modal-close-btn" id="closeSettingsModal" aria-label="Isara ang settings">×</button>
-    </div>
-    <div class="modal-box-body">
-      <div class="settings-group">
-        <h4>📤 I-export ang Iyong Data</h4>
-        <p>I-download ang lahat ng iyong mga post, panata, at progreso bilang isang JSON file.</p>
-        <button class="btn btn--gold" id="exportDataBtn">I-export ang Data (JSON)</button>
-      </div>
-      <div class="settings-group">
-        <h4>📥 I-import ang Data</h4>
-        <p>I-upload ang isang dating na-export na BENA JSON file upang ibalik ang iyong data.</p>
-        <label class="btn btn--ghost-gold" for="importDataFile" style="cursor:pointer;display:inline-block;">Pumili ng JSON File...</label>
-        <input type="file" id="importDataFile" accept=".json,application/json" style="position:absolute;opacity:0;pointer-events:none;" aria-label="Pumili ng JSON file para i-import">
-      </div>
-      <div class="settings-group settings-group--danger">
-        <h4>🗑️ Burahin ang Lahat ng Data</h4>
-        <p>Permanenteng burahin ang lahat ng lokal na data — mga post, panata, progreso sa aralin. Hindi na ito maibabalik.</p>
-        <button class="btn btn--danger" id="resetAllDataBtn">Burahin ang Lahat ng Data</button>
+          <div class="book-footer">
+            <button type="button" class="btn btn--ghost btn--sm" id="bookPrevBtn">
+              <span>← Bumalik</span>
+            </button>
+            <div class="book-dots-row" id="bookDotsContainer" aria-hidden="true">
+              <!-- Dots rendered dynamically -->
+            </div>
+            <button type="button" class="btn btn--ghost btn--sm" id="bookNextBtn">
+              <span>Susunod →</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Reset Confirmation Modal -->
-<div class="modal-overlay is-hidden" id="resetConfirmOverlay" role="alertdialog" aria-modal="true" aria-labelledby="resetConfirmTitle" aria-describedby="resetConfirmDesc">
-  <div class="modal-box modal-box--confirm">
-    <div class="modal-box-header">
-      <h3 id="resetConfirmTitle">⚠️ Kumpirmahin ang Pagbubura</h3>
-    </div>
-    <div class="modal-box-body">
-      <p id="resetConfirmDesc">Sigurado ka bang nais mong burahin ang <strong>lahat ng lokal na data ng BENA</strong>? Kasama rito ang mga post, panata, at progreso sa aralin. <strong>Hindi na ito maibabalik.</strong></p>
-      <div class="confirm-actions">
-        <button class="btn btn--danger" id="confirmResetYes">Oo, Burahin ang Lahat</button>
-        <button class="btn btn--ghost-gold" id="confirmResetNo">Hindi, Isarado</button>
+
+  <!-- ============ MODAL 3: ACHIEVEMENT STORY MODAL ============ -->
+  <div class="modal-overlay is-hidden" id="achievementModalOverlay" role="dialog" aria-modal="true"
+    aria-labelledby="achModalTitle">
+    <div class="modal-box">
+      <div
+        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-3);">
+        <div>
+          <span class="achievement-category" id="achModalCategory">Kategorya</span>
+          <h3 class="section-title" id="achModalTitle" style="font-size: 1.6rem; margin-top: 6px; margin-bottom: 0;">
+            Pangalan</h3>
+        </div>
+        <button type="button" class="book-close-btn" id="achModalClose" aria-label="Isara ang kwento">&times;</button>
+      </div>
+      <p id="achModalDesc"
+        style="font-size: 1rem; line-height: 1.6; color: var(--color-text-primary); margin-bottom: var(--space-4);"></p>
+      <div
+        style="background: rgba(201,162,39,0.1); border-left: 3.5px solid var(--color-accent-gold); padding: var(--space-4); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;">
+        <strong style="color: var(--color-accent-gold); display: block; margin-bottom: 4px;">🌱 Bakit Mahalaga sa
+          Kasarian:</strong>
+        <p id="achModalWhy" style="font-size: 0.92rem; line-height: 1.55; color: var(--color-text-primary); margin: 0;">
+        </p>
       </div>
     </div>
   </div>
-</div>
+
+
+  <!-- ============ MODAL 4: RESET CONFIRMATION MODAL ============ -->
+  <div class="modal-overlay is-hidden" id="resetConfirmModal" role="alertdialog" aria-modal="true"
+    aria-labelledby="resetTitle">
+    <div class="modal-box" style="text-align: center;">
+      <h3 id="resetTitle" style="font-size: 1.45rem; color: var(--color-accent-clay); margin-bottom: var(--space-3);">⚠️
+        Kumpirmahin ang Pagbubura</h3>
+      <p
+        style="font-size: 0.95rem; line-height: 1.6; color: var(--color-text-secondary); margin-bottom: var(--space-6);">
+        Sigurado ka bang nais mong burahin ang lahat ng lokal na data ng BENA sa iyong device? Kasama rito ang iyong mga
+        sinulat na vow at binasang progreso.
+      </p>
+      <div style="display: flex; justify-content: center; gap: var(--space-3);">
+        <button type="button" class="btn btn--ghost" id="confirmResetNo">Huwag Muna</button>
+        <button type="button" class="btn btn--primary" id="confirmResetYes"
+          style="background: var(--color-accent-clay); color: #fff;">Oo, Burahin Lahat</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============ TOAST CONTAINER ============ -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+
+  <!-- ============ MAIN JAVASCRIPT APPLICATION ============ -->
+  <script type="module" src="js/app.js"></script>
+
 </body>
+
 </html>

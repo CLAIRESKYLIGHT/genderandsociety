@@ -1,0 +1,83 @@
+/* ==========================================================================
+   BENA — Design Tokens & CSS Custom Properties
+   Theme: "GUBAT AT DAMBANA" (Forest and Shrine)
+   ========================================================================== */
+
+:root {
+  /* LIGHT MODE (Sunlit Forest Glade & Warm Heritage Parchment) */
+  --color-bg:             #F7F5EC;   /* warm sunlit mist & parchment */
+  --color-surface:        #FDFBF7;   /* illuminated codex card background */
+  --color-surface-parchment: #F5EFE0; /* antique parchment */
+  --color-canopy-deep:    #1B3A2F;   /* deep forest understory */
+  --color-canopy-mid:     #3B6E4A;   /* vibrant mid leaf */
+  --color-canopy-light:   #8EBC85;   /* sunlit canopy leaf */
+  --color-sky:            #BFD8E8;   /* sunlit sky peeking through */
+  --color-accent-gold:    #C9A227;   /* ancestral, pre-colonial, sacred gold */
+  --color-accent-gold-light: #F2D572;
+  --color-accent-clay:    #B5532A;   /* warmth, earth, terracotta */
+  --color-text-primary:   #221F1A;   /* rich dark ink */
+  --color-text-secondary: #4E5D52;   /* forest moss secondary */
+  --color-border:         #DED7C5;   /* antique parchment edge */
+  --color-border-gold:    rgba(201, 162, 39, 0.38);
+
+  /* Typography */
+  --font-heading: 'Fraunces', Georgia, 'Playfair Display', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Spacing Scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-btn: 8px;
+  --radius-card: 14px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* Soft Warm-Tinted Shadows & Parchment Depth */
+  --shadow-sm: 0 2px 8px rgba(27, 58, 47, 0.06), 0 1px 2px rgba(181, 148, 88, 0.08);
+  --shadow-md: 0 8px 24px rgba(27, 58, 47, 0.08), 0 2px 6px rgba(181, 148, 88, 0.12);
+  --shadow-lg: 0 18px 44px rgba(27, 58, 47, 0.14), 0 4px 12px rgba(201, 162, 39, 0.15);
+  --shadow-gold: 0 6px 20px rgba(201, 162, 39, 0.32);
+  --shadow-candle: 0 0 32px rgba(201, 162, 39, 0.55);
+
+  /* Motion Tokens */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 600ms;
+}
+
+/* DARK MODE (Forest at dusk, NOT pure black) */
+[data-theme="dark"] {
+  --color-bg:             #0F1F18;
+  --color-surface:        #17261E;
+  --color-surface-parchment: #1B2E24;
+  --color-canopy-deep:    #A8C69F;
+  --color-canopy-mid:     #5A936C;
+  --color-canopy-light:   #345942;
+  --color-sky:            #243E4F;
+  --color-accent-gold:    #E0B838;
+  --color-accent-gold-light: #FFE082;
+  --color-accent-clay:    #D96B40;
+  --color-text-primary:   #F3F7F0;
+  --color-text-secondary: #A8B8AC;
+  --color-border:         #283D31;
+  --color-border-gold:    rgba(224, 184, 56, 0.4);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
+  --shadow-gold: 0 6px 24px rgba(224, 184, 56, 0.4);
+  --shadow-candle: 0 0 36px rgba(224, 184, 56, 0.65);
+}
