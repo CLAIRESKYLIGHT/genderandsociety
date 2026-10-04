@@ -17,14 +17,44 @@
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: all var(--dur-fast) var(--ease-out-soft);
+  transition: all 180ms var(--ease-out-soft);
   position: relative;
+  overflow: hidden;
   border: 1.5px solid transparent;
 }
 
+.btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+.button-click-ring {
+  position: absolute;
+  z-index: 0;
+  border: 2px solid rgba(255, 244, 202, 0.88);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: buttonRingExpand 300ms ease-out forwards;
+}
+
+@keyframes buttonRingExpand {
+  from {
+    opacity: 0.85;
+    transform: scale(0.08);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
 .btn--primary {
-  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #B89020 100%);
-  color: #1A1A1A;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-gold) 0%,
+    #b89020 100%
+  );
+  color: #1a1a1a;
   box-shadow: var(--shadow-gold);
 }
 
@@ -57,7 +87,6 @@
 /* ── 2. Floating Sanctuary Candle ────────────────────────────────────── */
 .sanctuary-candle-wrap {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: var(--space-6) auto;
@@ -67,9 +96,29 @@
   text-decoration: none;
 }
 
+.sanctuary-candle-wrap::after,
+.scroll-follow-candle-beacon::after {
+  content: "↗";
+  position: absolute;
+  right: -10px;
+  top: -12px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(201, 162, 39, 0.65);
+  color: var(--color-accent-gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(27, 58, 47, 0.14);
+  opacity: 0.9;
+}
+
 .sanctuary-candle {
-  width: 68px;
-  height: 96px;
+  width: 64px;
+  height: 82px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -83,76 +132,104 @@
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 162, 39, 0.5) 0%, rgba(201, 162, 39, 0.12) 55%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(201, 162, 39, 0.3) 0%,
+    rgba(201, 162, 39, 0.09) 55%,
+    transparent 70%
+  );
   pointer-events: none;
-  transition: transform var(--dur-base) ease, opacity var(--dur-base) ease;
+  transition:
+    transform var(--dur-base) ease,
+    opacity var(--dur-base) ease;
 }
 
 .candle-flame-svg {
-  width: 26px;
-  height: 38px;
+  width: 24px;
+  height: 34px;
   z-index: 2;
   margin-bottom: -4px;
-  filter: drop-shadow(0 0 10px rgba(201, 162, 39, 0.8));
+  filter: drop-shadow(0 0 7px rgba(201, 162, 39, 0.48));
 }
 
 .candle-wax-body {
-  width: 30px;
-  height: 56px;
-  background: linear-gradient(180deg, #FAF6EE 0%, #E5DCB8 100%);
+  width: 28px;
+  height: 48px;
+  background: linear-gradient(180deg, #faf6ee 0%, #e5dcb8 100%);
   border-radius: 6px 6px 4px 4px;
   border: 1.5px solid rgba(201, 162, 39, 0.35);
-  box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.9), 0 4px 14px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    inset 0 2px 5px rgba(255, 255, 255, 0.9),
+    0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] .candle-wax-body {
-  background: linear-gradient(180deg, #E5DCB8 0%, #B8A882 100%);
+  background: linear-gradient(180deg, #e5dcb8 0%, #b8a882 100%);
 }
 
 .candle-invitation-label {
-  margin-top: var(--space-2);
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-style: italic;
-  font-weight: 600;
-  color: var(--color-accent-gold);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 4px rgba(201, 162, 39, 0.2);
+  display: none;
 }
 
-.sanctuary-candle-wrap:hover .sanctuary-candle {
+.sanctuary-candle-wrap:hover .sanctuary-candle,
+.scroll-follow-candle-beacon:hover .beacon-candle-body {
   transform: translateY(-4px) scale(1.05);
 }
 
 .sanctuary-candle-wrap:hover .candle-glow-aura {
-  transform: scale(1.25);
-  opacity: 0.95;
+  transform: scale(1.12);
+  opacity: 0.82;
+}
+
+.sanctuary-candle-wrap.is-lighting .candle-glow-aura {
+  animation: candleIgniteGlow 900ms ease-out;
+}
+
+@keyframes candleIgniteGlow {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  45% {
+    transform: scale(1.18);
+    opacity: 0.92;
+  }
+  100% {
+    transform: scale(1.08);
+    opacity: 0.78;
+  }
 }
 
 /* ── 3. Daily Filipino Pride Reminder Banner ────────────────────────── */
 .quotes-banner {
-  background: linear-gradient(140deg, #FCFAF2 0%, #F5F7EE 45%, #EEF4E8 100%);
+  display: grid;
+  gap: var(--space-3);
+  background: linear-gradient(140deg, #fcfaf2 0%, #f5f7ee 45%, #eef4e8 100%);
   border: 2px solid rgba(59, 110, 74, 0.45);
-  border-radius: 28px 12px 28px 12px;
-  padding: var(--space-6) var(--space-8);
-  margin-bottom: var(--space-12);
+  border-radius: 32px 16px 32px 16px;
+  padding: clamp(var(--space-5), 3vw, var(--space-8))
+    clamp(var(--space-5), 4vw, var(--space-8));
+  margin: 0 auto var(--space-12);
+  max-width: 980px;
   position: relative;
-  overflow: visible;
-  box-shadow: 0 6px 24px rgba(27, 58, 47, 0.08), inset 0 0 28px rgba(142, 188, 133, 0.14);
+  overflow-x: clip;
+  overflow-y: visible;
+  box-shadow:
+    0 18px 40px rgba(27, 58, 47, 0.08),
+    inset 0 0 28px rgba(142, 188, 133, 0.14);
 }
 
 [data-theme="dark"] .quotes-banner {
-  background: linear-gradient(140deg, #18281E 0%, #132419 60%, #0F1E14 100%);
+  background: linear-gradient(140deg, #18281e 0%, #132419 60%, #0f1e14 100%);
   border-color: rgba(90, 163, 115, 0.55);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), inset 0 0 30px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.45),
+    inset 0 0 30px rgba(0, 0, 0, 0.6);
 }
 
 /* Hanging Tendril Stem anchoring the Daily Reminder Leaf */
 .quotes-banner::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -18px;
   left: 36px;
@@ -172,7 +249,12 @@
   left: -150%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
   transform: skewX(-25deg);
   pointer-events: none;
 }
@@ -226,21 +308,40 @@
 /* ── 4. "Walang Kasarian ang Talento" Section & Achievement Cards ────── */
 .section-header-block {
   text-align: center;
-  max-width: 800px;
+  max-width: 820px;
   margin: 0 auto var(--space-8);
+  padding-top: var(--space-2);
 }
 
 .section-title {
-  font-size: 2.3rem;
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
   color: var(--color-canopy-deep);
   margin-bottom: var(--space-3);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .section-sub {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
   color: var(--color-text-secondary);
-  line-height: 1.65;
+  line-height: 1.7;
+}
+
+#talentoSection,
+#factsSection {
+  position: relative;
+  background: rgba(255, 255, 255, 0.38);
+  border: 1.5px solid rgba(59, 110, 74, 0.14);
+  border-radius: 28px;
+  padding: clamp(var(--space-6), 4vw, var(--space-10))
+    clamp(var(--space-4), 3vw, var(--space-8));
+  margin-bottom: var(--space-16);
+  box-shadow: 0 12px 35px rgba(27, 58, 47, 0.05);
+}
+
+[data-theme="dark"] #talentoSection,
+[data-theme="dark"] #factsSection {
+  background: rgba(12, 18, 15, 0.22);
+  border-color: rgba(153, 185, 141, 0.15);
 }
 
 /* Filter Pills */
@@ -274,54 +375,112 @@
 }
 
 .filter-pill-btn.is-active {
-  background: linear-gradient(135deg, var(--color-canopy-deep) 0%, #2D5845 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-canopy-deep) 0%,
+    #2d5845 100%
+  );
   border-color: var(--color-canopy-deep);
-  color: #FFFFFF;
+  color: #ffffff;
   box-shadow: 0 4px 12px rgba(27, 58, 47, 0.25);
 }
 
 [data-theme="dark"] .filter-pill-btn.is-active {
-  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #B89020 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-gold) 0%,
+    #b89020 100%
+  );
   border-color: var(--color-accent-gold);
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 /* Achievements Grid (Clean, Perfectly Aligned Grid) */
 .achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  justify-content: center;
+  align-items: center;
+  gap: 28px 12px;
   margin-bottom: var(--space-16);
   position: relative;
-  padding-top: var(--space-2);
+  padding: var(--space-5) 8px var(--space-8);
 }
 
-/* Clean, Balanced Leaf Cards */
+/* Portrait cards use the supplied scrapbook frame artwork. */
 .achievement-card {
-  background: linear-gradient(145deg, #FCFBF7 0%, #F5F9F1 50%, #ECF5E8 100%);
-  border: 2px solid rgba(46, 115, 69, 0.45);
-  border-radius: 28px 10px 28px 10px;
-  padding: var(--space-6) var(--space-6) var(--space-6) calc(var(--space-6) + 10px);
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 6px 22px rgba(27, 58, 47, 0.08), inset 0 0 24px rgba(142, 188, 133, 0.15);
+  grid-column: span 2;
+  width: 100%;
+  max-width: 190px;
+  justify-self: center;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: url("../assets/FRAME3.png") center / 100% 100% no-repeat;
   cursor: pointer;
   position: relative;
   overflow: visible;
-  transition: transform 0.25s var(--ease-out-soft),
-              box-shadow 0.25s var(--ease-out-soft),
-              border-color 0.25s var(--ease-out-soft);
+  --frame-tilt: -2deg;
+  --frame-lift: 5px;
+  --frame-x: 0px;
+  transform: rotate(var(--frame-tilt))
+    translate(var(--frame-x), var(--frame-lift));
+  z-index: 1;
+  transition:
+    transform 0.25s var(--ease-out-soft),
+    filter 0.25s var(--ease-out-soft);
+}
+
+.achievements-grid .achievement-card:nth-child(6n + 1) {
+  --frame-tilt: -4.6deg;
+  --frame-lift: 14px;
+  --frame-x: -8px;
+}
+
+.achievements-grid .achievement-card:nth-child(6n + 2) {
+  --frame-tilt: 3.7deg;
+  --frame-lift: -18px;
+  --frame-x: 12px;
+}
+
+.achievements-grid .achievement-card:nth-child(6n + 3) {
+  --frame-tilt: -2.5deg;
+  --frame-lift: 22px;
+  --frame-x: -14px;
+}
+
+.achievements-grid .achievement-card:nth-child(6n + 4) {
+  --frame-tilt: 5.2deg;
+  --frame-lift: -12px;
+  --frame-x: 9px;
+}
+
+.achievements-grid .achievement-card:nth-child(6n + 5) {
+  --frame-tilt: -4deg;
+  --frame-lift: 16px;
+  --frame-x: -11px;
+}
+
+.achievements-grid .achievement-card:nth-child(6n) {
+  --frame-tilt: 3deg;
+  --frame-lift: -20px;
+  --frame-x: 13px;
+}
+
+.achievements-grid .achievement-card:nth-child(n) {
+  transform: rotate(var(--frame-tilt))
+    translate(var(--frame-x), var(--frame-lift));
 }
 
 [data-theme="dark"] .achievement-card {
-  background: linear-gradient(145deg, #18281E 0%, #132419 60%, #0F1E14 100%);
-  border-color: rgba(90, 163, 115, 0.5);
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45), inset 0 0 24px rgba(0, 0, 0, 0.6);
+  background-image: url("../assets/FRAME3.png");
 }
 
 /* Sprouting Green Vine Stem (Petiole) Connecting Card to Bough */
 .achievement-card::before {
-  content: '';
+  display: none;
+  content: "";
   position: absolute;
   top: -14px;
   left: 24px;
@@ -337,21 +496,42 @@
 
 /* Translucent Central Leaf Vein running along the card */
 .achievement-card::after {
-  content: '';
+  display: none;
+  content: "";
   position: absolute;
   top: 14px;
   bottom: 14px;
   left: 24px;
   width: 2px;
-  background: linear-gradient(180deg, rgba(46, 115, 69, 0.45) 0%, rgba(201, 162, 39, 0.25) 50%, transparent 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(46, 115, 69, 0.45) 0%,
+    rgba(201, 162, 39, 0.25) 50%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
 /* Hover State: Card gently lifts without rotating */
-.achievement-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-accent-gold);
-  box-shadow: 0 12px 30px rgba(27, 58, 47, 0.16), 0 0 24px rgba(201, 162, 39, 0.25);
+.achievements-grid .achievement-card:hover {
+  z-index: 4;
+  transform: rotate(var(--frame-tilt))
+    translate(var(--frame-x), calc(var(--frame-lift) - 5px)) scale(1.025);
+  filter: drop-shadow(0 12px 16px rgba(27, 58, 47, 0.22));
+}
+
+@media (max-width: 640px) {
+  .achievements-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px 8px;
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+
+  .achievement-card {
+    grid-column: span 2;
+    max-width: 170px;
+  }
 }
 
 .achievement-header {
@@ -376,14 +556,63 @@
 
 [data-theme="dark"] .achievement-category {
   background: rgba(90, 147, 108, 0.16);
-  color: #A7D590;
+  color: #a7d590;
   border-color: rgba(90, 147, 108, 0.35);
 }
 
 .achievement-name {
-  font-size: 1.45rem;
-  color: var(--color-canopy-deep);
-  margin-bottom: var(--space-2);
+  position: absolute;
+  left: 23%;
+  bottom: 19%;
+  width: 56%;
+  max-height: 10%;
+  overflow: hidden;
+  padding: 2px 3px;
+  color: #fffdf4;
+  font-family: var(--font-heading);
+  font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+  font-weight: 700;
+  line-height: 1.08;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  background: linear-gradient(transparent, rgba(25, 19, 12, 0.76));
+  pointer-events: none;
+}
+
+.achievement-photo {
+  position: absolute;
+  top: 21.8%;
+  left: 23%;
+  width: 56%;
+  height: 60%;
+  object-fit: cover;
+  object-position: center 27%;
+  background: #e7ddbd;
+}
+
+.achievement-frame-star {
+  position: absolute;
+  right: -5%;
+  bottom: 2%;
+  z-index: 3;
+  width: 16%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(38, 29, 17, 0.22));
+}
+
+.achievement-source-link {
+  display: inline-block;
+  margin-top: var(--space-4);
+  color: var(--color-canopy-mid);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+[data-theme="dark"] .achievement-source-link {
+  color: var(--color-accent-gold-light);
 }
 
 .achievement-desc {
@@ -404,21 +633,361 @@
   color: var(--color-text-primary);
 }
 
+.advocates-section {
+  margin-bottom: var(--space-16);
+}
+
+.advocates-closing-note,
+.faith-closing-line {
+  margin: var(--space-6) auto 0;
+  color: var(--color-canopy-deep);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.faith-section {
+  margin-bottom: var(--space-16);
+}
+
+.faith-grid .fact-card {
+  min-height: 100%;
+}
+
+.faith-closing-line {
+  color: var(--color-accent-clay);
+  font-size: 1.3rem;
+}
+
+[data-theme="dark"] .advocates-closing-note,
+[data-theme="dark"] .faith-closing-line {
+  color: var(--color-accent-gold-light);
+}
+
+.advocates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 200px));
+  justify-content: center;
+  gap: 34px 24px;
+}
+
+.advocate-leaf {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.advocate-frame-scene {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  background: #dcead6;
+  transition: transform 220ms var(--ease-out-soft);
+}
+
+.advocate-leaf:hover .advocate-frame-scene,
+.advocate-leaf:focus-visible .advocate-frame-scene {
+  transform: translateY(-4px) rotate(-1deg);
+}
+
+.advocate-leaf:focus-visible {
+  outline: 3px solid var(--color-accent-gold);
+  outline-offset: 4px;
+}
+
+.advocate-photo-window {
+  position: absolute;
+  z-index: 1;
+  top: 22.5%;
+  left: 30%;
+  width: 40%;
+  height: 56.5%;
+  overflow: hidden;
+  background: #d6e5ce;
+}
+
+.advocate-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.advocate-photo-fallback {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-canopy-deep);
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  background: #d6e5ce;
+}
+
+.advocate-leaf.has-no-photo .advocate-photo-fallback {
+  display: flex;
+}
+
+.advocate-name-label {
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0;
+  padding: 18px 3px 5px;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1.12;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+  background: linear-gradient(transparent, rgba(16, 34, 24, 0.9));
+}
+
+.advocate-frame-art {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.advocate-star {
+  position: absolute;
+  z-index: 3;
+  display: block;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  transition: transform 220ms var(--ease-out-soft);
+}
+
+.advocate-star--one {
+  top: -8%;
+  left: -8%;
+  width: 28%;
+}
+
+.advocate-star--two {
+  top: 35%;
+  right: -8%;
+  width: 21%;
+}
+
+.advocate-star--three {
+  bottom: 3%;
+  left: -7%;
+  width: 17%;
+}
+
+.advocate-leaf:hover .advocate-star--one,
+.advocate-leaf:focus-visible .advocate-star--one {
+  transform: rotate(-7deg) scale(1.06);
+}
+
+.advocate-leaf:hover .advocate-star--two,
+.advocate-leaf:focus-visible .advocate-star--two {
+  transform: rotate(8deg) scale(1.08);
+}
+
+.advocate-leaf:hover .advocate-star--three,
+.advocate-leaf:focus-visible .advocate-star--three {
+  transform: rotate(-5deg) scale(1.08);
+}
+
+.achievement-story-box {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr);
+  width: min(900px, 100%);
+  max-height: min(760px, calc(100dvh - 40px));
+  overflow: hidden;
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  border: 1px solid rgba(201, 162, 39, 0.7);
+  border-radius: 18px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+}
+
+.achievement-story-portrait {
+  min-height: 480px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #315b45, #17281f);
+}
+
+.achievement-story-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  object-fit: cover;
+  object-position: center 28%;
+}
+
+.achievement-story-portrait.is-placeholder img {
+  display: none;
+}
+
+.achievement-story-portrait.is-placeholder::after {
+  content: "Larawan darating";
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+}
+
+.achievement-story-content {
+  position: relative;
+  align-self: center;
+  max-height: min(760px, calc(100dvh - 40px));
+  overflow-y: auto;
+  padding: clamp(28px, 4vw, 52px);
+  background:
+    linear-gradient(rgba(255, 253, 245, 0.3), rgba(255, 253, 245, 0.42)),
+    url("../assets/modal.png") center / cover no-repeat;
+}
+
+[data-theme="dark"] .achievement-story-content {
+  background:
+    linear-gradient(rgba(18, 31, 23, 0.74), rgba(18, 31, 23, 0.8)),
+    url("../assets/modal.png") center / cover no-repeat;
+}
+
+.achievement-story-content .achievement-category {
+  display: inline-flex;
+  margin-right: 38px;
+}
+
+.achievement-story-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+}
+
+.achievement-story-title {
+  margin: 16px 0 12px;
+  color: var(--color-canopy-deep);
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.1;
+}
+
+[data-theme="dark"] .achievement-story-title {
+  color: var(--color-accent-gold-light);
+}
+
+.achievement-story-role {
+  margin: 0 0 var(--space-5);
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.achievement-story-relevance {
+  padding: var(--space-4);
+  border-left: 3px solid var(--color-accent-gold);
+  background: rgba(201, 162, 39, 0.1);
+}
+
+.achievement-story-relevance h4 {
+  margin: 0 0 var(--space-2);
+  color: var(--color-canopy-mid);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .achievement-story-relevance h4 {
+  color: var(--color-accent-gold-light);
+}
+
+.achievement-story-relevance p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .sanctuary-candle {
+    width: 48px;
+    height: 66px;
+  }
+
+  .candle-flame-svg {
+    width: 20px;
+    height: 29px;
+  }
+
+  .candle-wax-body {
+    width: 24px;
+    height: 38px;
+  }
+
+  .candle-glow-aura {
+    top: -20px;
+    width: 82px;
+    height: 82px;
+  }
+
+  .achievement-story-portrait.is-placeholder::after {
+    min-height: 220px;
+  }
+
+  .achievement-story-box {
+    grid-template-columns: 1fr;
+    width: min(440px, 100%);
+    max-height: calc(100dvh - 28px);
+    overflow-y: auto;
+  }
+
+  .achievement-story-portrait,
+  .achievement-story-portrait img {
+    min-height: 0;
+    height: 220px;
+  }
+
+  .achievement-story-content {
+    max-height: none;
+    overflow: visible;
+    padding: 26px 22px 24px;
+  }
+}
+
 /* ── 5. Babaylan Spotlight Panel (Ancestral Forest Canopy Shrine) ─────── */
 .babaylan-shrine-card {
-  background: linear-gradient(135deg, #17281F 0%, #0F1D16 100%);
-  color: #E8EFE6;
+  background: linear-gradient(135deg, #17281f 0%, #0f1d16 100%);
+  color: #e8efe6;
   border: 2px solid var(--color-border-gold);
   border-radius: 44px 16px 44px 16px;
-  padding: var(--space-12) var(--space-8);
+  padding: clamp(var(--space-8), 5vw, var(--space-12))
+    clamp(var(--space-5), 4vw, var(--space-8));
   margin-bottom: var(--space-16);
   position: relative;
-  box-shadow: var(--shadow-lg), inset 0 0 40px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 0 40px rgba(0, 0, 0, 0.6);
 }
 
 /* Hanging Tendril Accent for Babaylan */
 .babaylan-shrine-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -18px;
   left: 40px;
@@ -433,20 +1002,34 @@
 .babaylan-accent-line {
   width: 80px;
   height: 3.5px;
-  background: linear-gradient(90deg, var(--color-accent-gold) 0%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-gold) 0%,
+    transparent 100%
+  );
   margin-bottom: var(--space-4);
 }
 
 .babaylan-title {
   font-size: 2.3rem;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: var(--space-4);
+}
+
+.babaylan-subtitle {
+  max-width: 850px;
+  margin: 0 0 var(--space-5);
+  color: var(--color-accent-gold-light);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.55;
 }
 
 .babaylan-body {
   font-size: 1.12rem;
   line-height: 1.75;
-  color: #D8E4DA;
+  color: #d8e4da;
   max-width: 840px;
   margin-bottom: var(--space-4);
 }
@@ -460,59 +1043,110 @@
   color: var(--color-accent-gold-light);
 }
 
+.babaylan-closing-line {
+  max-width: 920px;
+  margin: var(--space-6) 0 0;
+  padding-top: var(--space-5);
+  border-top: 1px solid rgba(201, 162, 39, 0.38);
+  color: var(--color-accent-gold-light);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.7;
+}
+
 /* ── 6. "Kailangan Mong Malaman" Factual Cards ─────────────────────── */
 .facts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
   margin-bottom: var(--space-16);
   padding-top: var(--space-2);
 }
 
 .fact-card {
-  background: linear-gradient(135deg, #FDFBF7 0%, #F7F3E6 100%);
-  border: 1.5px solid var(--color-border-gold);
-  border-radius: 24px 8px 24px 8px;
-  padding: var(--space-6);
-  box-shadow: var(--shadow-sm), inset 0 0 16px rgba(181, 148, 88, 0.06);
+  background: linear-gradient(135deg, #fdfbf7 0%, #f7f3e6 100%);
+  border: 1.5px solid rgba(201, 162, 39, 0.5);
+  border-radius: 28px 12px 28px 12px;
+  padding: var(--space-5) var(--space-5) var(--space-6);
+  box-shadow:
+    0 12px 26px rgba(27, 58, 47, 0.06),
+    inset 0 0 16px rgba(181, 148, 88, 0.06);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: visible;
-  transition: transform 0.25s var(--ease-out-soft), box-shadow 0.25s var(--ease-out-soft);
+  isolation: isolate;
+  transition:
+    transform 0.25s var(--ease-out-soft),
+    box-shadow 0.25s var(--ease-out-soft),
+    border-color 0.25s var(--ease-out-soft);
+  min-height: 100%;
+}
+
+.fact-card:nth-child(even) {
+  transform: translateY(18px);
 }
 
 [data-theme="dark"] .fact-card {
-  background: linear-gradient(135deg, #1A2A20 0%, #152219 100%);
+  background: linear-gradient(135deg, #1a2a20 0%, #152219 100%);
   border-color: var(--color-border-gold);
-  box-shadow: var(--shadow-sm), inset 0 0 16px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 0 16px rgba(0, 0, 0, 0.4);
 }
 
 /* Hanging Tendril Stem for Fact Leaf */
 .fact-card::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: -12px;
-  left: 22px;
-  width: 22px;
-  height: 14px;
-  border-left: 2.5px solid var(--color-canopy-mid);
-  border-top: 2.5px solid var(--color-canopy-mid);
-  border-top-left-radius: 12px;
+  top: -14px;
+  left: 24px;
+  width: 26px;
+  height: 18px;
+  border-left: 3px solid var(--color-canopy-mid);
+  border-top: 3px solid var(--color-canopy-mid);
+  border-top-left-radius: 14px;
   pointer-events: none;
+  z-index: -1;
+}
+
+.fact-card::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(46, 115, 69, 0.5) 0%,
+    rgba(201, 162, 39, 0.3) 55%,
+    transparent 100%
+  );
+  border-radius: 999px;
 }
 
 .fact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md), 0 0 20px rgba(201, 162, 39, 0.2);
+  transform: translateY(-6px);
+  border-color: rgba(201, 162, 39, 0.75);
+  box-shadow:
+    0 20px 32px rgba(27, 58, 47, 0.09),
+    0 0 20px rgba(201, 162, 39, 0.2);
+}
+
+.fact-card:nth-child(even):hover {
+  transform: translateY(12px);
 }
 
 .fact-card-title {
-  font-size: 1.3rem;
+  font-size: clamp(1.24rem, 2vw, 1.5rem);
   color: var(--color-canopy-deep);
   margin-bottom: var(--space-3);
   border-bottom: 1px solid rgba(201, 162, 39, 0.2);
   padding-bottom: var(--space-2);
+  font-family: var(--font-heading);
+  line-height: 1.25;
 }
 
 .fact-card-text {
@@ -538,18 +1172,22 @@
 
 /* ── 7. Wall of Truth & Vow Composer (Sacred Altar) ───────────────────── */
 .wall-of-truth-section {
-  background: linear-gradient(180deg, #FDFBF7 0%, #F5EFE0 100%);
+  background: linear-gradient(180deg, #fdfbf7 0%, #f5efe0 100%);
   border: 2px solid var(--color-border-gold);
   border-radius: var(--radius-card);
   padding: var(--space-8);
   margin-bottom: var(--space-16);
-  box-shadow: var(--shadow-md), inset 0 0 32px rgba(181, 148, 88, 0.1);
+  box-shadow:
+    var(--shadow-md),
+    inset 0 0 32px rgba(181, 148, 88, 0.1);
 }
 
 [data-theme="dark"] .wall-of-truth-section {
-  background: linear-gradient(180deg, #18281E 0%, #132018 100%);
+  background: linear-gradient(180deg, #18281e 0%, #132018 100%);
   border-color: var(--color-border-gold);
-  box-shadow: var(--shadow-md), inset 0 0 32px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    var(--shadow-md),
+    inset 0 0 32px rgba(0, 0, 0, 0.5);
 }
 
 .vow-form-card {
@@ -659,8 +1297,11 @@
 }
 
 /* ── 8. Kalasag Shield & Refuge Components ───────────────────────────── */
-.shield-guidelines-card, .shield-hotlines-card, .shield-ally-card, .shield-privacy-card {
-  background: linear-gradient(135deg, #FDFBF7 0%, #F6F1E3 100%);
+.shield-guidelines-card,
+.shield-hotlines-card,
+.shield-ally-card,
+.shield-privacy-card {
+  background: linear-gradient(135deg, #fdfbf7 0%, #f6f1e3 100%);
   border: 1.5px solid var(--color-border-gold);
   border-radius: var(--radius-card);
   padding: var(--space-8);
@@ -672,7 +1313,7 @@
 [data-theme="dark"] .shield-hotlines-card,
 [data-theme="dark"] .shield-ally-card,
 [data-theme="dark"] .shield-privacy-card {
-  background: linear-gradient(135deg, #1A2A20 0%, #152219 100%);
+  background: linear-gradient(135deg, #1a2a20 0%, #152219 100%);
 }
 
 .guidelines-list {
@@ -751,9 +1392,10 @@
   opacity: 0;
   transform: translateY(30px) scale(0.85);
   pointer-events: none;
-  transition: opacity 0.4s var(--ease-out-soft),
-              transform 0.4s var(--ease-out-soft),
-              filter 0.3s ease;
+  transition:
+    opacity 0.4s var(--ease-out-soft),
+    transform 0.4s var(--ease-out-soft),
+    filter 0.3s ease;
 }
 
 .scroll-follow-candle-beacon.is-visible {
@@ -773,14 +1415,20 @@
   border: 1.5px solid rgba(201, 162, 39, 0.5);
   border-radius: 999px;
   padding: 10px 14px;
-  box-shadow: 0 8px 26px rgba(27, 58, 47, 0.15), 0 0 20px rgba(201, 162, 39, 0.35);
-  transition: transform 0.25s var(--ease-out-soft), box-shadow 0.25s ease;
+  box-shadow:
+    0 8px 26px rgba(27, 58, 47, 0.15),
+    0 0 20px rgba(201, 162, 39, 0.35);
+  transition:
+    transform 0.25s var(--ease-out-soft),
+    box-shadow 0.25s ease;
 }
 
 [data-theme="dark"] .beacon-candle-body {
   background: rgba(18, 32, 24, 0.88);
   border-color: rgba(201, 162, 39, 0.7);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 24px rgba(201, 162, 39, 0.45);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(201, 162, 39, 0.45);
 }
 
 .beacon-glow-halo {
@@ -789,7 +1437,12 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 162, 39, 0.6) 0%, rgba(201, 162, 39, 0.1) 60%, transparent 80%);
+  background: radial-gradient(
+    circle,
+    rgba(201, 162, 39, 0.34) 0%,
+    rgba(201, 162, 39, 0.08) 60%,
+    transparent 80%
+  );
   pointer-events: none;
   animation: beaconPulse 3s ease-in-out infinite alternate;
 }
@@ -797,49 +1450,38 @@
 .beacon-flame-svg {
   width: 22px;
   height: 30px;
-  filter: drop-shadow(0 0 8px rgba(201, 162, 39, 0.9));
-  animation: beaconFlicker 2.5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.48));
 }
 
 .beacon-wax {
   width: 14px;
   height: 18px;
-  background: linear-gradient(180deg, #FAF6EE 0%, #E5DCB8 100%);
+  background: linear-gradient(180deg, #faf6ee 0%, #e5dcb8 100%);
   border-radius: 3px;
   margin-top: -2px;
   border: 1px solid rgba(201, 162, 39, 0.4);
 }
 
 .beacon-tooltip {
-  margin-top: 6px;
-  font-family: var(--font-heading);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--color-accent-gold);
-  background: rgba(15, 31, 24, 0.9);
-  padding: 3px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(201, 162, 39, 0.4);
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  pointer-events: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: none;
 }
 
 .scroll-follow-candle-beacon:hover .beacon-candle-body {
   transform: scale(1.1) translateY(-4px);
-  box-shadow: 0 12px 36px rgba(27, 58, 47, 0.2), 0 0 32px rgba(201, 162, 39, 0.6);
+  box-shadow:
+    0 12px 36px rgba(27, 58, 47, 0.2),
+    0 0 32px rgba(201, 162, 39, 0.6);
 }
 
 @keyframes beaconPulse {
-  0% { transform: scale(0.9); opacity: 0.6; }
-  100% { transform: scale(1.25); opacity: 1; }
-}
-
-@keyframes beaconFlicker {
-  0% { transform: rotate(-2deg) scale(0.96); }
-  50% { transform: rotate(3deg) scale(1.05); }
-  100% { transform: rotate(-1deg) scale(1); }
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.08);
+    opacity: 0.72;
+  }
 }
 
 /* ── 10. Yakap Welcome Modal with Animated Leaf Embrace ───────────────── */
@@ -900,30 +1542,54 @@
 
 /* Trigger the Hug When Modal is Visible */
 .modal-overlay:not(.is-hidden) .yakap-leaf-wing.wing--left {
-  animation: leafHugLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s,
-             leafHugBreath 6s ease-in-out infinite alternate 1.35s;
+  animation:
+    leafHugLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s,
+    leafHugBreath 6s ease-in-out infinite alternate 1.35s;
 }
 
 .modal-overlay:not(.is-hidden) .yakap-leaf-wing.wing--right {
-  animation: leafHugRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s,
-             leafHugBreath 6s ease-in-out infinite alternate 1.35s;
+  animation:
+    leafHugRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.15s,
+    leafHugBreath 6s ease-in-out infinite alternate 1.35s;
 }
 
 @keyframes leafHugLeft {
-  0% { transform: translateY(-50%) rotate(-45deg) scale(0.6); opacity: 0; }
-  60% { transform: translateY(-50%) rotate(6deg) scale(1.05); opacity: 1; }
-  100% { transform: translateY(-50%) rotate(0deg) scale(1); opacity: 0.95; }
+  0% {
+    transform: translateY(-50%) rotate(-45deg) scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-50%) rotate(6deg) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50%) rotate(0deg) scale(1);
+    opacity: 0.95;
+  }
 }
 
 @keyframes leafHugRight {
-  0% { transform: translateY(-50%) rotate(45deg) scale(0.6); opacity: 0; }
-  60% { transform: translateY(-50%) rotate(-6deg) scale(1.05); opacity: 1; }
-  100% { transform: translateY(-50%) rotate(0deg) scale(1); opacity: 0.95; }
+  0% {
+    transform: translateY(-50%) rotate(45deg) scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-50%) rotate(-6deg) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50%) rotate(0deg) scale(1);
+    opacity: 0.95;
+  }
 }
 
 @keyframes leafHugBreath {
-  0% { transform: translateY(-50%) scale(1); }
-  100% { transform: translateY(-50%) scale(1.03); }
+  0% {
+    transform: translateY(-50%) scale(1);
+  }
+  100% {
+    transform: translateY(-50%) scale(1.03);
+  }
 }
 
 .leaf-hug-svg {
@@ -933,7 +1599,7 @@
 }
 
 .yakap-modal-box {
-  background: linear-gradient(145deg, #FCFBF7 0%, #F5F9F1 60%, #ECF5E8 100%);
+  background: linear-gradient(145deg, #fcfbf7 0%, #f5f9f1 60%, #ecf5e8 100%);
   border: 2px solid rgba(201, 162, 39, 0.65);
   border-radius: 46px 16px 46px 16px;
   padding: var(--space-8) var(--space-8);
@@ -942,19 +1608,29 @@
   text-align: center;
   position: relative;
   z-index: 2;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3), 0 0 36px rgba(201, 162, 39, 0.25);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.3),
+    0 0 36px rgba(201, 162, 39, 0.25);
   animation: yakapBoxEmerge 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 [data-theme="dark"] .yakap-modal-box {
-  background: linear-gradient(145deg, #17281F 0%, #122119 60%, #0E1A13 100%);
+  background: linear-gradient(145deg, #17281f 0%, #122119 60%, #0e1a13 100%);
   border-color: rgba(201, 162, 39, 0.7);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 40px rgba(201, 162, 39, 0.35);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(201, 162, 39, 0.35);
 }
 
 @keyframes yakapBoxEmerge {
-  0% { transform: scale(0.9) translateY(20px); opacity: 0; }
-  100% { transform: scale(1) translateY(0); opacity: 1; }
+  0% {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
 
 .yakap-halo-aura {
@@ -965,7 +1641,12 @@
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 162, 39, 0.45) 0%, rgba(201, 162, 39, 0.1) 60%, transparent 80%);
+  background: radial-gradient(
+    circle,
+    rgba(201, 162, 39, 0.45) 0%,
+    rgba(201, 162, 39, 0.1) 60%,
+    transparent 80%
+  );
   pointer-events: none;
 }
 
@@ -1048,7 +1729,7 @@
 }
 
 .modern-ref-card::before {
-  content: '—';
+  content: "—";
   position: absolute;
   left: 0;
   top: var(--space-4);
@@ -1107,7 +1788,7 @@
 
 .modern-ref-copy-btn:hover {
   background: var(--color-accent-gold);
-  color: #1A1A1A;
+  color: #1a1a1a;
   transform: scale(1.1);
 }
 

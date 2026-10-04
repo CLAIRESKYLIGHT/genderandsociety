@@ -12,10 +12,36 @@
   overflow: hidden;
 }
 
+.canopy-ambient-bg::before {
+  content: "";
+  position: absolute;
+  inset: -12% -8%;
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(239, 196, 82, 0.55) 0 7%,
+      transparent 7.5%
+    ),
+    conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(30, 118, 128, 0.2),
+      rgba(114, 181, 151, 0.24),
+      rgba(241, 192, 88, 0.18),
+      rgba(201, 108, 151, 0.2),
+      rgba(136, 116, 192, 0.18),
+      rgba(62, 128, 141, 0.18),
+      rgba(30, 118, 128, 0.2)
+    );
+  filter: blur(26px) saturate(1.2);
+  transform: rotate(-12deg) scale(1.4);
+  opacity: 0.58;
+  mix-blend-mode: multiply;
+}
+
 .canopy-photo-layer {
   position: absolute;
   inset: 0;
-  background-image: url('../assets/forest-canopy.jpg');
+  background-image: url("../assets/forest-canopy.jpg");
   background-size: cover;
   background-position: center 30%;
   background-repeat: no-repeat;
@@ -32,12 +58,22 @@
 .canopy-radial-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 35%, rgba(247, 245, 236, 0.4) 0%, rgba(247, 245, 236, 0.85) 60%, var(--color-bg) 100%);
+  background: radial-gradient(
+    ellipse at 50% 35%,
+    rgba(247, 245, 236, 0.4) 0%,
+    rgba(247, 245, 236, 0.85) 60%,
+    var(--color-bg) 100%
+  );
   transition: background var(--dur-base) ease;
 }
 
 [data-theme="dark"] .canopy-radial-vignette {
-  background: radial-gradient(ellipse at 50% 35%, rgba(15, 31, 24, 0.35) 0%, rgba(15, 31, 24, 0.85) 60%, var(--color-bg) 100%);
+  background: radial-gradient(
+    ellipse at 50% 35%,
+    rgba(15, 31, 24, 0.35) 0%,
+    rgba(15, 31, 24, 0.85) 60%,
+    var(--color-bg) 100%
+  );
 }
 
 /* ── 2. Container & Base Page Layout ─────────────────────────────────── */
@@ -73,7 +109,7 @@
 /* ── 3. Flowing Central Vine Canvas (Connects All Home Sections) ───────── */
 .tahanan-container {
   position: relative;
-  max-width: 1120px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 0 var(--space-4);
 }
@@ -107,30 +143,48 @@
   /* Scroll-driven thread draw animation */
   stroke-dasharray: 4800;
   stroke-dashoffset: 4800;
-  transition: stroke var(--dur-base) ease;
+  transition:
+    stroke var(--dur-base) ease,
+    stroke-width 220ms ease,
+    filter 220ms ease;
   filter: drop-shadow(0 0 8px rgba(59, 110, 74, 0.45));
 }
 
+body.is-scrolling .vine-main-stem {
+  stroke-width: 4.8px;
+  filter: drop-shadow(0 0 13px rgba(59, 110, 74, 0.62));
+}
+
 [data-theme="dark"] .vine-main-stem {
-  stroke: #5A936C;
+  stroke: #5a936c;
   filter: drop-shadow(0 0 10px rgba(90, 147, 108, 0.6));
 }
 
 /* Secondary Braided Vine Tendril (Intertwined Spiral through center) */
 .vine-secondary-stem {
   fill: none;
-  stroke: #8EBC85;
-  stroke-width: 2px;
+  stroke: url(#vineTendrilGrad);
+  stroke-width: 2.8px;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 8 4;
-  opacity: 0.75;
-  filter: drop-shadow(0 0 4px rgba(201, 162, 39, 0.25));
-  transition: stroke var(--dur-base) ease;
+  opacity: 0.84;
+  filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.36));
+  transition:
+    stroke var(--dur-base) ease,
+    stroke-width 220ms ease,
+    opacity 220ms ease,
+    filter 220ms ease;
+}
+
+body.is-scrolling .vine-secondary-stem {
+  stroke-width: 3.6px;
+  opacity: 1;
+  filter: drop-shadow(0 0 10px rgba(201, 162, 39, 0.62));
 }
 
 [data-theme="dark"] .vine-secondary-stem {
-  stroke: #C9A227;
+  stroke: #c9a227;
   opacity: 0.65;
 }
 
@@ -142,11 +196,21 @@
   stroke-linecap: round;
   stroke-dasharray: 5 3;
   opacity: 0.82;
-  transition: stroke var(--dur-base) ease;
+  transition:
+    stroke var(--dur-base) ease,
+    stroke-width 220ms ease,
+    opacity 220ms ease,
+    filter 220ms ease;
+}
+
+body.is-scrolling .vine-tendril-branch {
+  stroke-width: 2.7px;
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(201, 162, 39, 0.34));
 }
 
 [data-theme="dark"] .vine-tendril-branch {
-  stroke: #8EBC85;
+  stroke: #8ebc85;
 }
 
 /* Leaf clusters along central vine */
@@ -158,6 +222,8 @@
 .hero-section,
 .quotes-banner,
 #talentoSection,
+.advocates-section,
+.faith-section,
 .babaylan-shrine-card,
 #factsSection {
   position: relative;
@@ -191,7 +257,9 @@
   fill: none;
   stroke-dasharray: 6 4;
   opacity: 0.65;
-  transition: stroke-dashoffset 0.1s linear, stroke var(--dur-base) ease;
+  transition:
+    stroke-dashoffset 0.1s linear,
+    stroke var(--dur-base) ease;
 }
 
 [data-theme="dark"] .vine-spine-path {
@@ -205,7 +273,9 @@
   width: 22px;
   height: 22px;
   color: var(--color-canopy-mid);
-  transition: transform 0.25s var(--ease-out-soft), color var(--dur-base) ease;
+  transition:
+    transform 0.25s var(--ease-out-soft),
+    color var(--dur-base) ease;
   will-change: transform;
 }
 
@@ -232,7 +302,6 @@ body.is-scrolling .vine-leaf-node.side--right {
   transform: rotate(45deg) translateY(-2px);
 }
 
-
 /* ── 4. Modern Glassmorphic Header & Capsule Navigation ───────────────── */
 .site-header {
   position: sticky;
@@ -254,7 +323,9 @@ body.is-scrolling .vine-leaf-node.side--right {
   -webkit-backdrop-filter: blur(20px);
   border: 1.5px solid rgba(59, 110, 74, 0.18);
   border-radius: 999px;
-  box-shadow: 0 8px 30px rgba(27, 58, 47, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 8px 30px rgba(27, 58, 47, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
   transition: all var(--dur-base) ease;
 }
 
@@ -367,14 +438,22 @@ body.is-scrolling .vine-leaf-node.side--right {
 }
 
 .leaf-tab-btn.is-active {
-  background: linear-gradient(135deg, var(--color-canopy-deep) 0%, #2D5845 100%);
-  color: #FFFFFF !important;
+  background: linear-gradient(
+    135deg,
+    var(--color-canopy-deep) 0%,
+    #2d5845 100%
+  );
+  color: #ffffff !important;
   box-shadow: 0 4px 14px rgba(27, 58, 47, 0.22);
 }
 
 [data-theme="dark"] .leaf-tab-btn.is-active {
-  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #B89020 100%);
-  color: #1A1A1A !important;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-gold) 0%,
+    #b89020 100%
+  );
+  color: #1a1a1a !important;
   box-shadow: 0 4px 14px rgba(201, 162, 39, 0.35);
 }
 
@@ -385,7 +464,8 @@ body.is-scrolling .vine-leaf-node.side--right {
   gap: 8px;
 }
 
-.modern-theme-btn, .modern-yakap-btn {
+.modern-theme-btn,
+.modern-yakap-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -409,20 +489,29 @@ body.is-scrolling .vine-leaf-node.side--right {
 }
 
 .modern-yakap-btn {
-  background: linear-gradient(135deg, rgba(201, 162, 39, 0.14) 0%, rgba(201, 162, 39, 0.06) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(201, 162, 39, 0.14) 0%,
+    rgba(201, 162, 39, 0.06) 100%
+  );
   border-color: var(--color-accent-gold);
   color: var(--color-accent-gold);
   font-weight: 700;
 }
 
 .modern-yakap-btn:hover {
-  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #B89020 100%);
-  color: #1A1A1A;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-gold) 0%,
+    #b89020 100%
+  );
+  color: #1a1a1a;
   box-shadow: 0 4px 14px rgba(201, 162, 39, 0.35);
   transform: translateY(-1px);
 }
 
-.theme-toggle-btn, .header-help-btn {
+.theme-toggle-btn,
+.header-help-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -438,7 +527,8 @@ body.is-scrolling .vine-leaf-node.side--right {
   transition: all var(--dur-fast) var(--ease-out-soft);
 }
 
-.theme-toggle-btn:hover, .header-help-btn:hover {
+.theme-toggle-btn:hover,
+.header-help-btn:hover {
   border-color: var(--color-accent-gold);
   color: var(--color-text-primary);
   transform: translateY(-1px);
@@ -448,12 +538,78 @@ body.is-scrolling .vine-leaf-node.side--right {
 /* ── 5. Main Hero Section ────────────────────────────────────────────── */
 .hero-section {
   position: relative;
+  width: 100vw;
+  max-width: none;
   text-align: center;
-  padding: var(--space-12) var(--space-4) var(--space-12);
-  margin-bottom: var(--space-8);
-  border-radius: var(--radius-lg);
+  padding: clamp(var(--space-10), 7vw, var(--space-16)) var(--space-5)
+    clamp(var(--space-8), 4vw, var(--space-12));
+  margin: 0 calc(50% - 50vw) var(--space-8);
+  border-radius: 0;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 25%, rgba(201, 162, 39, 0.12) 0%, transparent 70%);
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      rgba(142, 188, 133, 0.22),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.82) 0%,
+      rgba(240, 247, 236, 0.78) 38%,
+      rgba(249, 244, 234, 0.8) 100%
+    );
+  border: 1.5px solid rgba(59, 110, 74, 0.18);
+  box-shadow: 0 18px 48px rgba(27, 58, 47, 0.08);
+}
+
+.hero-section::before,
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-section::before {
+  background: url("../assets/forest-canopy.jpg") center 38% / cover no-repeat;
+  opacity: 0.16;
+}
+
+.hero-section::after {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(247, 245, 236, 0.04) 15%,
+    rgba(247, 245, 236, 0.6) 100%
+  );
+}
+
+[data-theme="dark"] .hero-section {
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      rgba(90, 147, 108, 0.18),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(19, 31, 25, 0.78) 0%,
+      rgba(17, 28, 22, 0.82) 46%,
+      rgba(12, 18, 16, 0.9) 100%
+    );
+  border-color: rgba(153, 185, 141, 0.2);
+}
+
+[data-theme="dark"] .hero-section::before {
+  opacity: 0.2;
+  filter: brightness(0.72) saturate(0.8);
+}
+
+[data-theme="dark"] .hero-section::after {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(15, 31, 24, 0.04) 15%,
+    rgba(15, 31, 24, 0.78) 100%
+  );
 }
 
 .hero-content {
@@ -467,9 +623,9 @@ body.is-scrolling .vine-leaf-node.side--right {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 5px 16px;
+  padding: 6px 18px;
   border-radius: var(--radius-full);
-  background: rgba(201, 162, 39, 0.15);
+  background: rgba(201, 162, 39, 0.12);
   border: 1.5px solid var(--color-border-gold);
   color: var(--color-accent-gold);
   font-size: 0.8rem;
@@ -477,31 +633,32 @@ body.is-scrolling .vine-leaf-node.side--right {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: var(--space-4);
-  box-shadow: 0 2px 8px rgba(201, 162, 39, 0.15);
+  box-shadow: 0 2px 10px rgba(201, 162, 39, 0.15);
 }
 
 .hero-title {
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  line-height: 1.1;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  line-height: 0.95;
   color: var(--color-canopy-deep);
   margin-bottom: var(--space-3);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
+  text-shadow: 0 10px 28px rgba(27, 58, 47, 0.08);
 }
 
 .hero-message {
   font-family: var(--font-heading);
   font-style: italic;
-  font-size: 1.45rem;
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
   color: var(--color-accent-clay);
   margin-bottom: var(--space-3);
 }
 
 .hero-sub {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
   color: var(--color-text-secondary);
-  max-width: 680px;
+  max-width: 700px;
   margin: 0 auto var(--space-6);
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 /* ── 6. Footer Layout ────────────────────────────────────────────────── */
@@ -547,13 +704,43 @@ body.is-scrolling .vine-leaf-node.side--right {
   gap: var(--space-1);
 }
 
+@media (max-width: 900px) {
+  .hero-section {
+    border-radius: 0;
+  }
+
+  .tahanan-container {
+    padding: 0 var(--space-3);
+  }
+}
+
 @media (max-width: 768px) {
   .site-header {
     padding: 8px var(--space-2);
   }
   .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand actions"
+      "navigation navigation";
     padding: 6px 12px;
     gap: 8px;
+    border-radius: 22px;
+  }
+  .brand-wrap {
+    grid-area: brand;
+    min-width: 0;
+  }
+  .modern-nav-capsule {
+    grid-area: navigation;
+    justify-self: center;
+    max-width: 100%;
+  }
+  .header-actions {
+    grid-area: actions;
+    min-width: 0;
+    gap: 4px;
   }
   .brand-subtitle {
     display: none;
@@ -581,8 +768,24 @@ body.is-scrolling .vine-leaf-node.side--right {
   .hero-section {
     padding-top: var(--space-8);
     padding-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
+  }
+  .hero-badge {
+    letter-spacing: 0.04em;
+    padding: 6px 12px;
   }
   .tahanan-container {
     padding: 0 var(--space-3);
+  }
+}
+
+@media (max-width: 360px) {
+  #themeLabel {
+    display: none;
+  }
+
+  .modern-theme-btn {
+    min-width: 36px;
+    justify-content: center;
   }
 }

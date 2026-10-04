@@ -3,14 +3,15 @@
  * Handles local vows, visits, theme preferences, and book progress
  */
 
-import { Storage } from './utils.js';
+import { Storage } from "./utils.js";
 
 const KEYS = {
-  VISITED: 'bena_has_visited',
-  VOWS: 'bena_user_vows_v4',
-  CANDLES: 'bena_candle_count_v4',
-  THEME: 'bena_theme_mode',
-  BOOK_PAGE: 'bena_book_page_index'
+  VISITED: "bena_has_visited",
+  VOWS: "bena_user_vows_v4",
+  CANDLES: "bena_candle_count_v4",
+  THEME: "bena_theme_mode",
+  BOOK_PAGE: "bena_book_page_index",
+  BOOK_INTRO_TYPED: "bena_book_intro_typed",
 };
 
 export const State = {
@@ -29,9 +30,9 @@ export const State = {
   addVow(text) {
     const vows = this.getVows();
     const newVow = {
-      id: 'vow_' + Date.now(),
+      id: "vow_" + Date.now(),
       text: text.trim().slice(0, 200),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
     vows.unshift(newVow);
     Storage.set(KEYS.VOWS, vows);
@@ -40,7 +41,7 @@ export const State = {
   },
 
   deleteVow(id) {
-    const vows = this.getVows().filter(v => v.id !== id);
+    const vows = this.getVows().filter((v) => v.id !== id);
     Storage.set(KEYS.VOWS, vows);
     return vows;
   },
@@ -58,15 +59,18 @@ export const State = {
   getTheme() {
     const saved = Storage.get(KEYS.THEME, null);
     if (saved) return saved;
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      return "dark";
     }
-    return 'light';
+    return "light";
   },
 
   setTheme(theme) {
     Storage.set(KEYS.THEME, theme);
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute("data-theme", theme);
   },
 
   getBookPage() {
@@ -77,17 +81,29 @@ export const State = {
     Storage.set(KEYS.BOOK_PAGE, idx);
   },
 
+  hasTypedBookIntro() {
+    return !!Storage.get(KEYS.BOOK_INTRO_TYPED, false);
+  },
+
+  setBookIntroTyped(value = true) {
+    Storage.set(KEYS.BOOK_INTRO_TYPED, value);
+  },
+
   clearAllData() {
-    Object.values(KEYS).forEach(k => Storage.remove(k));
+    Object.values(KEYS).forEach((k) => Storage.remove(k));
   },
 
   exportAllData() {
-    return JSON.stringify({
-      visited: this.hasVisited(),
-      vows: this.getVows(),
-      candleCount: this.getCandleCount(),
-      theme: this.getTheme(),
-      exportedAt: new Date().toISOString()
-    }, null, 2);
-  }
+    return JSON.stringify(
+      {
+        visited: this.hasVisited(),
+        vows: this.getVows(),
+        candleCount: this.getCandleCount(),
+        theme: this.getTheme(),
+        exportedAt: new Date().toISOString(),
+      },
+      null,
+      2,
+    );
+  },
 };

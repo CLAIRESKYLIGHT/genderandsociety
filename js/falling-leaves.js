@@ -14,7 +14,7 @@
  */
 
 (function () {
-  'use strict';
+  "use strict";
 
   const LEAF_SVGS = [
     // Shape 1: Curved Ovate Leaf with delicate vein
@@ -33,17 +33,19 @@
     `<svg viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M14 2C5 8 2 18 14 30C26 18 23 8 14 2Z" fill="currentColor" fill-opacity="0.82"/>
       <path d="M14 2V30M14 10C10 12 8 15 8 15M14 16C18 18 20 21 20 21" stroke="rgba(255,255,255,0.35)" stroke-width="0.8" stroke-linecap="round"/>
-    </svg>`
+    </svg>`,
   ];
 
   const LEAF_COLORS = [
-    '#68a85c', // soft sunlit green
-    '#7ebd71', // fresh leaf green
-    '#529148', // understory green
-    '#8ecf7e', // pale dappled green
-    '#5c9c54', // mid leaf
-    '#f5c642', // radiant sunlit gold (rare)
-    '#e5a92a'  // amber gold (rare)
+    "#67b9a5", // forest teal
+    "#f0c95d", // warm gold
+    "#d87d7a", // coral blush
+    "#7a8ed5", // spring lilac
+    "#f7b9c6", // rose-pink
+    "#5cae91", // leafy green
+    "#e9bf55", // amber gold
+    "#d3738d", // magenta rose
+    "#7bbfc7", // seafoam
   ];
 
   let container = null;
@@ -51,17 +53,24 @@
   let isReducedMotion = false;
 
   function checkReducedMotion() {
-    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return (
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
   }
 
   function createLeaf(index, totalLeaves) {
-    const el = document.createElement('div');
-    el.className = 'canopy-falling-leaf';
-    el.setAttribute('aria-hidden', 'true');
+    const el = document.createElement("div");
+    el.className = "canopy-falling-leaf";
+    el.setAttribute("aria-hidden", "true");
 
     // Color: mostly greens, 1 or 2 gold
     const isGold = index % 4 === 3;
-    const color = isGold ? (index % 2 === 0 ? '#f5c642' : '#e5a92a') : LEAF_COLORS[index % 5];
+    const color = isGold
+      ? index % 2 === 0
+        ? "#f3d168"
+        : "#eebd48"
+      : LEAF_COLORS[index % LEAF_COLORS.length];
     const shape = LEAF_SVGS[index % LEAF_SVGS.length];
 
     el.innerHTML = shape;
@@ -74,9 +83,9 @@
     // 3 -> right margin (87% - 97%)
     let leftPercent;
     if (index % 2 === 0) {
-      leftPercent = 1 + (index * 2.5) % 13; // 1% to 14%
+      leftPercent = 1 + ((index * 2.5) % 13); // 1% to 14%
     } else {
-      leftPercent = 86 + (index * 2.3) % 12; // 86% to 98%
+      leftPercent = 86 + ((index * 2.3) % 12); // 86% to 98%
     }
 
     // Size: small, subtle (16px to 26px)
@@ -86,7 +95,7 @@
     el.style.left = `${leftPercent}%`;
 
     // Duration: 18 to 28 seconds (as requested)
-    const duration = 18 + (index * 1.3) % 10;
+    const duration = 18 + ((index * 1.3) % 10);
     // Stagger start: negative delay so leaves are already drifting on page load
     const delay = -(index * (duration / totalLeaves));
 
@@ -94,10 +103,10 @@
     const swayAmount = 25 + (index % 3) * 12; // 25px - 49px
     const swayPeriod = 4.5 + (index % 3) * 1.2; // 4.5s - 6.9s
 
-    el.style.setProperty('--leaf-duration', `${duration.toFixed(1)}s`);
-    el.style.setProperty('--leaf-delay', `${delay.toFixed(1)}s`);
-    el.style.setProperty('--leaf-sway', `${swayAmount}px`);
-    el.style.setProperty('--leaf-sway-period', `${swayPeriod.toFixed(1)}s`);
+    el.style.setProperty("--leaf-duration", `${duration.toFixed(1)}s`);
+    el.style.setProperty("--leaf-delay", `${delay.toFixed(1)}s`);
+    el.style.setProperty("--leaf-sway", `${swayAmount}px`);
+    el.style.setProperty("--leaf-sway-period", `${swayPeriod.toFixed(1)}s`);
 
     return el;
   }
@@ -105,19 +114,19 @@
   function initLeaves() {
     isReducedMotion = checkReducedMotion();
     if (isReducedMotion) {
-      if (container) container.innerHTML = '';
+      if (container) container.innerHTML = "";
       return;
     }
 
     if (!container) {
-      container = document.createElement('div');
-      container.id = 'canopyLeavesContainer';
-      container.className = 'canopy-falling-leaves';
-      container.setAttribute('aria-hidden', 'true');
+      container = document.createElement("div");
+      container.id = "canopyLeavesContainer";
+      container.className = "canopy-falling-leaves";
+      container.setAttribute("aria-hidden", "true");
       document.body.appendChild(container);
     }
 
-    container.innerHTML = '';
+    container.innerHTML = "";
     leaves = [];
 
     // Subtle leaf count: 4-5 on mobile, 7 on desktop (Never more than 9)
@@ -133,24 +142,28 @@
 
   // Handle Resize and Motion Preference Changes
   let resizeTimeout;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(function () {
-      initLeaves();
-    }, 300);
-  }, { passive: true });
+  window.addEventListener(
+    "resize",
+    function () {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function () {
+        initLeaves();
+      }, 300);
+    },
+    { passive: true },
+  );
 
   if (window.matchMedia) {
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (motionQuery.addEventListener) {
-      motionQuery.addEventListener('change', initLeaves);
+      motionQuery.addEventListener("change", initLeaves);
     } else if (motionQuery.addListener) {
       motionQuery.addListener(initLeaves);
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLeaves);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLeaves);
   } else {
     initLeaves();
   }
@@ -160,7 +173,7 @@
     refresh: initLeaves,
     toggle: function (enable) {
       if (!container) return;
-      container.style.display = enable ? 'block' : 'none';
-    }
+      container.style.display = enable ? "block" : "none";
+    },
   };
 })();
