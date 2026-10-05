@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/layout.css" />
-    <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="css/book.css" />
+    <link rel="stylesheet" href="css/components.css?v=9" />
+    <link rel="stylesheet" href="css/book.css?v=4" />
     <link rel="stylesheet" href="css/motion.css" />
     <link rel="stylesheet" href="css/utilities.css" />
   </head>
@@ -102,17 +102,6 @@
               <span class="nav-tab-label">Tahanan</span>
             </a>
 
-            <a
-              href="#kalasag"
-              class="leaf-tab-btn"
-              data-tab="kalasag"
-              role="tab"
-              aria-selected="false"
-              id="tab-kalasag"
-            >
-              <span class="nav-tab-icon" aria-hidden="true">🛡️</span>
-              <span class="nav-tab-label">Kalasag</span>
-            </a>
           </nav>
 
           <!-- Header Actions: Modern Theme switch & Yakap pill -->
@@ -590,14 +579,14 @@
                     >
                       <path
                         d="M12 2C12 2 4 14 4 22C4 26.4 7.6 30 12 30C16.4 30 20 26.4 20 22C20 14 12 2 12 2Z"
-                        fill="#C9A227"
+                        fill="#FF9800"
                       />
                       <path
                         d="M12 10C12 10 7 18 7 23C7 25.8 9.2 28 12 28C14.8 28 17 25.8 17 23C17 18 12 10 12 10Z"
-                        fill="#F4F7F0"
-                        opacity="0.9"
+                        fill="#FFF3A8"
+                        opacity="0.95"
                       />
-                      <circle cx="12" cy="23" r="3" fill="#B5532A" />
+                      <circle cx="12" cy="23" r="3" fill="#D84315" />
                     </svg>
                     <div class="candle-wax-body" aria-hidden="true"></div>
                   </div>
@@ -691,37 +680,95 @@
                   nakakahawa ang pagiging tao.
                 </p>
               </div>
-              <div class="facts-grid faith-grid">
-                <article class="fact-card">
-                  <h3 class="fact-card-title">Hindi ito batas ng kasal.</h3>
-                  <p class="fact-card-text">
-                    Ang SOGIE Equality Bill ay panukalang laban sa
-                    diskriminasyon, hindi panukalang nagpapahintulot ng same-sex
-                    marriage. Magkahiwalay na usaping pambatas ang kasal at
-                    proteksyon laban sa diskriminasyon.
-                  </p>
-                </article>
-                <article class="fact-card">
-                  <h3 class="fact-card-title">
-                    Protektado ang kalayaan sa relihiyon.
-                  </h3>
-                  <p class="fact-card-text">
-                    Tinututukan ng panukala ang mga gawaing may diskriminasyon,
-                    hindi ang paniniwala o turo ng relihiyon. May mga bersyon na
-                    tahasang naglalaan ng exemption para sa ilang gawaing
-                    panrelihiyon at pang-akademiko. Hindi dapat pilitin ang mga
-                    simbahan na kumilos laban sa kanilang doktrina; mahalagang
-                    tukuyin ang eksaktong bersyon ng panukala.
-                  </p>
-                </article>
-                <article class="fact-card">
-                  <h3 class="fact-card-title">Hindi ito special rights.</h3>
-                  <p class="fact-card-text">
-                    Hindi ito pribilehiyo para sa iilan. Layunin nitong
-                    isakatuparan ang pantay na dignidad at proteksyon laban sa
-                    diskriminasyon para sa bawat Pilipino.
-                  </p>
-                </article>
+              <div class="hanging-facts-container faith-hanging-container">
+
+                <!-- Faith Hanging Column 1 -->
+                <div class="hanging-frame-column reveal-on-scroll">
+                  <!-- Jute Bow Header -->
+                  <div class="hanging-rope-bow" aria-hidden="true">
+                    <svg viewBox="0 0 160 80" fill="none" class="rope-bow-svg">
+                      <path d="M80,45 C55,20 15,12 12,32 C10,52 48,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <path d="M80,45 C105,20 145,12 148,32 C150,52 112,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <circle cx="80" cy="45" r="6" fill="#72553B" stroke="#5D432D" stroke-width="2"/>
+                      <line x1="45" y1="45" x2="45" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                      <line x1="115" y1="45" x2="115" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <!-- Faith Card 1 -->
+                  <article class="fact-card faith-card faith-hanging-card">
+                    <img class="faith-card-ornament faith-ornament--one" src="assets/design1.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--two" src="assets/design2.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--three" src="assets/design3.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--four" src="assets/design4.png" alt="" aria-hidden="true" />
+                    <h3 class="fact-card-title">Hindi ito batas ng kasal.</h3>
+                    <p class="fact-card-text">
+                      Ang SOGIE Equality Bill ay panukalang laban sa
+                      diskriminasyon, hindi panukalang nagpapahintulot ng same-sex
+                      marriage. Magkahiwalay na usaping pambatas ang kasal at
+                      proteksyon laban sa diskriminasyon.
+                    </p>
+                  </article>
+                </div>
+
+                <!-- Faith Hanging Column 2 -->
+                <div class="hanging-frame-column reveal-on-scroll">
+                  <!-- Jute Bow Header -->
+                  <div class="hanging-rope-bow" aria-hidden="true">
+                    <svg viewBox="0 0 160 80" fill="none" class="rope-bow-svg">
+                      <path d="M80,45 C55,20 15,12 12,32 C10,52 48,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <path d="M80,45 C105,20 145,12 148,32 C150,52 112,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <circle cx="80" cy="45" r="6" fill="#72553B" stroke="#5D432D" stroke-width="2"/>
+                      <line x1="45" y1="45" x2="45" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                      <line x1="115" y1="45" x2="115" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <!-- Faith Card 2 -->
+                  <article class="fact-card faith-card faith-hanging-card">
+                    <img class="faith-card-ornament faith-ornament--one" src="assets/design1.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--two" src="assets/design2.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--three" src="assets/design3.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--four" src="assets/design4.png" alt="" aria-hidden="true" />
+                    <h3 class="fact-card-title">
+                      Protektado ang kalayaan sa relihiyon.
+                    </h3>
+                    <p class="fact-card-text">
+                      Tinututukan ng panukala ang mga gawaing may diskriminasyon,
+                      hindi ang paniniwala o turo ng relihiyon. May mga bersyon na
+                      tahasang naglalaan ng exemption para sa ilang gawaing
+                      panrelihiyon at pang-akademiko. Hindi dapat pilitin ang mga
+                      simbahan na kumilos laban sa kanilang doktrina; mahalagang
+                      tukuyin ang eksaktong bersyon ng panukala.
+                    </p>
+                  </article>
+                </div>
+
+                <!-- Faith Hanging Column 3 -->
+                <div class="hanging-frame-column reveal-on-scroll">
+                  <!-- Jute Bow Header -->
+                  <div class="hanging-rope-bow" aria-hidden="true">
+                    <svg viewBox="0 0 160 80" fill="none" class="rope-bow-svg">
+                      <path d="M80,45 C55,20 15,12 12,32 C10,52 48,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <path d="M80,45 C105,20 145,12 148,32 C150,52 112,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <circle cx="80" cy="45" r="6" fill="#72553B" stroke="#5D432D" stroke-width="2"/>
+                      <line x1="45" y1="45" x2="45" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                      <line x1="115" y1="45" x2="115" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <!-- Faith Card 3 -->
+                  <article class="fact-card faith-card faith-hanging-card">
+                    <img class="faith-card-ornament faith-ornament--one" src="assets/design1.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--two" src="assets/design2.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--three" src="assets/design3.png" alt="" aria-hidden="true" />
+                    <img class="faith-card-ornament faith-ornament--four" src="assets/design4.png" alt="" aria-hidden="true" />
+                    <h3 class="fact-card-title">Hindi ito special rights.</h3>
+                    <p class="fact-card-text">
+                      Hindi ito pribilehiyo para sa iilan. Layunin nitong
+                      isakatuparan ang pantay na dignidad at proteksyon laban sa
+                      diskriminasyon para sa bawat Pilipino.
+                    </p>
+                  </article>
+                </div>
+
               </div>
               <p class="faith-closing-line">
                 “Faith is not the enemy of equality. Hate is.”
@@ -786,122 +833,167 @@
                 </p>
               </div>
 
-              <div class="facts-grid">
-                <!-- Fact Card 1: SOGIESC -->
-                <article class="fact-card reveal-on-scroll">
-                  <h3 class="fact-card-title">
-                    1. Sex vs. Gender vs. Sexuality vs. SOGIESC
-                  </h3>
-                  <p class="fact-card-text">
-                    Ang <strong>Sex</strong> ay biyolohikal na katangian ng
-                    katawan (chromosomes, hormones, genitalia). Ang
-                    <strong>Gender</strong> ay panlipunang gampanin at
-                    inaasahan. Ang <strong>Sexuality</strong> ay emosyonal at
-                    sekswal na atraksyon. Ang <strong>SOGIESC</strong> ay
-                    kumakatawan sa buong spectrum: Sexual Orientation, Gender
-                    Identity, Gender Expression, at Sex Characteristics. Bawat
-                    tao ay may sariling natatanging SOGIESC.
-                  </p>
-                </article>
+              <div class="hanging-facts-container">
+                <!-- Hanging Frame Column 1 (Cards 1, 2, 3) -->
+                <div class="hanging-frame-column reveal-on-scroll">
+                  <!-- Jute Bow Header with Hanging Ropes -->
+                  <div class="hanging-rope-bow" aria-hidden="true">
+                    <svg viewBox="0 0 160 80" fill="none" class="rope-bow-svg">
+                      <path d="M80,45 C55,20 15,12 12,32 C10,52 48,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <path d="M80,45 C105,20 145,12 148,32 C150,52 112,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <circle cx="80" cy="45" r="6" fill="#72553B" stroke="#5D432D" stroke-width="2"/>
+                      <line x1="45" y1="45" x2="45" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                      <line x1="115" y1="45" x2="115" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
 
-                <!-- Fact Card 2: Patriarchy -->
-                <article class="fact-card reveal-on-scroll">
-                  <h3 class="fact-card-title">
-                    2. Patriarkiya at Kapangyarihan (Patriarchy &amp; Power)
-                  </h3>
-                  <p class="fact-card-text">
-                    Ang patriarkiya ay isang sistemang panlipunan kung saan ang
-                    kalalakihan ang may hawak ng pangunahing kapangyarihan sa
-                    politika, ekonomiya, at pamilya. Hindi ito simpleng galit sa
-                    indibidwal na lalaki, kundi isang institusyonal na
-                    istruktura na nagpapahirap sa kababaihan, nagdidikta ng
-                    toxic na pamantayan sa kalalakihan, at nagwawantang-bahagi
-                    sa LGBTQIA+.
-                  </p>
-                </article>
+                  <!-- Frame 1 -->
+                  <article class="fact-card hanging-fact-card">
+                    <h3 class="fact-card-title">
+                      1. Sex vs. Gender vs. Sexuality vs. SOGIESC
+                    </h3>
+                    <p class="fact-card-text">
+                      Ang <strong>Sex</strong> ay biyolohikal na katangian ng
+                      katawan (chromosomes, hormones, genitalia). Ang
+                      <strong>Gender</strong> ay panlipunang gampanin at
+                      inaasahan. Ang <strong>Sexuality</strong> ay emosyonal at
+                      sekswal na atraksyon. Ang <strong>SOGIESC</strong> ay
+                      kumakatawan sa buong spectrum: Sexual Orientation, Gender
+                      Identity, Gender Expression, at Sex Characteristics. Bawat
+                      tao ay may sariling natatanging SOGIESC.
+                    </p>
+                  </article>
 
-                <!-- Fact Card 3: Intersectionality -->
-                <article class="fact-card reveal-on-scroll">
-                  <h3 class="fact-card-title">
-                    3. Interseksyonalidad (Intersectionality)
-                  </h3>
-                  <p class="fact-card-text">
-                    Ipinakilala ni Kimberlé Crenshaw noong 1989, ipinapaliwanag
-                    ng interseksyonalidad na ang diskriminasyon ay hindi
-                    nag-iisa. Ang kasarian ng isang tao ay nakakabit sa kanyang
-                    uri (class), lahi/katutubong pinagmulan, edad, at
-                    kapansanan. Ang isang katutubong mahirap na babae ay
-                    nakakaranas ng patong-patong na opresyon kaysa sa isang
-                    may-kayang babae sa lungsod.
-                  </p>
-                </article>
+                  <!-- Rope Connector 1-2 -->
+                  <div class="hanging-rope-connector" aria-hidden="true">
+                    <span class="rope-strand rope-strand--left"></span>
+                    <span class="rope-strand rope-strand--right"></span>
+                  </div>
 
-                <!-- Fact Card 4: Hegemonic Masculinity -->
-                <article class="fact-card reveal-on-scroll">
-                  <h3 class="fact-card-title">
-                    4. Hegemonic Masculinity &amp; Femininities
-                  </h3>
-                  <p class="fact-card-text">
-                    Ayon kay R.W. Connell, ang hegemonic masculinity ay ang
-                    ideyal na uri ng pagkalalaki na nagpapairal ng dominasyon,
-                    pag-iwas sa emosyon, at karahasan. Ipinagkakait nito sa
-                    kalalakihan ang malayang pagpapahayag ng lambot at kalinga.
-                    Ang pagbuwag dito ay nagpapalaya sa kalalakihan mula sa
-                    mapaminsalang pamantayan.
-                  </p>
-                </article>
+                  <!-- Frame 2 -->
+                  <article class="fact-card hanging-fact-card">
+                    <h3 class="fact-card-title">
+                      2. Patriarkiya at Kapangyarihan (Patriarchy &amp; Power)
+                    </h3>
+                    <p class="fact-card-text">
+                      Ang patriarkiya ay isang sistemang panlipunan kung saan ang
+                      kalalakihan ang may hawak ng pangunahing kapangyarihan sa
+                      politika, ekonomiya, at pamilya. Hindi ito simpleng galit sa
+                      indibidwal na lalaki, kundi isang institusyonal na
+                      istruktura na nagpapahirap sa kababaihan, nagdidikta ng
+                      toxic na pamantayan sa kalalakihan, at nagwawantang-bahagi
+                      sa LGBTQIA+.
+                    </p>
+                  </article>
 
-                <!-- Fact Card 5: Gender-Based Violence (with CW) -->
-                <article class="fact-card reveal-on-scroll">
-                  <span class="fact-content-warning"
-                    >⚠️ Content Warning: Karahasan at Pang-aabuso</span
-                  >
-                  <h3 class="fact-card-title">
-                    5. Gender-Based Violence (Karahasang Nakabatay sa Kasarian)
-                  </h3>
-                  <p class="fact-card-text">
-                    Ang GBV ay anumang mapaminsalang gawa na ipinapataw laban sa
-                    kagustuhan ng isang tao dahil sa kanyang kasarian. Kabilang
-                    dito ang pisikal, sekswal, sikolohikal, at ekonomikong
-                    pang-aabuso, pati na rin ang online gender-based harassment.
-                    Hindi ito pribadong away-pamilya lamang kundi paglabag sa
-                    karapatang pantao.
-                  </p>
-                </article>
+                  <!-- Rope Connector 2-3 -->
+                  <div class="hanging-rope-connector" aria-hidden="true">
+                    <span class="rope-strand rope-strand--left"></span>
+                    <span class="rope-strand rope-strand--right"></span>
+                  </div>
 
-                <!-- Fact Card 6: Philippine Gender Laws -->
-                <article class="fact-card reveal-on-scroll">
-                  <h3 class="fact-card-title">
-                    6. Mga Batas sa Kasarian sa Pilipinas
-                  </h3>
-                  <p class="fact-card-text">
-                    Pinoprotektahan ng batas ang mamamayan sa pamamagitan ng
-                    <strong>RA 9710</strong> (Magna Carta of Women),
-                    <strong>RA 9262</strong> (Anti-VAWC Act laban sa pananakit
-                    sa kababaihan at anak), <strong>RA 11313</strong> (Safe
-                    Spaces Act o Bawal Bastos Law laban sa pambabastos sa
-                    kalsada at online), at <strong>RA 7877</strong> (Anti-Sexual
-                    Harassment). Patuloy na ipinaglalaban ang
-                    <strong>SOGIE Equality Bill</strong> para sa pambansang
-                    proteksyon laban sa diskriminasyon.
-                  </p>
-                </article>
+                  <!-- Frame 3 -->
+                  <article class="fact-card hanging-fact-card">
+                    <h3 class="fact-card-title">
+                      3. Interseksyonalidad (Intersectionality)
+                    </h3>
+                    <p class="fact-card-text">
+                      Ipinakilala ni Kimberlé Crenshaw noong 1989, ipinapaliwanag
+                      ng interseksyonalidad na ang diskriminasyon ay hindi
+                      nag-iisa. Ang kasarian ng isang tao ay nakakabit sa kanyang
+                      uri (class), lahi/katutubong pinagmulan, edad, at
+                      kapansanan. Ang isang katutubong mahirap na babae ay
+                      nakakaranas ng patong-patong na opresyon kaysa sa isang
+                      may-kayang babae sa lungsod.
+                    </p>
+                  </article>
+                </div>
+
+                <!-- Hanging Frame Column 2 (Cards 4, 5, 6) -->
+                <div class="hanging-frame-column reveal-on-scroll">
+                  <!-- Jute Bow Header with Hanging Ropes -->
+                  <div class="hanging-rope-bow" aria-hidden="true">
+                    <svg viewBox="0 0 160 80" fill="none" class="rope-bow-svg">
+                      <path d="M80,45 C55,20 15,12 12,32 C10,52 48,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <path d="M80,45 C105,20 145,12 148,32 C150,52 112,58 80,45 Z" stroke="#8D6E53" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                      <circle cx="80" cy="45" r="6" fill="#72553B" stroke="#5D432D" stroke-width="2"/>
+                      <line x1="45" y1="45" x2="45" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                      <line x1="115" y1="45" x2="115" y2="80" stroke="#8D6E53" stroke-width="4.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+
+                  <!-- Frame 4 -->
+                  <article class="fact-card hanging-fact-card">
+                    <h3 class="fact-card-title">
+                      4. Hegemonic Masculinity &amp; Femininities
+                    </h3>
+                    <p class="fact-card-text">
+                      Ayon kay R.W. Connell, ang hegemonic masculinity ay ang
+                      ideyal na uri ng pagkalalaki na nagpapairal ng dominasyon,
+                      pag-iwas sa emosyon, at karahasan. Ipinagkakait nito sa
+                      kalalakihan ang malayang pagpapahayag ng lambot at kalinga.
+                      Ang pagbuwag dito ay nagpapalaya sa kalalakihan mula sa
+                      mapaminsalang pamantayan.
+                    </p>
+                  </article>
+
+                  <!-- Rope Connector 4-5 -->
+                  <div class="hanging-rope-connector" aria-hidden="true">
+                    <span class="rope-strand rope-strand--left"></span>
+                    <span class="rope-strand rope-strand--right"></span>
+                  </div>
+
+                  <!-- Frame 5 -->
+                  <article class="fact-card hanging-fact-card">
+                    <span class="fact-content-warning"
+                      >⚠️ Content Warning: Karahasan at Pang-aabuso</span
+                    >
+                    <h3 class="fact-card-title">
+                      5. Gender-Based Violence (Karahasang Nakabatay sa Kasarian)
+                    </h3>
+                    <p class="fact-card-text">
+                      Ang GBV ay anumang mapaminsalang gawa na ipinapataw laban sa
+                      kagustuhan ng isang tao dahil sa kanyang kasarian. Kabilang
+                      dito ang pisikal, sekswal, sikolohikal, at ekonomikong
+                      pang-aabuso, pati na rin ang online gender-based harassment.
+                      Hindi ito pribadong away-pamilya lamang kundi paglabag sa
+                      karapatang pantao.
+                    </p>
+                  </article>
+
+                  <!-- Rope Connector 5-6 -->
+                  <div class="hanging-rope-connector" aria-hidden="true">
+                    <span class="rope-strand rope-strand--left"></span>
+                    <span class="rope-strand rope-strand--right"></span>
+                  </div>
+
+                  <!-- Frame 6 -->
+                  <article class="fact-card hanging-fact-card">
+                    <h3 class="fact-card-title">
+                      6. Mga Batas sa Kasarian sa Pilipinas
+                    </h3>
+                    <p class="fact-card-text">
+                      Pinoprotektahan ng batas ang mamamayan sa pamamagitan ng
+                      <strong>RA 9710</strong> (Magna Carta of Women),
+                      <strong>RA 9262</strong> (Anti-VAWC Act laban sa pananakit
+                      sa kababaihan at anak), <strong>RA 11313</strong> (Safe
+                      Spaces Act o Bawal Bastos Law laban sa pambabastos sa
+                      kalsada at online), at <strong>RA 7877</strong> (Anti-Sexual
+                      Harassment). Patuloy na ipinaglalaban ang
+                      <strong>SOGIE Equality Bill</strong> para sa pambansang
+                      proteksyon laban sa diskriminasyon.
+                    </p>
+                  </article>
+                </div>
               </div>
             </section>
           </div>
         </section>
 
-        <!-- ==================== 2. KALASAG (SHIELD — SAFETY, RIGHTS & REFUGE) ==================== -->
-        <section
-          id="kalasag"
-          class="page"
-          role="tabpanel"
-          aria-labelledby="tab-kalasag"
-          hidden
-        >
-          <div class="container">
-            <!-- Tactile Woven Vine Thread Spine -->
-            <div class="vine-spine-track" aria-hidden="true"></div>
+      </main>
+
+      <!-- ============ FOOTER (SANGGUNIAN, BUMUO NG BENA, COPYRIGHT) ============ -->
+      <footer class="site-footer">
 
             <div class="hero-section" style="padding-bottom: var(--space-6)">
               <div class="hero-content">
@@ -1135,53 +1227,7 @@
                 >📚 SANGGUNIAN (Master References &amp; Legal Treatises)</span
               >
             </h3>
-            <div
-              class="filter-pills-row"
-              style="justify-content: flex-start; margin-bottom: var(--space-3)"
-            >
-              <button
-                type="button"
-                class="filter-pill-btn ref-filter-pill is-active"
-                data-filter="Lahat"
-              >
-                Lahat
-              </button>
-              <button
-                type="button"
-                class="filter-pill-btn ref-filter-pill"
-                data-filter="Teorya"
-              >
-                Teorya
-              </button>
-              <button
-                type="button"
-                class="filter-pill-btn ref-filter-pill"
-                data-filter="Kasaysayan"
-              >
-                Kasaysayan
-              </button>
-              <button
-                type="button"
-                class="filter-pill-btn ref-filter-pill"
-                data-filter="Batas"
-              >
-                Batas
-              </button>
-              <button
-                type="button"
-                class="filter-pill-btn ref-filter-pill"
-                data-filter="Datos"
-              >
-                Datos
-              </button>
-              <button
-                type="button"
-                class="filter-pill-btn ref-filter-pill"
-                data-filter="SOGIESC"
-              >
-                SOGIESC
-              </button>
-            </div>
+
 
             <div
               id="footerReferencesList"
@@ -1252,14 +1298,26 @@
     </div>
 
     <!-- ============ MODAL 1: YAKAP WELCOME MODAL (ANIMATED LEAF EMBRACE) ============ -->
+    <!-- ============ YAKAP WELCOME MODAL — Premium Notepad Design ============ -->
     <div
-      class="modal-overlay is-hidden"
+      class="yakap-overlay is-hidden"
       id="yakapModalOverlay"
       role="dialog"
       aria-modal="true"
       aria-labelledby="yakapModalTitle"
     >
-      <div class="yakap-stage">
+      <!-- Floating petals / particles (pure CSS) -->
+      <div class="yakap-petals" aria-hidden="true">
+        <span class="petal p1">🌸</span>
+        <span class="petal p2">🍃</span>
+        <span class="petal p3">✨</span>
+        <span class="petal p4">🌿</span>
+        <span class="petal p5">🌸</span>
+        <span class="petal p6">⭐</span>
+      </div>
+
+      <!-- The notepad card -->
+      <div class="yakap-notepad" id="yakapCard">
         <!-- Animated Embracing Leaf Arms (Left & Right Hug Wings) -->
         <div class="yakap-leaf-wing wing--left" aria-hidden="true">
           <svg viewBox="0 0 160 320" fill="none" class="leaf-hug-svg">
