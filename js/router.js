@@ -1,9 +1,9 @@
 /**
  * BENA — Hash Router
- * Supports #tahanan and #kalasag, history popstate, and aria-current updates
+ * Supports #tahanan, history popstate, and aria-current updates
  */
 
-const VALID_ROUTES = ['tahanan', 'kalasag'];
+const VALID_ROUTES = ['tahanan'];
 
 export function initRouter(onRouteChange) {
   function getRoute() {

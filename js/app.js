@@ -8,7 +8,6 @@ import { ACHIEVEMENTS } from "./achievements.js";
 import { BOOK_PAGES } from "./book.js";
 import { REFERENCES } from "./references.js";
 import { CREDITS } from "./credits.js";
-import { SHIELD_DATA, setupReportForm } from "./shield.js";
 import { State } from "./state.js";
 import { escapeHTML, getDayOfYear } from "./utils.js";
 import { showToast } from "./toast.js";
@@ -118,6 +117,19 @@ function initYakapModal() {
       State.setVisited(true);
       closeModal();
       showToast("Maligayang pagdating sa BENA 🌻");
+    });
+  }
+
+  const closeBtn = document.getElementById("yakapCloseBtn");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        closeModal();
+      }
     });
   }
 
@@ -645,61 +657,6 @@ function initBook() {
 }
 
 /* ==========================================================================
-   6. KALASAG (SHIELD) CONTENT POPULATION
-   ========================================================================== */
-function initShield() {
-  const guidelinesEl = document.getElementById("shieldGuidelinesList");
-  const hotlinesEl = document.getElementById("shieldHotlinesGrid");
-  const allyListEl = document.getElementById("shieldAllyList");
-
-  // Guidelines
-  if (guidelinesEl && SHIELD_DATA.guidelines) {
-    guidelinesEl.innerHTML = "";
-    SHIELD_DATA.guidelines.forEach((g, idx) => {
-      const item = document.createElement("div");
-      item.className = "guideline-item";
-      item.innerHTML = `
-        <span class="guideline-num">${idx + 1}</span>
-        <div>
-          <p><strong>${escapeHTML(g.tl)}</strong></p>
-          <p style="font-size: 0.88rem; font-style: italic; color: var(--color-text-secondary);">${escapeHTML(g.en)}</p>
-        </div>
-      `;
-      guidelinesEl.appendChild(item);
-    });
-  }
-
-  // Hotlines
-  if (hotlinesEl && SHIELD_DATA.hotlines) {
-    hotlinesEl.innerHTML = "";
-    SHIELD_DATA.hotlines.forEach((h) => {
-      const card = document.createElement("a");
-      card.className = "hotline-card";
-      if (h.tel) card.href = `tel:${h.tel}`;
-      card.innerHTML = `
-        <span class="hotline-name">${escapeHTML(h.name)}</span>
-        <span class="hotline-number">${escapeHTML(h.number)}</span>
-        <span class="hotline-verify">⚠️ ${escapeHTML(h.verifyNote)}</span>
-      `;
-      hotlinesEl.appendChild(card);
-    });
-  }
-
-  // Ally Tips
-  if (allyListEl && SHIELD_DATA.allyTips) {
-    allyListEl.innerHTML = "";
-    SHIELD_DATA.allyTips.forEach((tip, idx) => {
-      const li = document.createElement("li");
-      li.style.marginBottom = "var(--space-2)";
-      li.innerHTML = `<strong>${idx + 1}.</strong> ${escapeHTML(tip)}`;
-      allyListEl.appendChild(li);
-    });
-  }
-
-  setupReportForm();
-}
-
-/* ==========================================================================
    7. MODERN SANGGUNIAN (ARCHIVAL REFERENCES & CITATIONS)
    ========================================================================== */
 function initFooter() {
@@ -804,51 +761,6 @@ function initFooter() {
 }
 
 /* ==========================================================================
-   9. GLOBAL DATA EXPORT & RESET
-   ========================================================================== */
-function initDataModals() {
-  const exportBtn = document.getElementById("exportDataBtn");
-  const resetBtn = document.getElementById("resetDataBtn");
-  const resetConfirmModal = document.getElementById("resetConfirmModal");
-  const confirmYes = document.getElementById("confirmResetYes");
-  const confirmNo = document.getElementById("confirmResetNo");
-
-  if (exportBtn) {
-    exportBtn.addEventListener("click", () => {
-      const dataStr = State.exportAllData();
-      const blob = new Blob([dataStr], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `bena_data_${Date.now()}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast("Na-download ang iyong backup JSON file! 📤", "success");
-    });
-  }
-
-  if (resetBtn && resetConfirmModal) {
-    resetBtn.addEventListener("click", () => {
-      resetConfirmModal.classList.remove("is-hidden");
-    });
-  }
-
-  if (confirmNo && resetConfirmModal) {
-    confirmNo.addEventListener("click", () => {
-      resetConfirmModal.classList.add("is-hidden");
-    });
-  }
-
-  if (confirmYes && resetConfirmModal) {
-    confirmYes.addEventListener("click", () => {
-      State.clearAllData();
-      resetConfirmModal.classList.add("is-hidden");
-      window.location.reload();
-    });
-  }
-}
-
-/* ==========================================================================
    BOOTSTRAP
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -864,7 +776,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initAchievements();
   initAdvocates();
   initBook();
-  initShield();
   initFooter();
-  initDataModals();
 });
