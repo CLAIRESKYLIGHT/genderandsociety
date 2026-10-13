@@ -2745,33 +2745,208 @@
   }
 }
 
-/* Responsive adjustments */
-@media (max-width: 1100px) {
-  .vine-clipped-gallery {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+/* Interactive Tap & Lightbox for Rally Polaroids */
+.clipped-polaroid-frame {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.clipped-polaroid-frame:focus-visible {
+  outline: 3px solid var(--gold-bright);
+  outline-offset: 4px;
+}
+
+.clipped-polaroid-frame:active {
+  transform: scale(0.985);
+}
+
+.gallery-swipe-hint {
+  display: none;
+}
+
+/* Lightbox Modal Box */
+.rally-lightbox-box {
+  background: var(--paper);
+  border: 2px solid rgba(201, 162, 39, 0.45);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 720px;
+  width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  animation: modalPopIn 0.28s var(--ease-out-soft);
+}
+
+.rally-lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.rally-lightbox-media {
+  width: 100%;
+  max-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0d1a12;
+}
+
+.rally-lightbox-media img {
+  max-width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  display: block;
+}
+
+.rally-lightbox-info {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.rally-lightbox-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--forest-dark);
+  margin-bottom: 4px;
+}
+
+.rally-lightbox-sub {
+  font-size: 0.95rem;
+  color: var(--leaf-forest);
+  line-height: 1.45;
+}
+
+/* Responsive Clothesline & Mobile Sizing Consistency */
+@media (max-width: 1024px) {
+  .gallery-swipe-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.84rem;
+    color: var(--leaf-forest);
+    margin-bottom: 10px;
+    padding: 6px 14px;
+    background: rgba(201, 162, 39, 0.12);
+    border: 1px solid rgba(201, 162, 39, 0.25);
+    border-radius: 999px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+  .vine-gallery-scroll-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 16px 24px;
+    margin: 0 calc(-1 * var(--space-4));
+    width: calc(100% + (2 * var(--space-4)));
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 162, 39, 0.45) transparent;
+  }
+
+  .vine-gallery-scroll-wrap::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .vine-gallery-scroll-wrap::-webkit-scrollbar-thumb {
+    background: rgba(201, 162, 39, 0.45);
+    border-radius: 999px;
+  }
+
+  .vine-line-header {
+    width: 1200px;
+    min-width: 1200px;
+  }
+
+  .vine-clipped-gallery {
+    display: flex;
+    flex-direction: row;
+    width: 1200px;
+    min-width: 1200px;
+    gap: 20px;
+    padding-bottom: 8px;
+  }
+
+  .clipped-photo-item {
+    flex: 0 0 220px;
+    scroll-snap-align: center;
+    margin-top: 10px !important;
+  }
+
   .clipped-photo--center {
-    grid-column: 2;
-    grid-row: 1;
+    flex: 0 0 260px;
+    margin-top: 0 !important;
   }
 }
 
-@media (max-width: 768px) {
-  .vine-clipped-gallery {
+@media (max-width: 640px) {
+  .gallery-swipe-hint {
+    font-size: 0.78rem;
+    padding: 5px 12px;
+  }
+
+  /* Consistent sizing on mobile cards */
+  .babaylan-shrine-card {
+    padding: clamp(var(--space-6), 6vw, var(--space-8)) var(--space-4) !important;
+    border-radius: 16px;
+  }
+
+  .quotes-banner {
+    padding: 42px var(--space-4) 32px !important;
+    border-radius: 20px;
+  }
+
+  .faith-hanging-card {
+    padding: 95px var(--space-4) 42px !important;
+    min-height: 320px;
+  }
+
+  .hanging-facts-container {
     grid-template-columns: 1fr;
-    max-width: 480px;
-    margin: 0 auto;
-    gap: 32px;
+    gap: 24px;
   }
-  .clipped-photo--gavel,
-  .clipped-photo--ipakita,
-  .clipped-photo--fist,
-  .clipped-photo--society {
-    margin-top: 0;
+
+  .hanging-fact-card {
+    border-width: 8px;
+    border-radius: 14px;
+    padding: var(--space-5) var(--space-4);
   }
-  .hero-photo-wrap {
-    max-height: 480px;
+
+  .rally-lightbox-box {
+    padding: 16px;
+    width: 95vw;
+  }
+
+  .rally-lightbox-title {
+    font-size: 1.15rem;
+  }
+
+  .rally-lightbox-sub {
+    font-size: 0.85rem;
   }
 }
 
@@ -2782,6 +2957,145 @@
   .clipped-photo--fist,
   .clipped-photo--society {
     animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   15. GLOBAL MOBILE INTERACTIVITY & CONSISTENT SIZING
+   ========================================================================== */
+
+/* Ensure all tappable elements have adequate minimum touch target (48px) */
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn--sm {
+    min-height: 40px;
+  }
+
+  /* Section headers consistent sizing */
+  .section-header-block {
+    margin-bottom: var(--space-6);
+    padding-top: 0;
+  }
+
+  .section-title {
+    font-size: clamp(1.55rem, 5.5vw, 2.2rem);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  /* Quotes Banner — consistent card-like sizing */
+  .quotes-banner {
+    border-radius: 22px;
+    padding: 40px var(--space-5) 30px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .quote-text-tl {
+    font-size: clamp(1.25rem, 4.5vw, 1.6rem);
+  }
+
+  .quote-text-en {
+    font-size: clamp(0.88rem, 3vw, 1rem);
+  }
+
+  /* Advocates grid — 2 col on mobile */
+  .advocates-grid {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 24px 16px;
+  }
+
+  /* Babaylan shrine card full-width box sizing */
+  .babaylan-shrine-card {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 18px;
+  }
+
+  /* Faith hanging cards — single column with consistent widths */
+  .faith-hanging-container {
+    max-width: 100%;
+    padding: 0 var(--space-3);
+  }
+
+  /* Hanging facts */
+  .hanging-facts-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 var(--space-3);
+  }
+
+  /* Rally vine section */
+  .rally-vine-section {
+    padding: 0 0 var(--space-8);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-12);
+  }
+
+  /* Polaroid captions must fit on screen */
+  .clipped-caption-title {
+    font-size: 0.92rem;
+  }
+
+  .clipped-caption-sub {
+    font-size: 0.76rem;
+  }
+
+  /* Footer consistent spacing */
+  .site-footer {
+    padding: var(--space-10) var(--space-4) var(--space-8);
+  }
+
+  /* Scroll candle beacon — comfortable thumb reach */
+  .scroll-follow-candle-beacon {
+    bottom: 20px;
+    right: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even tighter screens */
+  .advocates-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 12px;
+  }
+
+  .hero-photo-wrap {
+    max-height: 320px;
+  }
+
+  /* Vine gallery polaroid sizing on very small screens */
+  .vine-gallery-scroll-wrap {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .vine-line-header {
+    width: 1100px;
+    min-width: 1100px;
+  }
+
+  .vine-clipped-gallery {
+    width: 1100px;
+    min-width: 1100px;
+    gap: 14px;
+  }
+
+  .clipped-photo-item {
+    flex: 0 0 200px;
+  }
+
+  .clipped-photo--center {
+    flex: 0 0 230px;
   }
 }
 

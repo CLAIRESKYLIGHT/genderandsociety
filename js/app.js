@@ -736,6 +736,75 @@ function initFooter() {
 }
 
 /* ==========================================================================
+   7. RALLY PHOTO GALLERY & LIGHTBOX MODAL
+   ========================================================================== */
+function initRallyGallery() {
+  const modal = document.getElementById("rallyPhotoModal");
+  const closeBtn = document.getElementById("rallyPhotoCloseBtn");
+  const imgEl = document.getElementById("rallyLightboxImg");
+  const titleEl = document.getElementById("rallyLightboxTitle");
+  const subEl = document.getElementById("rallyLightboxSub");
+  const frames = document.querySelectorAll(".clipped-polaroid-frame");
+
+  if (!modal || !frames.length) return;
+
+  let activeTrigger = null;
+
+  function openLightbox(frame) {
+    activeTrigger = frame;
+    const src = frame.getAttribute("data-lightbox-src") || "";
+    const title = frame.getAttribute("data-lightbox-title") || "";
+    const sub = frame.getAttribute("data-lightbox-sub") || "";
+
+    if (imgEl) {
+      imgEl.src = src;
+      imgEl.alt = title;
+    }
+    if (titleEl) {
+      titleEl.textContent = title;
+    }
+    if (subEl) {
+      subEl.textContent = sub;
+    }
+
+    modal.classList.remove("is-hidden");
+    closeBtn?.focus();
+  }
+
+  function closeLightbox() {
+    modal.classList.add("is-hidden");
+    if (activeTrigger && typeof activeTrigger.focus === "function") {
+      activeTrigger.focus();
+    }
+  }
+
+  frames.forEach((frame) => {
+    frame.addEventListener("click", () => openLightbox(frame));
+    frame.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(frame);
+      }
+    });
+  });
+
+  closeBtn?.addEventListener("click", closeLightbox);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.classList.contains("is-hidden")) {
+      e.preventDefault();
+      closeLightbox();
+    }
+  });
+}
+
+/* ==========================================================================
    BOOTSTRAP
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -751,5 +820,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initAchievements();
   initAdvocates();
   initBook();
+  initRallyGallery();
   initFooter();
 });
+

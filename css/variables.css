@@ -30,10 +30,13 @@
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
+  --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
+  --space-20: 80px;
   --space-24: 96px;
 
   /* Radii */
@@ -53,9 +56,20 @@
   /* Motion Tokens */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-leaf: cubic-bezier(0.45, 0.05, 0.55, 0.95);
   --dur-fast: 180ms;
   --dur-base: 320ms;
   --dur-slow: 600ms;
+
+  /* ── Semantic Aliases (shorthand references used across components) ── */
+  --paper:              #FDFBF7;   /* alias for color-surface */
+  --paper-border:       rgba(201, 162, 39, 0.28);
+  --forest-dark:        #1B3A2F;   /* alias for color-canopy-deep */
+  --leaf-forest:        #3B6E4A;   /* alias for color-canopy-mid */
+  --leaf-mid:           #5A936C;   /* mid-green accent */
+  --gold-bright:        #E5C158;   /* brighter highlight gold */
+  --text-primary:       #221F1A;   /* alias for color-text-primary */
+  --text-muted:         #6B7B6E;   /* muted forest text */
 }
 
 /* DARK MODE (Forest at dusk, NOT pure black) */
@@ -80,4 +94,15 @@
   --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
   --shadow-gold: 0 6px 24px rgba(224, 184, 56, 0.4);
   --shadow-candle: 0 0 36px rgba(224, 184, 56, 0.65);
+
+  /* Dark aliases */
+  --paper:              #17261E;
+  --paper-border:       rgba(224, 184, 56, 0.28);
+  --forest-dark:        #A8C69F;
+  --leaf-forest:        #5A936C;
+  --leaf-mid:           #7EAA8C;
+  --gold-bright:        #FFE082;
+  --text-primary:       #F3F7F0;
+  --text-muted:         #A8B8AC;
 }
+

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>
       BENA • Under the Forest Canopy — Gender &amp; Society Sanctuary
     </title>
@@ -27,9 +27,9 @@
 
     <!-- Modular CSS Files -->
     <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/variables.css" />
-    <link rel="stylesheet" href="css/layout.css" />
-    <link rel="stylesheet" href="css/components.css?v=9" />
+    <link rel="stylesheet" href="css/variables.css?v=2" />
+    <link rel="stylesheet" href="css/layout.css?v=2" />
+    <link rel="stylesheet" href="css/components.css?v=10" />
     <link rel="stylesheet" href="css/book.css?v=4" />
     <link rel="stylesheet" href="css/motion.css" />
     <link rel="stylesheet" href="css/utilities.css" />
@@ -954,123 +954,173 @@
                 </p>
               </div>
 
-              <!-- Organic Vine Branch with Leaf Buds across the top -->
-              <div class="vine-line-header" aria-hidden="true">
-                <svg class="vine-branch-svg" viewBox="0 0 1200 80" preserveAspectRatio="none" fill="none">
-                  <!-- Main curved vine line spanning all 5 hanging positions -->
-                  <path d="M 0,35 Q 300,68 600,28 T 1200,42" stroke="#2D5845" stroke-width="6" stroke-linecap="round"/>
-                  <path d="M 0,35 Q 300,68 600,28 T 1200,42" stroke="#5A936C" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="10 5"/>
-                  <path d="M 60,42 Q 180,16 300,46 T 600,32 Q 750,70 900,32 T 1140,46" stroke="#8EBC85" stroke-width="2" stroke-linecap="round"/>
-                  
-                  <!-- Leaf clusters along the vine -->
-                  <path d="M 120,38 C 102,18 132,8 147,28 C 134,34 126,38 120,38 Z" fill="#3B6E4A"/>
-                  <path d="M 147,40 C 164,22 184,30 176,50 C 164,46 154,42 147,40 Z" fill="#5A936C"/>
-                  <circle cx="142" cy="38" r="3.2" fill="#E5B84B"/>
-
-                  <path d="M 360,44 C 342,24 372,14 387,34 C 374,40 366,44 360,44 Z" fill="#3B6E4A"/>
-                  <path d="M 387,46 C 404,28 424,36 416,56 C 404,52 394,48 387,46 Z" fill="#64A85C"/>
-
-                  <path d="M 580,30 C 562,12 592,4 608,22 C 594,29 585,30 580,30 Z" fill="#3B6E4A"/>
-                  <path d="M 620,28 C 638,10 660,18 652,40 C 638,36 628,32 620,28 Z" fill="#64A85C"/>
-                  <circle cx="615" cy="27" r="3.5" fill="#C9A227"/>
-
-                  <path d="M 840,40 C 822,20 852,10 867,30 C 854,36 846,40 840,40 Z" fill="#3B6E4A"/>
-                  <path d="M 867,42 C 884,24 904,32 896,52 C 884,48 874,44 867,42 Z" fill="#5A936C"/>
-
-                  <path d="M 1060,38 C 1042,18 1074,12 1086,30 C 1072,35 1065,36 1060,38 Z" fill="#3B6E4A"/>
-                  <path d="M 1095,40 C 1112,22 1134,30 1126,50 C 1112,46 1102,42 1095,40 Z" fill="#5A936C"/>
-                  <circle cx="1090" cy="39" r="3" fill="#E5B84B"/>
-                </svg>
+              <!-- Mobile Swipe & Tap Interactive Hint -->
+              <div class="gallery-swipe-hint" aria-hidden="true">
+                <span class="swipe-hint-icon">🌿</span>
+                <span>I-swipe o i-tap ang mga larawan upang palakihin</span>
+                <span class="swipe-hint-icon">🌿</span>
               </div>
 
-              <!-- Hanging Clipped Polaroids Rig (All 5 SOGIE Bill Rally & Movement Images) -->
-              <div class="vine-clipped-gallery">
+              <!-- Scrollable Vine Rig for seamless mobile & desktop interaction -->
+              <div class="vine-gallery-scroll-wrap" id="vineGalleryScroll" tabindex="0" role="region" aria-label="Nakasabit na mga larawan ng rally para sa SOGIE Equality Bill">
+                <!-- Organic Vine Branch with Leaf Buds across the top -->
+                <div class="vine-line-header" aria-hidden="true">
+                  <svg class="vine-branch-svg" viewBox="0 0 1200 80" preserveAspectRatio="none" fill="none">
+                    <!-- Main curved vine line spanning all 5 hanging positions -->
+                    <path d="M 0,35 Q 300,68 600,28 T 1200,42" stroke="#2D5845" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M 0,35 Q 300,68 600,28 T 1200,42" stroke="#5A936C" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="10 5"/>
+                    <path d="M 60,42 Q 180,16 300,46 T 600,32 Q 750,70 900,32 T 1140,46" stroke="#8EBC85" stroke-width="2" stroke-linecap="round"/>
+                    
+                    <!-- Leaf clusters along the vine -->
+                    <path d="M 120,38 C 102,18 132,8 147,28 C 134,34 126,38 120,38 Z" fill="#3B6E4A"/>
+                    <path d="M 147,40 C 164,22 184,30 176,50 C 164,46 154,42 147,40 Z" fill="#5A936C"/>
+                    <circle cx="142" cy="38" r="3.2" fill="#E5B84B"/>
 
-                <!-- 1. Gavel on Rainbow Flag (Batas at Hustisya) -->
-                <div class="clipped-photo-item clipped-photo--gavel">
-                  <div class="vine-string-hanger" aria-hidden="true"></div>
-                  <div class="wooden-clothes-clip" aria-hidden="true">
-                    <span class="clip-spring"></span>
-                  </div>
-                  <figure class="clipped-polaroid-frame">
-                    <div class="clipped-photo-wrap landscape-photo-wrap">
-                      <img src="assets/sogie-gavel.jpg" alt="Mazo ng hustisya sa ibabaw ng watawat ng bahaghari para sa SOGIE Equality Bill" loading="lazy" />
-                    </div>
-                    <figcaption class="clipped-photo-caption">
-                      <strong class="clipped-caption-title">Batas at Hustisya</strong>
-                      <span class="clipped-caption-sub">Pantay na Proteksyon</span>
-                    </figcaption>
-                  </figure>
+                    <path d="M 360,44 C 342,24 372,14 387,34 C 374,40 366,44 360,44 Z" fill="#3B6E4A"/>
+                    <path d="M 387,46 C 404,28 424,36 416,56 C 404,52 394,48 387,46 Z" fill="#64A85C"/>
+
+                    <path d="M 580,30 C 562,12 592,4 608,22 C 594,29 585,30 580,30 Z" fill="#3B6E4A"/>
+                    <path d="M 620,28 C 638,10 660,18 652,40 C 638,36 628,32 620,28 Z" fill="#64A85C"/>
+                    <circle cx="615" cy="27" r="3.5" fill="#C9A227"/>
+
+                    <path d="M 840,40 C 822,20 852,10 867,30 C 854,36 846,40 840,40 Z" fill="#3B6E4A"/>
+                    <path d="M 867,42 C 884,24 904,32 896,52 C 884,48 874,44 867,42 Z" fill="#5A936C"/>
+
+                    <path d="M 1060,38 C 1042,18 1074,12 1086,30 C 1072,35 1065,36 1060,38 Z" fill="#3B6E4A"/>
+                    <path d="M 1095,40 C 1112,22 1134,30 1126,50 C 1112,46 1102,42 1095,40 Z" fill="#5A936C"/>
+                    <circle cx="1090" cy="39" r="3" fill="#E5B84B"/>
+                  </svg>
                 </div>
 
-                <!-- 2. Ipakita, Ipagmalaki, Ipaglaban -->
-                <div class="clipped-photo-item clipped-photo--ipakita">
-                  <div class="vine-string-hanger" aria-hidden="true"></div>
-                  <div class="wooden-clothes-clip" aria-hidden="true">
-                    <span class="clip-spring"></span>
-                  </div>
-                  <figure class="clipped-polaroid-frame">
-                    <div class="clipped-photo-wrap square-photo-wrap">
-                      <img src="assets/rally-ipakita.png" alt="Pride rally banner: Ipakita, Ipagmalaki, Ipaglaban" loading="lazy" />
-                    </div>
-                    <figcaption class="clipped-photo-caption">
-                      <strong class="clipped-caption-title">Ipakita at Ipaglaban</strong>
-                      <span class="clipped-caption-sub">2025 Pride Month</span>
-                    </figcaption>
-                  </figure>
-                </div>
+                <!-- Hanging Clipped Polaroids Rig (All 5 SOGIE Bill Rally & Movement Images) -->
+                <div class="vine-clipped-gallery">
 
-                <!-- 3. CENTER HERO: Martsa sa Lansangan (MakiBeki. Huwag Mashokot..) -->
-                <div class="clipped-photo-item clipped-photo--center">
-                  <div class="vine-string-hanger" aria-hidden="true"></div>
-                  <div class="wooden-clothes-clip" aria-hidden="true">
-                    <span class="clip-spring"></span>
-                  </div>
-                  <figure class="clipped-polaroid-frame hero-polaroid">
-                    <div class="clipped-photo-wrap hero-photo-wrap">
-                      <img src="assets/rally-makibeki.jpg" alt="Martsa ng mamamayan para sa SOGIE Equality Bill: MakiBeki. Huwag Mashokot.. Pride 2025" loading="lazy" />
-                      <div class="photo-shine-overlay" aria-hidden="true"></div>
+                  <!-- 1. Gavel on Rainbow Flag (Batas at Hustisya) -->
+                  <div class="clipped-photo-item clipped-photo--gavel">
+                    <div class="vine-string-hanger" aria-hidden="true"></div>
+                    <div class="wooden-clothes-clip" aria-hidden="true">
+                      <span class="clip-spring"></span>
                     </div>
-                    <figcaption class="clipped-photo-caption hero-caption">
-                      <strong class="clipped-caption-title">MakiBeki, Huwag Mashokot!</strong>
-                    </figcaption>
-                  </figure>
-                </div>
-
-                <!-- 4. Lutvia / Lady Gaga Fist (Lakas at Katatagan) -->
-                <div class="clipped-photo-item clipped-photo--fist">
-                  <div class="vine-string-hanger" aria-hidden="true"></div>
-                  <div class="wooden-clothes-clip" aria-hidden="true">
-                    <span class="clip-spring"></span>
+                    <figure
+                      class="clipped-polaroid-frame"
+                      role="button"
+                      tabindex="0"
+                      aria-label="Pindutin upang palakihin: Batas at Hustisya"
+                      data-lightbox-src="assets/sogie-gavel.jpg"
+                      data-lightbox-title="Batas at Hustisya"
+                      data-lightbox-sub="Pantay na Proteksyon ng Batas para sa LGBTQIA+"
+                    >
+                      <div class="clipped-photo-wrap landscape-photo-wrap">
+                        <img src="assets/sogie-gavel.jpg" alt="Mazo ng hustisya sa ibabaw ng watawat ng bahaghari para sa SOGIE Equality Bill" loading="lazy" />
+                      </div>
+                      <figcaption class="clipped-photo-caption">
+                        <strong class="clipped-caption-title">Batas at Hustisya</strong>
+                        <span class="clipped-caption-sub">Pantay na Proteksyon</span>
+                      </figcaption>
+                    </figure>
                   </div>
-                  <figure class="clipped-polaroid-frame">
-                    <div class="clipped-photo-wrap portrait-thumb-wrap">
-                      <img src="assets/sogie-fist.jpg" alt="Kamaong may lasong bahaghari at sipi ni Lady Gaga: We can be strong on the road to love" loading="lazy" />
-                    </div>
-                    <figcaption class="clipped-photo-caption">
-                      <strong class="clipped-caption-title">Lakas at Pag-ibig</strong>
-                      <span class="clipped-caption-sub">On The Road To Love</span>
-                    </figcaption>
-                  </figure>
-                </div>
 
-                <!-- 5. You Know Who You Are, Not Society -->
-                <div class="clipped-photo-item clipped-photo--society">
-                  <div class="vine-string-hanger" aria-hidden="true"></div>
-                  <div class="wooden-clothes-clip" aria-hidden="true">
-                    <span class="clip-spring"></span>
+                  <!-- 2. Ipakita, Ipagmalaki, Ipaglaban -->
+                  <div class="clipped-photo-item clipped-photo--ipakita">
+                    <div class="vine-string-hanger" aria-hidden="true"></div>
+                    <div class="wooden-clothes-clip" aria-hidden="true">
+                      <span class="clip-spring"></span>
+                    </div>
+                    <figure
+                      class="clipped-polaroid-frame"
+                      role="button"
+                      tabindex="0"
+                      aria-label="Pindutin upang palakihin: Ipakita at Ipaglaban"
+                      data-lightbox-src="assets/rally-ipakita.png"
+                      data-lightbox-title="Ipakita at Ipaglaban"
+                      data-lightbox-sub="2025 Pride Month · Tanglaw Kabyaw"
+                    >
+                      <div class="clipped-photo-wrap square-photo-wrap">
+                        <img src="assets/rally-ipakita.png" alt="Pride rally banner: Ipakita, Ipagmalaki, Ipaglaban" loading="lazy" />
+                      </div>
+                      <figcaption class="clipped-photo-caption">
+                        <strong class="clipped-caption-title">Ipakita at Ipaglaban</strong>
+                        <span class="clipped-caption-sub">2025 Pride Month</span>
+                      </figcaption>
+                    </figure>
                   </div>
-                  <figure class="clipped-polaroid-frame">
-                    <div class="clipped-photo-wrap square-photo-wrap">
-                      <img src="assets/rally-society.jpg" alt="Karatula sa rally: You Know Who You Are, Not Society" loading="lazy" />
-                    </div>
-                    <figcaption class="clipped-photo-caption">
-                      <strong class="clipped-caption-title">Tunay na Pagkatao</strong>
-                      <span class="clipped-caption-sub">Not Society</span>
-                    </figcaption>
-                  </figure>
-                </div>
 
+                  <!-- 3. CENTER HERO: Martsa sa Lansangan (MakiBeki. Huwag Mashokot..) -->
+                  <div class="clipped-photo-item clipped-photo--center">
+                    <div class="vine-string-hanger" aria-hidden="true"></div>
+                    <div class="wooden-clothes-clip" aria-hidden="true">
+                      <span class="clip-spring"></span>
+                    </div>
+                    <figure
+                      class="clipped-polaroid-frame hero-polaroid"
+                      role="button"
+                      tabindex="0"
+                      aria-label="Pindutin upang palakihin: MakiBeki, Huwag Mashokot!"
+                      data-lightbox-src="assets/rally-makibeki.jpg"
+                      data-lightbox-title="MakiBeki, Huwag Mashokot!"
+                      data-lightbox-sub="Martsa ng mamamayan para sa pagsasabatas ng SOGIE Equality Bill · Pride 2025"
+                    >
+                      <div class="clipped-photo-wrap hero-photo-wrap">
+                        <img src="assets/rally-makibeki.jpg" alt="Martsa ng mamamayan para sa SOGIE Equality Bill: MakiBeki. Huwag Mashokot.. Pride 2025" loading="lazy" />
+                        <div class="photo-shine-overlay" aria-hidden="true"></div>
+                      </div>
+                      <figcaption class="clipped-photo-caption hero-caption">
+                        <strong class="clipped-caption-title">MakiBeki, Huwag Mashokot!</strong>
+                      </figcaption>
+                    </figure>
+                  </div>
+
+                  <!-- 4. Lutvia / Lady Gaga Fist (Lakas at Katatagan) -->
+                  <div class="clipped-photo-item clipped-photo--fist">
+                    <div class="vine-string-hanger" aria-hidden="true"></div>
+                    <div class="wooden-clothes-clip" aria-hidden="true">
+                      <span class="clip-spring"></span>
+                    </div>
+                    <figure
+                      class="clipped-polaroid-frame"
+                      role="button"
+                      tabindex="0"
+                      aria-label="Pindutin upang palakihin: Lakas at Pag-ibig"
+                      data-lightbox-src="assets/sogie-fist.jpg"
+                      data-lightbox-title="Lakas at Pag-ibig"
+                      data-lightbox-sub="“We can be strong on the road to love”"
+                    >
+                      <div class="clipped-photo-wrap portrait-thumb-wrap">
+                        <img src="assets/sogie-fist.jpg" alt="Kamaong may lasong bahaghari at sipi ni Lady Gaga: We can be strong on the road to love" loading="lazy" />
+                      </div>
+                      <figcaption class="clipped-photo-caption">
+                        <strong class="clipped-caption-title">Lakas at Pag-ibig</strong>
+                        <span class="clipped-caption-sub">On The Road To Love</span>
+                      </figcaption>
+                    </figure>
+                  </div>
+
+                  <!-- 5. You Know Who You Are, Not Society -->
+                  <div class="clipped-photo-item clipped-photo--society">
+                    <div class="vine-string-hanger" aria-hidden="true"></div>
+                    <div class="wooden-clothes-clip" aria-hidden="true">
+                      <span class="clip-spring"></span>
+                    </div>
+                    <figure
+                      class="clipped-polaroid-frame"
+                      role="button"
+                      tabindex="0"
+                      aria-label="Pindutin upang palakihin: Tunay na Pagkatao"
+                      data-lightbox-src="assets/rally-society.jpg"
+                      data-lightbox-title="Tunay na Pagkatao"
+                      data-lightbox-sub="“You know who you are, not society”"
+                    >
+                      <div class="clipped-photo-wrap square-photo-wrap">
+                        <img src="assets/rally-society.jpg" alt="Karatula sa rally: You Know Who You Are, Not Society" loading="lazy" />
+                      </div>
+                      <figcaption class="clipped-photo-caption">
+                        <strong class="clipped-caption-title">Tunay na Pagkatao</strong>
+                        <span class="clipped-caption-sub">Not Society</span>
+                      </figcaption>
+                    </figure>
+                  </div>
+
+                </div>
               </div>
             </section>
           </div>
@@ -1386,6 +1436,33 @@
     </div>
 
 
+
+    <!-- ============ MODAL 4: RALLY PHOTO LIGHTBOX MODAL ============ -->
+    <div
+      class="modal-overlay is-hidden"
+      id="rallyPhotoModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="rallyLightboxTitle"
+    >
+      <div class="modal-box rally-lightbox-box">
+        <button
+          type="button"
+          class="book-close-btn rally-lightbox-close"
+          id="rallyPhotoCloseBtn"
+          aria-label="Isara ang larawan"
+        >
+          &times;
+        </button>
+        <div class="rally-lightbox-media">
+          <img id="rallyLightboxImg" src="" alt="" />
+        </div>
+        <div class="rally-lightbox-info">
+          <h3 class="rally-lightbox-title" id="rallyLightboxTitle"></h3>
+          <p class="rally-lightbox-sub" id="rallyLightboxSub"></p>
+        </div>
+      </div>
+    </div>
 
     <!-- ============ TOAST CONTAINER ============ -->
     <div id="toastContainer" class="toast-container" aria-live="polite"></div>
