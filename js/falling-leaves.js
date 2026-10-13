@@ -37,15 +37,14 @@
   ];
 
   const LEAF_COLORS = [
-    "#67b9a5", // forest teal
-    "#f0c95d", // warm gold
-    "#d87d7a", // coral blush
-    "#7a8ed5", // spring lilac
-    "#f7b9c6", // rose-pink
-    "#5cae91", // leafy green
-    "#e9bf55", // amber gold
-    "#d3738d", // magenta rose
-    "#7bbfc7", // seafoam
+    "#E53935", // Red (Life)
+    "#FF9800", // Orange (Healing)
+    "#FDD835", // Yellow (Sunlight)
+    "#43A047", // Green (Nature)
+    "#1E88E5", // Blue (Serenity)
+    "#8E24AA", // Purple (Spirit)
+    "#F48FB1", // Pastel Pink (Trans/Love)
+    "#81D4FA", // Light Blue (Trans)
   ];
 
   let container = null;

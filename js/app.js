@@ -21,35 +21,10 @@ import {
 } from "./motion.js";
 
 /* ==========================================================================
-   1. THEME MANAGEMENT
+   1. THEME MANAGEMENT (GLADE / LIGHT ONLY)
    ========================================================================== */
 function initTheme() {
-  const currentTheme = State.getTheme();
-  State.setTheme(currentTheme);
-
-  const toggleBtn = document.getElementById("themeToggleBtn");
-  const themeIcon = document.getElementById("themeIcon");
-  const themeLabel = document.getElementById("themeLabel");
-
-  function updateBtnUI(theme) {
-    if (theme === "dark") {
-      if (themeIcon) themeIcon.textContent = "☀️";
-      if (themeLabel) themeLabel.textContent = "Glade";
-    } else {
-      if (themeIcon) themeIcon.textContent = "🌙";
-      if (themeLabel) themeLabel.textContent = "Dusk";
-    }
-  }
-
-  updateBtnUI(currentTheme);
-
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", () => {
-      const next = State.getTheme() === "dark" ? "light" : "dark";
-      State.setTheme(next);
-      updateBtnUI(next);
-    });
-  }
+  State.setTheme("light");
 }
 
 function initButtonMicroMotion() {

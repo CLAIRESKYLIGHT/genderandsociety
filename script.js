@@ -712,36 +712,13 @@
   }
 
   /* ==========================================================================
-     11. THEME TOGGLE (GLADE / DUSK)
+     11. THEME MANAGEMENT (GLADE / LIGHT ONLY)
      ========================================================================== */
   function initThemeToggle() {
-    const toggleBtn = document.getElementById("themeToggleBtn");
-    const themeIcon = document.getElementById("themeIcon");
-    const themeLabel = document.getElementById("themeLabel");
-
-    const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || "light";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    updateThemeUI(savedTheme);
-
-    function updateThemeUI(theme) {
-      if (theme === "dark") {
-        if (themeIcon) themeIcon.textContent = "☀️";
-        if (themeLabel) themeLabel.textContent = "Glade";
-      } else {
-        if (themeIcon) themeIcon.textContent = "🌙";
-        if (themeLabel) themeLabel.textContent = "Dusk";
-      }
-    }
-
-    if (toggleBtn) {
-      toggleBtn.addEventListener("click", () => {
-        const current = document.documentElement.getAttribute("data-theme");
-        const next = current === "dark" ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", next);
-        localStorage.setItem(STORAGE_KEY_THEME, next);
-        updateThemeUI(next);
-      });
-    }
+    document.documentElement.setAttribute("data-theme", "light");
+    try {
+      localStorage.setItem(STORAGE_KEY_THEME, "light");
+    } catch (_) {}
   }
 
   /* ==========================================================================

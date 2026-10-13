@@ -57,20 +57,12 @@ export const State = {
   },
 
   getTheme() {
-    const saved = Storage.get(KEYS.THEME, null);
-    if (saved) return saved;
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      return "dark";
-    }
     return "light";
   },
 
-  setTheme(theme) {
-    Storage.set(KEYS.THEME, theme);
-    document.documentElement.setAttribute("data-theme", theme);
+  setTheme() {
+    Storage.set(KEYS.THEME, "light");
+    document.documentElement.setAttribute("data-theme", "light");
   },
 
   getBookPage() {

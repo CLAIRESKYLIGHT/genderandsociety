@@ -3809,8 +3809,9 @@ input, textarea, select {
    ========================================================================== */
 [data-theme="dark"] body {
   background-color: var(--paper);
-  background-image: radial-gradient(circle at 10% 20%, rgba(247, 201, 72, 0.03) 0%, transparent 40%),
-                    radial-gradient(circle at 90% 80%, rgba(107, 76, 133, 0.05) 0%, transparent 40%);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(252, 211, 94, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(48, 97, 65, 0.08) 0%, transparent 40%);
   color: var(--text-dark);
 }
 
@@ -3820,7 +3821,7 @@ input, textarea, select {
 }
 
 [data-theme="dark"] .pride-banner {
-  background: linear-gradient(135deg, #0D081E 0%, #170E30 60%, #201340 100%);
+  background: linear-gradient(135deg, var(--forest-understory) 0%, var(--forest-deep) 60%, var(--forest-dark) 100%);
 }
 
 [data-theme="dark"] .tabs-nav {

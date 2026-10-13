@@ -10,15 +10,46 @@ export function isReducedMotion() {
   );
 }
 
-/* ── 1. Tranquil Ambient Falling Leaves ───────────────────────────────── */
-const LEAF_SVGS = [
-  `<svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 2C6 7 4 14 6 20C12 22 19 18 20 12C21 6 16 3 12 2Z" fill="currentColor"/><path d="M12 2Q12 11 6 20" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/></svg>`,
-  `<svg viewBox="0 0 24 24" width="18" height="22" fill="none"><path d="M12 1C8 8 7 16 11 23C15 16 16 8 12 1Z" fill="currentColor"/><path d="M12 1V23" stroke="rgba(255,255,255,0.4)" stroke-width="1"/></svg>`,
-  `<svg viewBox="0 0 24 24" width="22" height="18" fill="none"><path d="M2 18C7 16 14 18 22 12C16 6 9 8 2 18Z" fill="currentColor"/><path d="M2 18C8 14 15 13 22 12" stroke="rgba(255,255,255,0.4)" stroke-width="1"/></svg>`,
-  `<svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M12 3C4 8 3 17 8 21C14 23 20 19 21 13C22 7 17 4 12 3Z" fill="currentColor"/><path d="M12 3C10 9 9 15 8 21" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/></svg>`,
+/* ── 1. LGBTQ+ Pride Ambient Falling Leaves ────────────────────────────── */
+const LGBTQ_PRIDE_COLORS = [
+  "#E53935", // Red (Life)
+  "#FF9800", // Orange (Healing)
+  "#FDD835", // Yellow (Sunlight)
+  "#43A047", // Green (Nature)
+  "#1E88E5", // Blue (Serenity / Harmony)
+  "#8E24AA", // Purple / Violet (Spirit)
+  "#F48FB1", // Pastel Pink (Trans flag / Love)
+  "#81D4FA", // Light Blue (Trans flag)
 ];
 
-const LEAF_COLORS = ["#3B6E4A", "#8EBC85", "#5A936C", "#345942"];
+function getPrideLeafSvg(index, uid) {
+  // Every 3rd leaf is a multi-striped Rainbow Pride leaf!
+  if (index % 3 === 0) {
+    return `<svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+      <defs>
+        <linearGradient id="prideGrad-${uid}" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#E53935"/>
+          <stop offset="20%" stop-color="#FF9800"/>
+          <stop offset="40%" stop-color="#FDD835"/>
+          <stop offset="60%" stop-color="#43A047"/>
+          <stop offset="80%" stop-color="#1E88E5"/>
+          <stop offset="100%" stop-color="#8E24AA"/>
+        </linearGradient>
+      </defs>
+      <path d="M12 2C6 7 4 14 6 20C12 22 19 18 20 12C21 6 16 3 12 2Z" fill="url(#prideGrad-${uid})"/>
+      <path d="M12 2Q12 11 6 20" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/>
+    </svg>`;
+  }
+
+  const svgs = [
+    `<svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 2C6 7 4 14 6 20C12 22 19 18 20 12C21 6 16 3 12 2Z" fill="currentColor"/><path d="M12 2Q12 11 6 20" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/></svg>`,
+    `<svg viewBox="0 0 24 24" width="18" height="22" fill="none"><path d="M12 1C8 8 7 16 11 23C15 16 16 8 12 1Z" fill="currentColor"/><path d="M12 1V23" stroke="rgba(255,255,255,0.4)" stroke-width="1"/></svg>`,
+    `<svg viewBox="0 0 24 24" width="22" height="18" fill="none"><path d="M2 18C7 16 14 18 22 12C16 6 9 8 2 18Z" fill="currentColor"/><path d="M2 18C8 14 15 13 22 12" stroke="rgba(255,255,255,0.4)" stroke-width="1"/></svg>`,
+    `<svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M12 3C4 8 3 17 8 21C14 23 20 19 21 13C22 7 17 4 12 3Z" fill="currentColor"/><path d="M12 3C10 9 9 15 8 21" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/></svg>`,
+  ];
+  return svgs[index % svgs.length];
+}
+
 let leafListenersBound = false;
 
 export function initFallingLeaves() {
@@ -55,32 +86,31 @@ export function initFallingLeaves() {
   document.body.appendChild(container);
 
   const isMobile = window.innerWidth <= 640;
-  const leafCount = isMobile ? 5 : 8;
+  const leafCount = isMobile ? 6 : 10;
 
   for (let i = 0; i < leafCount; i++) {
     const leaf = document.createElement("div");
     leaf.className = "falling-leaf";
 
-    const color =
-      !isMobile && i === 7 ? "#C9A227" : LEAF_COLORS[i % LEAF_COLORS.length];
-    const svgStr = LEAF_SVGS[i % LEAF_SVGS.length];
+    const color = LGBTQ_PRIDE_COLORS[i % LGBTQ_PRIDE_COLORS.length];
+    const svgStr = getPrideLeafSvg(i, `${Date.now()}-${i}`);
     leaf.innerHTML = svgStr;
     leaf.style.color = color;
 
-    const leftPct =
-      i % 2 === 0 ? 2 + Math.random() * 8 : 90 + Math.random() * 8;
-    const duration = 18000 + Math.random() * 10000;
-    const scale = 0.6 + Math.random() * 0.4;
-    const swayAmount = 40 + Math.random() * 40;
+    // Distribute nicely across margins and ambient space
+    const leftPct = (i / leafCount) * 90 + 5 + (Math.random() * 4 - 2);
+    const duration = 16000 + Math.random() * 9000;
+    const scale = 0.55 + Math.random() * 0.35;
+    const swayAmount = 35 + Math.random() * 35;
     const swayCycles = 2 + Math.random() * 2;
-    const rotations = 3 + Math.floor(Math.random() * 6);
+    const rotations = 2 + Math.floor(Math.random() * 5);
     leaf.style.left = `${leftPct}%`;
 
     const frames = Array.from({ length: 33 }, (_, frameIndex) => {
       const progress = frameIndex / 32;
       const fadeIn = Math.min(progress / (2000 / duration), 1);
       const fadeOut = Math.min((1 - progress) / (2000 / duration), 1);
-      const opacity = Math.min(fadeIn, fadeOut) * 0.62;
+      const opacity = Math.min(fadeIn, fadeOut) * 0.72;
       const sway = Math.sin(progress * swayCycles * Math.PI * 2) * swayAmount;
       const fall = -15 + progress * 130;
       const rotation = progress * rotations * 360;

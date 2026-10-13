@@ -128,6 +128,10 @@
   --tr-fast:           var(--dur-fast) var(--ease-breath);
   --tr-base:           var(--dur-base) var(--ease-breath);
   --tr-slow:           var(--dur-slow) var(--ease-breath);
+
+  /* Canopy semantic aliases (used by hanging-frame & fact-card components) */
+  --color-canopy-deep: var(--forest-dark);     /* #20402d — deep forest green */
+  --color-canopy-mid:  var(--leaf-mid);        /* #2e5f3f — mid leaf green    */
 }
 
 /* ==========================================================================
@@ -202,4 +206,13 @@
   --shadow-gold:       0 8px 32px -4px rgba(252, 211, 94, 0.22);
   --shadow-forest:     0 8px 32px -4px rgba(48, 97, 65, 0.35);
   --shadow-leaf:       0 12px 28px -6px rgba(0, 0, 0, 0.50);
+
+  /* Surface aliases used throughout dark-mode overrides */
+  --ink-surface:       #0b1510;   /* Deepest header / footer surface  */
+  --ink-card:          #12201a;   /* Elevated card surface            */
+  --gold-soft:         rgba(252, 211, 94, 0.12); /* Subtle gold hover fill */
+
+  /* Canopy semantic aliases — light values for readability on dark frames */
+  --color-canopy-deep: var(--leaf-pale);       /* #a1d995 — pale mint, reads on dark */
+  --color-canopy-mid:  var(--leaf-bright);     /* #74b768 — bright leaf green        */
 }
